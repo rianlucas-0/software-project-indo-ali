@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel</title>
-        @vite('resources/css/signup.css')
-        @vite(['resources/js/app.js'])
+        @vite(['resources/css/signup.css', 'resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
         <div id="app"></div>
+        <div id="main-header"></div>
     </body>
 </html>

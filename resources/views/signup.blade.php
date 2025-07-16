@@ -9,5 +9,7 @@
     <body>
         <div id="app"></div>
         <div id="main-header"></div>
+        <a href="auth/facebook/redirect">Login com Facebook</a>
+        <a href="auth/google/redirect">Login com Google</a>
     </body>
 </html>

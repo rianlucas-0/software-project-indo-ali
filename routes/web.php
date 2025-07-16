@@ -25,10 +25,10 @@ Route::get('/auth/{provider}/callback', function (string $provider) {
     $providerUser = Socialite::driver($provider)->user();
 
     $user = User::updateOrCreate([
-        'provider_id' => $providerUser->id,
-    ], [
-        'name' => $providerUser->name,
         'email' => $providerUser->email,
+    ], [
+        'provider_id' => $providerUser->id,
+        'name' => $providerUser->name,
         'provider_avatar' => $providerUser->avatar,
         'provider_name' => $provider,
     ]);

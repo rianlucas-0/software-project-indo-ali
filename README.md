@@ -15,13 +15,13 @@
 **Indo Ali** é uma aplicação web voltada para a descoberta e recomendação de locais como bares, restaurantes e estabelecimentos diversos. O sistema possui funcionalidades adaptadas para usuários padrão e administradores.
 
 ### Funcionalidades:
-- Cadastro e login (com opção via Google e Facebook)
-- Recuperação de senha por e-mail
-- Avaliações, comentários, curtidas e favoritos
-- Busca com filtros por nome e localidade
-- Exibição de detalhes dos locais (fotos, disponibilidade, endereço e contato)
-- Sugestões personalizadas baseadas no histórico de navegação e preferências
-- Área administrativa para gerenciamento de locais, visualização de comentários e avaliações, e exportação de relatórios em PDF
+- [ ] Cadastro e login (com opção via Google e Facebook)
+- [ ] Recuperação de senha por e-mail
+- [ ] Avaliações, comentários, curtidas e favoritos
+- [ ] Busca com filtros por nome e localidade
+- [ ] Exibição de detalhes dos locais (fotos, disponibilidade, endereço e contato)
+- [ ] Sugestões personalizadas baseadas no histórico de navegação e preferências
+- [ ] Área administrativa para gerenciamento de locais, visualização de comentários e avaliações, e exportação de relatórios em PDF
 
 ---
 

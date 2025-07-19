@@ -30,7 +30,8 @@
 - **Laravel**
 - **PHP**
 - **MySQL**
-- **Vue.js**
+- **Blade**
+- **Alpine.js**
 - **JavaScript**
 - **Tailwind CSS**
 - **HTML5**
@@ -39,14 +40,15 @@
 ---
 
 ## Organização do Projeto
+
 /app
 /resources
 /routes
 /database
 /public
 
+
 - `routes/web.php`: Rotas do sistema  
-- `resources/js/components`: Componentes Vue  
 - `resources/views`: Templates Blade  
 - `app/Models`: Models Eloquent  
 - `app/Http/Controllers`: Controladores da aplicação  
@@ -54,11 +56,12 @@
 ---
 
 ## Requisitos para rodar o projeto localmente
-- PHP 8.2.12
-- Composer
-- Node.js e NPM
-- MySQL
-- Laravel CLI
+
+- PHP 8.2.12  
+- Composer  
+- Node.js e NPM  
+- MySQL  
+- Laravel CLI  
 
 ### Passos:
 ```bash

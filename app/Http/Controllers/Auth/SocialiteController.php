@@ -30,6 +30,6 @@ class SocialiteController extends Controller
 
         Auth::login($user);
 
-        return redirect('/logged');
+        return redirect('/dashboard');
     }
 }

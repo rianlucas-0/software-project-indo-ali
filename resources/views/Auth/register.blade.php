@@ -49,4 +49,6 @@
             </x-primary-button>
         </div>
     </form>
+        <a href="auth/facebook/redirect">Login com Facebook</a>
+        <a href="auth/google/redirect">Login com Google</a>
 </x-guest-layout>

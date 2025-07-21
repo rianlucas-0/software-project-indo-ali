@@ -20,7 +20,6 @@
                             type="password"
                             name="password"
                             required autocomplete="current-password" />
-
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -44,4 +43,14 @@
             </x-primary-button>
         </div>
     </form>
+
+    @if (Route::has('register'))
+        <a
+            href="{{ route('register') }}"
+            class="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Não tem uma conta? Criar conta
+        </a>
+    @endif
+        <a href="auth/facebook/redirect">Login com Facebook</a>
+        <a href="auth/google/redirect">Login com Google</a>
 </x-guest-layout>

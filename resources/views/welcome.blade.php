@@ -8,6 +8,8 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
         <!-- Styles / Scripts -->
@@ -19,24 +21,24 @@
             </style>
         @endif
     </head>
-    <body class="overflow-hidden bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+    <body class="overflow-hidden bg-[#0D1117] flex p-6 items-center min-h-screen flex-col">
         <header class="w-full lg:max-w-4xl max-w-[335px] mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    <h1 class="dark:text-[#EDEDEC] text-[32px]">
+                <nav class="flex items-center justify-between gap-4">
+                    <h1 class="dark:text-[#EDEDEC] text-[32px] font-semibold">
                         Indo Ali
                     </h1>
                     @auth
                         <a
                             href="{{ url('/dashboard') }}"
-                            class="text-sm inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 text-white font-medium border border-[#2A2F3A] hover:border-[#62605b] rounded-lg text-sm"
                         >
                             Dashboard
                         </a>
                     @else
                         <a
                             href="{{ route('login') }}"
-                            class="text-sm inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 text-white font-medium border border-[#2A2F3A] hover:border-[#3B82F6] transition rounded-lg text-sm"
                         >
                             Entrar
                         </a>

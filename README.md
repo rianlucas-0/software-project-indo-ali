@@ -16,7 +16,7 @@
 
 ### Funcionalidades:
 - [x] Cadastro e login (com opção via Google e Facebook)
-- [x] Recuperação de senha por e-mail
+- [ ] Recuperação de senha por e-mail
 - [ ] Avaliações, comentários, curtidas e favoritos
 - [ ] Busca com filtros por nome e localidade
 - [ ] Exibição de detalhes dos locais (fotos, disponibilidade, endereço e contato)

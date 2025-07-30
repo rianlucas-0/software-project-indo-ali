@@ -1,4 +1,13 @@
 <x-guest-layout>
+    <h2 class="text-gray-400 font-medium text-sm">COMECE DE GRAÇA</h2>
+    <h3 class="text-white font-medium text-xl">Criar Nova Conta</h3>
+
+            <div class="fflex flex-col mt-4 mb-4">
+            <a class="text-sm text-gray-400 max-w-max" href="{{ route('login') }}">
+                {{ __('Already registered?') }}
+            </a>
+        </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -39,16 +48,39 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+        <!-- Mudar para aceitar os termos -->
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded focus:ring-0 focus:ring-offset-0" name="remember">
+                <span class="ms-2 text-sm text-gray-400">Eu concordo e aceito com os <span class="text-blue-500">termos de uso</span></span>
+            </label>
+        </div>
 
-            <x-primary-button class="ms-4">
+        <div class="mt-8 flex justify-center">
+            <x-primary-button class="justify-center">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
+
+        <div class="flex items-center justify-center mt-8">
+            <div class="flex-grow border-t border-gray-800"></div>
+            <span class="mx-4 text-white font-normal text-sm">Ou entrar com</span>
+            <div class="flex-grow border-t border-gray-800"></div>
+        </div>
+
+        <div class="flex gap-4 justify-center mt-8">
+            <!-- Google -->
+            <a href="auth/google/redirect" class="flex items-center justify-center gap-2 w-[140px] h-[48px] bg-white text-[#3C4043] font-medium rounded-lg shadow hover:bg-gray-100 transition">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
+                Google
+            </a>
+
+            <!-- Facebook -->
+            <a href="auth/facebook/redirect" class="flex items-center justify-center gap-2 w-[140px] h-[48px] bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-[#0e63d4] transition">
+                <img src="https://www.svgrepo.com/show/452196/facebook-1.svg" alt="Facebook" class="w-5 h-5">
+                Facebook
+            </a>
+        </div>
     </form>
-        <a href="auth/facebook/redirect">Login com Facebook</a>
-        <a href="auth/google/redirect">Login com Google</a>
+
 </x-guest-layout>

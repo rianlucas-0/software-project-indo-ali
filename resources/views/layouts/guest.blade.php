@@ -9,22 +9,26 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    <body class="font-sans antialiased">
+        <header class="fixed top-0 left-0 right-0 z-50 bg-[#0D1117] shadow-md">
+            <h1 class="text-white text-4xl font-semibold py-4 px-6">
+                Indo Ali
+            </h1>
+            <div class="w-full border-t border-gray-600"></div>
+        </header>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <main class="pt-24 min-h-screen bg-[#0D1117] p-6">
+            <div class="w-full">
                 {{ $slot }}
             </div>
-        </div>
+        </main>
     </body>
 </html>

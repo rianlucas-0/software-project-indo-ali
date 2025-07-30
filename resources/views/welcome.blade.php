@@ -21,11 +21,11 @@
             </style>
         @endif
     </head>
-    <body class="overflow-hidden bg-[#0D1117] flex p-6 items-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] mb-6 not-has-[nav]:hidden">
+    <body class="overflow-hidden bg-gray-950 flex p-6 items-center min-h-screen flex-col">
+        <header class="w-full max-w-[335px] mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
                 <nav class="flex items-center justify-between gap-4">
-                    <h1 class="dark:text-[#EDEDEC] text-[32px] font-semibold">
+                    <h1 class="text-white text-4xl font-semibold">
                         Indo Ali
                     </h1>
                     @auth

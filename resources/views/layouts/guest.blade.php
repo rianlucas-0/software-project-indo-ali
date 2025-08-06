@@ -13,22 +13,22 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ96j4g5B/63A99J35aIu1l3l6Ua/20G04533033A..." crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <header class="fixed top-0 left-0 right-0 z-50 bg-[#0D1117] shadow-md">
-            <h1 class="text-white text-4xl font-semibold py-4 px-6">
-                Indo Ali
-            </h1>
-            <div class="w-full border-t border-gray-600"></div>
-        </header>
+        <x-component-header />
 
         <main class="pt-24 min-h-screen bg-[#0D1117] p-6">
             <div class="w-full">
                 {{ $slot }}
             </div>
         </main>
+
+        <x-footer />
+
+        <x-bottom-nav />
+
     </body>
 </html>

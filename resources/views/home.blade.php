@@ -30,14 +30,16 @@
         <!-- Featured Locations -->
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-2 gap-6">
-                <!-- Card 1 -->
+                <!-- All Cards -->
+                @foreach ($local as $locations)
+                    
                 <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition flex flex-col">
                     <div class="aspect-square overflow-hidden">
-                        <img src="https://via.placeholder.com/600x600?text=Local+1" alt="Local 1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                        <img src="img/{{$locations->image}}" alt="Local 1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                     </div>
                     <div class="p-4 flex flex-col justify-between flex-1">
-                        <h3 class="text-lg font-bold mb-1">Restaurante Sabor Caseiro</h3>
-                        <p class="text-sm text-gray-500 mb-1">São Paulo - SP</p>
+                        <h3 class="text-lg font-bold mb-1">{{$locations->title}}</h3>
+                        <p class="text-sm text-gray-500 mb-1">{{$locations->city}} - {{$locations->state}}</p>
                         <div class="flex text-yellow-400 text-sm mb-2">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -48,44 +50,7 @@
                         <a href="#" class="text-indigo-600 text-sm font-semibold hover:underline mt-auto">Ver mais →</a>
                     </div>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition flex flex-col">
-                    <div class="aspect-square overflow-hidden">
-                        <img src="https://via.placeholder.com/600x600?text=Local+2" alt="Local 2" class="w-full h-full object-cover hover:scale-105 transition duration-500">
-                    </div>
-                    <div class="p-4 flex flex-col justify-between flex-1">
-                        <h3 class="text-lg font-bold mb-1">Bar da Esquina</h3>
-                        <p class="text-sm text-gray-500 mb-1">Belo Horizonte - MG</p>
-                        <div class="flex text-yellow-400 text-sm mb-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <a href="#" class="text-indigo-600 text-sm font-semibold hover:underline mt-auto">Ver mais →</a>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition flex flex-col">
-                    <div class="aspect-square overflow-hidden">
-                        <img src="https://via.placeholder.com/600x600?text=Local+2" alt="Local 2" class="w-full h-full object-cover hover:scale-105 transition duration-500">
-                    </div>
-                    <div class="p-4 flex flex-col justify-between flex-1">
-                        <h3 class="text-lg font-bold mb-1">Bar da Esquina</h3>
-                        <p class="text-sm text-gray-500 mb-1">Belo Horizonte - MG</p>
-                        <div class="flex text-yellow-400 text-sm mb-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <a href="#" class="text-indigo-600 text-sm font-semibold hover:underline mt-auto">Ver mais →</a>
-                    </div>
-            </div>
+                @endforeach
         </div>
 
     </body>

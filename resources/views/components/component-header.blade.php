@@ -7,7 +7,7 @@
         @if (request()->routeIs('home'))
             @if (Route::has('login'))
                 @auth
-                    @if (auth()->user()->usertype === 'admin')
+                    @if (auth()->user()->user_type == 'admin')
                         <a
                             href="{{ url('/dashboard') }}"
                             class="px-5 py-1.5 text-white font-medium hover:text-blue-400 transition-colors duration-200 rounded-lg text-sm"

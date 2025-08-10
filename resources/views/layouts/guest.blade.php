@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,18 +18,18 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+
+    <body class="font-sans antialiased bg-[#0D1117]">
         <x-component-header />
 
-        <main class="pt-24 min-h-screen bg-[#0D1117] p-6">
-            <div class="w-full">
+        <main class="min-h-screen pt-20 md:pt-24">
+            <div class="p-5 md:px-8 lg:px-16 xl:max-w-7xl xl:mx-auto">
                 {{ $slot }}
             </div>
         </main>
 
         <x-footer />
-
         <x-bottom-nav />
-
     </body>
 </html>
+

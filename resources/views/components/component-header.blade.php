@@ -4,7 +4,7 @@
             {{ $title ?? 'Indo Ali' }}
         </h1>
 
-        @if (request()->routeIs('home') && Route::has('login'))
+        @if (request()->routeIs('home', 'localfull') && Route::has('login'))
         <nav class="hidden md:block p-3">
             <ul class="flex space-x-6 text-white font-medium items-center">
                 @auth
@@ -19,7 +19,7 @@
                     </li>
                 @endauth
                 <li>
-                    <a href="#" class="hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group">
+                    <a href="{{ route('home') }}" class="hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group">
                         <span class="group-hover:translate-x-0.5 transition-transform">Início</span>
                         <i class="fas fa-home text-sm opacity-70"></i>
                     </a>

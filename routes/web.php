@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
-
+Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
 Route::get('/dashboard', [UserController::class, 'home'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){

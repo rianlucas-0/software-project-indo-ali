@@ -24,9 +24,6 @@
         @endif
     </head>
     <body class="bg-[#0D1117] font-sans text-gray-600">
-        <!-- Header -->
-        <x-component-header />
-
         <!-- Featured Locations -->
         <div class="container mx-auto px-4">
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
@@ -46,7 +43,7 @@
                     <i class="fas fa-star-half-alt"></i>
                     <i class="far fa-star"></i>
                 </div>
-                <a href="#" class="text-indigo-600 text-sm font-semibold hover:underline mt-auto">Ver mais →</a>
+                <a href="{{ route('localfull', $locations->id) }}" class="text-indigo-600 text-sm font-semibold hover:underline mt-auto">Ver mais →</a>
             </div>
         </div>
         @endforeach

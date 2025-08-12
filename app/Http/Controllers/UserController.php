@@ -29,4 +29,9 @@ class UserController extends Controller
             return redirect()->route('admin.dashboard');
         }
     }
+
+    public function showFullLocal($id) {
+        $local = Local::findOrFail($id);
+        return view('localfull', compact('local'));
+    }
 }

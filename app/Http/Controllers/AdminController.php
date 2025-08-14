@@ -34,4 +34,8 @@ class AdminController extends Controller
             return redirect()->route('admin.addlocal')->with('status', 'Adicionado com sucesso!');;
         }
     }
+    public function all_local(){
+        $local = local::all();
+        return view('admin.all_local', compact('local'));
+    }
 }

@@ -25,6 +25,10 @@
                     <x-nav-link :href="route('admin.addlocal')" :active="request()->routeIs('dashboard')">
                         {{ __('Adicionar local') }}
                     </x-nav-link>
+                     <x-nav-link :href="route('admin.all_local')" :active="request()->routeIs('dashboard')">
+                        {{ __('Seus Locais') }}
+                    </x-nav-link>
+
                 @else
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}

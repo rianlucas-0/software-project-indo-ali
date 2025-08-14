@@ -14,6 +14,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
     Route::get('/dashboard',[UserController::class, 'index'])->name('admin.dashboard');
     Route::get('/dashboard/addlocal',[AdminController::class, 'addlocal'])->name('admin.addlocal');
     Route::post('/dashboard/addlocal',[AdminController::class, 'createlocal'])->name('admin.createlocal');
+    Route::get('/dashboard/all_local',[AdminController::class, 'all_local'])->name('admin.all_local');
+
 });
 
 

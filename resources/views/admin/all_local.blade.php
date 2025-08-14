@@ -14,7 +14,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <h1 style="color: #333; text-align: center; margin-bottom: 30px;">Posts Management</h1>
+                    <h1 style="color: #333; text-align: center; margin-bottom: 30px;">locations Management</h1>
 
                     <div style="overflow-x: auto;">
                         <table style="width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
@@ -29,13 +29,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($local as $posts)
+                                @foreach($local as $locations)
                                     <tr style="border-bottom: 1px solid #ddd;">
-                                        <td style="padding: 12px 15px;">{{ $posts->id }}</td>
-                                        <td style="padding: 12px 15px;">{{ $posts->title }}</td>
-                                        <td style="padding: 12px 15px;">{{ Str::limit($posts->description, 100) }}</td>
+                                        <td style="padding: 12px 15px;">{{ $locations->id }}</td>
+                                        <td style="padding: 12px 15px;">{{ $locations->title }}</td>
+                                        <td style="padding: 12px 15px;">{{ Str::limit($locations->description, 100) }}</td>
                                         <td style="padding: 12px 15px;">
-                                            <img style="width: 100px; height: 100px;" src="{{ asset('img/'.$posts->image) }}" alt="{{ $posts->image }}">
+                                            <img style="width: 100px; height: 100px;" src="{{ asset('img/'.$locations->image) }}" alt="{{ $locations->image }}">
                                         </td>
                                         <td style="padding: 12px 15px;">
                                             <a href="" style="background-color: #2196F3; color: white; padding: 6px 12px; border-radius: 4px;">Update</a>

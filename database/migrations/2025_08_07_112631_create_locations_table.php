@@ -15,18 +15,22 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('title');
             $table->longText('description')->nullable();
-            $table->string('image');
+            $table->json('images');
             $table->char('cep', 8);
             $table->string('address', 255);
+            $table->string('address_number', 20);
             $table->string('neighborhood', 100);
             $table->string('city', 100);
             $table->char('state', 2);
             $table->string('phone', 20)->nullable();
             $table->string('contact_email', 100);
+            $table->string('category');
+            $table->json('features')->nullable();
+            $table->json('working_hours')->nullable();
             $table->string('user_name');
             $table->integer('user_id');
             $table->timestamps();
-        });
+});
     }
 
     /**

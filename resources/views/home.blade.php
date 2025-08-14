@@ -31,7 +31,8 @@
         @foreach ($local as $locations)
         <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition flex flex-col">
             <div class="aspect-square overflow-hidden">
-                <img src="img/{{$locations->image}}" alt="Local 1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+
+                <img src="img/{{ $locations->firstImage }}" alt="Local 1" class="w-full h-full object-cover hover:scale-105 transition duration-500">
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
                 <h3 class="text-lg font-bold mb-1">{{$locations->title}}</h3>

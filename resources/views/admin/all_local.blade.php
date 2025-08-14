@@ -35,7 +35,7 @@
                                         <td style="padding: 12px 15px;">{{ $locations->title }}</td>
                                         <td style="padding: 12px 15px;">{{ Str::limit($locations->description, 100) }}</td>
                                         <td style="padding: 12px 15px;">
-                                            <img style="width: 100px; height: 100px;" src="{{ asset('img/'.$locations->image) }}" alt="{{ $locations->image }}">
+                                            <img style="width: 100px; height: 100px;" src="{{ asset('img/'.$locations->first_image) }}" alt="{{ $locations->titile }}">
                                         </td>
                                         <td style="padding: 12px 15px;">
                                             <a href="" style="background-color: #2196F3; color: white; padding: 6px 12px; border-radius: 4px;">Update</a>

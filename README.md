@@ -1,52 +1,65 @@
-# Projeto: Indo Ali  
+# Indo Ali
+
 **Turma:** 3D1  
 
-## Integrantes
-- **Rian Lucas** – RA: 12400629  
-- **Lucas Almeida** – RA: 12402028  
-- **Miguel José** – RA: 12401110  
-- **Daniel Mafra** – RA: 12401943  
-- **João Vitor** – RA: 12301582  
-- **Bernardo Martins** – RA: 22402420  
+## Equipe de Desenvolvimento
 
----
+| Integrante          | RA        |
+|---------------------|-----------|
+| Rian Lucas          | 12400629  |
+| Lucas Almeida       | 12402028  |
+| Miguel José         | 12401110  |
+| Daniel Mafra        | 12401943  |
+| João Vitor          | 12301582  |
+| Bernardo Martins    | 22402420  |
 
-## Descrição do Projeto
-**Indo Ali** é uma aplicação web voltada para a descoberta e recomendação de locais como bares, restaurantes e estabelecimentos diversos. O sistema possui funcionalidades adaptadas para usuários padrão e administradores.
+## Visão do Projeto
+Plataforma para descoberta e recomendação de estabelecimentos locais com sistema de avaliações e recomendações personalizadas.
 
-### Funcionalidades:
-- [x] Cadastro e login (com opção via Google e Facebook)
-- [X] Recuperação de senha por e-mail
-- [ ] Avaliações, comentários, curtidas e favoritos
-- [ ] Busca com filtros por nome e localidade
-- [ ] Exibição de detalhes dos locais (fotos, disponibilidade, endereço e contato)
-- [ ] Sugestões personalizadas baseadas no histórico de navegação e preferências
-- [ ] Área administrativa para gerenciamento de locais, visualização de comentários e avaliações, e exportação de relatórios em PDF
+## Funcionalidades
 
----
+### Sistema de Autenticação
+- [X] Cadastro de usuário via e-mail/senha
+- [X] Login social (Google/Facebook)
+- [X] Redefinição de senha segura
 
-## Stacks e Tecnologias Utilizadas
+### Perfil do Usuário
+- [ ] Personalização de preferências
+- [ ] Configurações de interface
+- [ ] Histórico de atividades
 
-- **Laravel**
-- **PHP**
-- **MySQL**
-- **Blade**
-- **Alpine.js**
-- **JavaScript**
-- **Tailwind CSS**
-- **HTML5**
-- **CSS3**
+### Navegação e Busca
+- [X] Mapa interativo de locais
+- [ ] Sistema de busca com filtros avançados
+- [ ] Favoritos e listas personalizadas
 
----
+### Engajamento
+- [ ] Sistema de avaliações e comentários
+- [ ] Compartilhamento em redes sociais
+- [ ] Chatbot de suporte integrado
 
-## Organização do Projeto
+### Acessibilidade
+- [ ] Suporte a múltiplos idiomas
+- [ ] Modo offline para recomendações
 
-/app
-/resources
-/routes
-/database
-/public
+### Administração
+- [ ] Dashboard analítico
+- [X] Gerenciamento de estabelecimentos
+- [ ] Exportação de relatórios em PDF
 
+## 🛠️ Stack Tecnológico
+- **Backend:** Laravel 10, PHP 8.3+, MySQL
+- **Frontend:** Tailwind CSS, Alpine.js, Blade
+- **Ferramentas:** Git, Composer, Node.js/NPM
+
+## Estrutura do Projeto
+
+├── app/
+├── database/
+├── public/
+├── resources/
+├── routes/
+└── tests/
 
 - `routes/web.php`: Rotas do sistema  
 - `resources/views`: Templates Blade  
@@ -55,15 +68,8 @@
 
 ---
 
-## Requisitos para rodar o projeto localmente
 
-- PHP 8.2.12  
-- Composer  
-- Node.js e NPM  
-- MySQL  
-- Laravel CLI  
-
-### Passos:
+## Como Executar
 ```bash
 git clone https://github.com/rianlucas-0/software-project-indo-ali.git
 cd software-project-indo-ali
@@ -71,6 +77,5 @@ composer install
 npm install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate
 php artisan serve
 npm run dev

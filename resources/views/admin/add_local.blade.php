@@ -1,195 +1,250 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @if(Auth::check() && Auth::user()->user_type == 'admin')
-            {{ __('Admin Dashboard') }}
-            @else
-            {{ __('Admin Dashboard') }}
-            @endif
-        </h2>
-    </x-slot>
-
+<x-guest-layout>
     <div class="py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto">
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-6">Adicionar novo local</h2>
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-[#161B22] shadow-lg rounded-xl p-6 border border-gray-700">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-plus-circle text-blue-400 mr-3 text-xl"></i>
+                    <h2 class="text-xl font-semibold text-white">Adicionar novo local</h2>
+                </div>
+
                 @if(session('status'))
-                <div class="bg-green-400 alert alert-success">
+                <div
+                    class="bg-green-600/20 border border-green-500/30 text-green-400 px-4 py-3 rounded-lg mb-6 flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i>
                     {{ session('status') }}
                 </div>
                 @endif
+
                 <form action="{{route('admin.createlocal')}}" method="post" enctype="multipart/form-data"
-                    class="space-y-4">
+                    class="space-y-6">
                     @csrf
 
-                    <div>
-                        <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
-                        <input type="text" name="title" id="title" placeholder="Ex: Restaurante da Maria"
-                            class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="bg-[#1E2229] p-5 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4 flex items-center">
+                            <i class="fas fa-info-circle text-blue-400 mr-2"></i>
+                            Informações Básicas
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div>
+                                <x-input-label for="title" :value="__('Título')" class="text-gray-300" />
+                                <x-text-input id="title" name="title" type="text" placeholder="Ex: Restaurante da Maria"
+                                    class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="description" :value="__('Descrição')" class="text-gray-300" />
+                                <textarea name="description" id="description" rows="4"
+                                    placeholder="Fale um pouco sobre o local..."
+                                    class="w-full bg-[#0D1117] border-gray-700 text-white rounded-md focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            </div>
+
+                            <div>
+                                <x-input-label for="category" :value="__('Categoria')" class="text-gray-300" />
+                                <select name="category" id="category"
+                                    class="w-full bg-[#0D1117] border-gray-700 text-white rounded-md focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="restaurante">Restaurante</option>
+                                    <option value="bar">Bar</option>
+                                    <option value="cafe">Café</option>
+                                    <option value="hotel">Hotel</option>
+                                    <option value="loja">Loja</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
-                        <textarea name="description" id="description" rows="4"
-                            placeholder="Fale um pouco sobre o local..."
-                            class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    <div class="bg-[#1E2229] p-5 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4 flex items-center">
+                            <i class="fas fa-images text-blue-400 mr-2"></i>
+                            Imagens (Máx. 7)
+                        </h3>
+
+                        <div id="image-preview" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4"></div>
+
+                        <div class="flex items-center justify-center w-full">
+                            <label for="images"
+                                class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer bg-[#0D1117] hover:border-blue-500 transition">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <i class="fas fa-cloud-upload-alt text-gray-400 text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Clique para enviar imagens</p>
+                                    <p class="text-xs text-gray-500 mt-1">PNG, JPG (Máx. 7 imagens)</p>
+                                </div>
+                                <input id="images" name="images[]" type="file" multiple class="hidden" accept="image/*">
+                            </label>
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Imagens (Máx. 7)</label>
-                        <div id="image-preview" class="mt-2 grid grid-cols-3 gap-2"></div>
-                        <input type="file" name="images[]" id="images" multiple
-                            class="mt-1 block w-full text-sm text-gray-700" accept="image/*">
+                    <div class="bg-[#1E2229] p-5 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4 flex items-center">
+                            <i class="fas fa-map-marked-alt text-blue-400 mr-2"></i>
+                            Localização
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <x-input-label for="cep" :value="__('CEP')" class="text-gray-300" />
+                                <x-text-input id="cep" name="cep" type="text" placeholder="Ex: 30140-071"
+                                    class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="address_number" :value="__('Número')" class="text-gray-300" />
+                                <x-text-input id="address_number" name="address_number" type="text"
+                                    placeholder="Número do local" class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <x-input-label for="address" :value="__('Rua')" class="text-gray-300" />
+                                <x-text-input id="address" name="address" type="text"
+                                    class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="neighborhood" :value="__('Bairro')" class="text-gray-300" />
+                                <x-text-input id="neighborhood" name="neighborhood" type="text"
+                                    class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="city" :value="__('Cidade')" class="text-gray-300" />
+                                <x-text-input id="city" name="city" type="text"
+                                    class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="state" :value="__('Estado')" class="text-gray-300" />
+                                <select name="state" id="state"
+                                    class="w-full bg-[#0D1117] border-gray-700 text-white rounded-md focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">Selecione</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <!-- Adicionar o restante dos Estados aqui também -->
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
-                            <input type="text" name="cep" id="cep" placeholder="Ex: 30140-071"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                        </div>
+                    <div class="bg-[#1E2229] p-5 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4 flex items-center">
+                            <i class="fas fa-phone-alt text-blue-400 mr-2"></i>
+                            Contato
+                        </h3>
 
-                        <div>
-                            <label for="address_number" class="block text-sm font-medium text-gray-700">Número</label>
-                            <input type="text" name="address_number" id="address_number" placeholder="Número do local"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <x-input-label for="phone" :value="__('Telefone')" class="text-gray-300" />
+                                <x-text-input id="phone" name="phone" type="text"
+                                    class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
 
-                        <div>
-                            <label for="address" class="block text-sm font-medium text-gray-700">Rua</label>
-                            <input type="text" name="address" id="address"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
+                            <div class="sm:col-span-2">
+                                <x-input-label for="contact_email" :value="__('Email de contato')"
+                                    class="text-gray-300" />
+                                <x-text-input id="contact_email" name="contact_email" type="text"
+                                    class="w-full bg-[#0D1117] border-gray-700" />
+                            </div>
                         </div>
+                    </div>
 
-                        <div>
-                            <label for="neighborhood" class="block text-sm font-medium text-gray-700">Bairro</label>
-                            <input type="text" name="neighborhood" id="neighborhood"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                        </div>
+                    <div class="bg-[#1E2229] p-5 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4 flex items-center">
+                            <i class="fas fa-star text-blue-400 mr-2"></i>
+                            Características
+                        </h3>
 
-                        <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700">Cidade</label>
-                            <input type="text" name="city" id="city"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                        </div>
+                        <div x-data="{ featuresOpen: false }" class="relative">
+                            <button @click="featuresOpen = !featuresOpen" type="button"
+                                class="w-full bg-[#0D1117] border border-gray-700 rounded-md px-4 py-2 text-left text-white focus:outline-none focus:ring-1 focus:ring-blue-500 flex justify-between items-center">
+                                <span class="text-sm">Selecione as características</span>
+                                <i :class="{'fa-chevron-down': !featuresOpen, 'fa-chevron-up': featuresOpen}"
+                                    class="fas text-gray-400 ml-2"></i>
+                            </button>
 
-                        <div>
-                            <label for="state" class="block text-sm font-medium text-gray-700">Estado</label>
-                            <select name="state" id="state"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                                <option value="">Selecione</option>
-                                <option value="AC">Acre</option>
-                                <option value="AL">Alagoas</option>
-                                <option value="AP">Amapá</option>
-                                <option value="AM">Amazonas</option>
-                                <option value="BA">Bahia</option>
-                                <option value="CE">Ceará</option>
-                                <option value="DF">Distrito Federal</option>
-                                <option value="ES">Espírito Santo</option>
-                                <option value="GO">Goiás</option>
-                                <option value="MA">Maranhão</option>
-                                <option value="MT">Mato Grosso</option>
-                                <option value="MS">Mato Grosso do Sul</option>
-                                <option value="MG">Minas Gerais</option>
-                                <option value="PA">Pará</option>
-                                <option value="PB">Paraíba</option>
-                                <option value="PR">Paraná</option>
-                                <option value="PE">Pernambuco</option>
-                                <option value="PI">Piauí</option>
-                                <option value="RJ">Rio de Janeiro</option>
-                                <option value="RN">Rio Grande do Norte</option>
-                                <option value="RS">Rio Grande do Sul</option>
-                                <option value="RO">Rondônia</option>
-                                <option value="RR">Roraima</option>
-                                <option value="SC">Santa Catarina</option>
-                                <option value="SP">São Paulo</option>
-                                <option value="SE">Sergipe</option>
-                                <option value="TO">Tocantins</option>
-                            </select>
-                        </div>
+                            <div x-show="featuresOpen" @click.away="featuresOpen = false"
+                                class="absolute z-10 mt-1 w-full bg-[#161B22] border border-gray-700 rounded-md shadow-lg py-1 max-h-60 overflow-auto">
+                                <div class="space-y-2 p-2">
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_wifi" name="features[]" value="wifi"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_wifi" class="ml-2 text-sm text-gray-300">Wi-Fi</label>
+                                    </div>
 
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700">Telefone</label>
-                            <input type="text" name="phone" id="phone"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                        </div>
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_parking" name="features[]"
+                                            value="estacionamento"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_parking"
+                                            class="ml-2 text-sm text-gray-300">Estacionamento</label>
+                                    </div>
 
-                        <div class="sm:col-span-2">
-                            <label for="contact_email" class="block text-sm font-medium text-gray-700">Email de
-                                contato</label>
-                            <input type="text" name="contact_email" id="contact_email"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                        </div>
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_accessible" name="features[]"
+                                            value="acessivel"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_accessible"
+                                            class="ml-2 text-sm text-gray-300">Acessível</label>
+                                    </div>
 
-                        <div class="sm:col-span-2">
-                            <label for="category" class="block text-sm font-medium text-gray-700">Categoria</label>
-                            <select name="category" id="category"
-                                class="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 text-sm">
-                                <option value="restaurante">Restaurante</option>
-                                <option value="bar">Bar</option>
-                                <option value="cafe">Café</option>
-                                <option value="hotel">Hotel</option>
-                                <option value="loja">Loja</option>
-                                <option value="outro">Outro</option>
-                            </select>
-                        </div>
-
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700">Características</label>
-                            <div class="mt-2 space-y-2">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="features[]" id="feature_wifi" value="wifi"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="feature_wifi" class="ml-2 block text-sm text-gray-700">Wi-Fi</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="features[]" id="feature_parking" value="estacionamento"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="feature_parking"
-                                        class="ml-2 block text-sm text-gray-700">Estacionamento</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="features[]" id="feature_accessible" value="acessivel"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="feature_accessible"
-                                        class="ml-2 block text-sm text-gray-700">Acessível</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="features[]" id="feature_air_conditioning"
-                                        value="ar_condicionado"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="feature_air_conditioning" class="ml-2 block text-sm text-gray-700">Ar
-                                        Condicionado</label>
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_air_conditioning" name="features[]"
+                                            value="ar_condicionado"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_air_conditioning" class="ml-2 text-sm text-gray-300">Ar
+                                            Condicionado</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700">Horário de Funcionamento</label>
-                            <div class="mt-2 space-y-2">
-                                @php $days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
-                                @endphp
-                                @foreach($days as $day)
-                                <div class="flex items-center space-x-2">
-                                    <input type="checkbox" name="working_days[]" id="day_{{ strtolower($day) }}"
+                        <div class="mt-3 flex flex-wrap gap-2" id="selected-features">
+                            <!-- O Javascript vai preencher dinamicamente aqui -->
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1E2229] p-5 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-medium text-white mb-4 flex items-center">
+                            <i class="fas fa-clock text-blue-400 mr-2"></i>
+                            Horário de Funcionamento
+                        </h3>
+
+                        <div class="space-y-4">
+                            @php $days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']; @endphp
+                            @foreach($days as $day)
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="day_{{ strtolower($day) }}" name="working_days[]"
                                         value="{{ strtolower($day) }}"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
                                     <label for="day_{{ strtolower($day) }}"
-                                        class="block text-sm text-gray-700">{{ $day }}</label>
-                                    <input type="time" name="opening_time_{{ strtolower($day) }}"
-                                        class="border border-gray-300 rounded-md px-2 py-1 text-sm">
-                                    <span>às</span>
-                                    <input type="time" name="closing_time_{{ strtolower($day) }}"
-                                        class="border border-gray-300 rounded-md px-2 py-1 text-sm">
+                                        class="ml-2 text-sm text-gray-300">{{ $day }}</label>
                                 </div>
-                                @endforeach
+
+                                <div class="flex items-center space-x-2 pl-6">
+                                    <div class="flex-1">
+                                        <x-input-label for="opening_time_{{ strtolower($day) }}" :value="__('Abertura')"
+                                            class="sr-only" />
+                                        <x-text-input type="time" name="opening_time_{{ strtolower($day) }}"
+                                            class="w-full bg-[#0D1117] border-gray-700 text-sm p-2" />
+                                    </div>
+                                    <span class="text-gray-400 text-xs">às</span>
+                                    <div class="flex-1">
+                                        <x-input-label for="closing_time_{{ strtolower($day) }}"
+                                            :value="__('Fechamento')" class="sr-only" />
+                                        <x-text-input type="time" name="closing_time_{{ strtolower($day) }}"
+                                            class="w-full bg-[#0D1117] border-gray-700 text-sm p-2" />
+                                    </div>
+                                </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <div class="pt-4">
-                        <input type="submit" value="Adicionar local"
-                            class="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-sm transition duration-200 cursor-pointer">
+                        <x-primary-button class="w-full justify-center bg-blue-600 hover:bg-blue-700">
+                            <i class="fas fa-plus-circle mr-2"></i>
+                            Adicionar local
+                        </x-primary-button>
                     </div>
                 </form>
             </div>
@@ -203,24 +258,22 @@
         const maxImages = 7;
 
         function clearPreview() {
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild);
-            }
+            preview.innerHTML = '';
         }
 
         function createImagePreview(file, index) {
             const div = document.createElement('div');
-            div.className = 'relative group';
+            div.className = 'relative group overflow-hidden rounded-lg border border-gray-700';
 
             const img = document.createElement('img');
             img.src = URL.createObjectURL(file);
-            img.className = 'w-full h-32 object-cover rounded border border-gray-200';
+            img.className = 'w-full h-32 object-cover';
 
             const deleteBtn = document.createElement('button');
             deleteBtn.type = 'button';
             deleteBtn.className =
-                'absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity';
-            deleteBtn.innerHTML = '×';
+                'absolute top-2 right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md';
+            deleteBtn.innerHTML = '<i class="fas fa-times text-xs"></i>';
 
             deleteBtn.addEventListener('click', () => {
                 div.remove();
@@ -237,7 +290,7 @@
         }
 
         function canAddImages(newFilesCount) {
-            const existingCount = document.querySelectorAll('#existing-images div.relative').length;
+            const existingCount = preview.children.length;
             return (existingCount + newFilesCount) <= maxImages;
         }
 
@@ -245,19 +298,50 @@
             const files = Array.from(imagesInput.files);
 
             if (!canAddImages(files.length)) {
-                const existingCount = document.querySelectorAll('#existing-images div.relative').length;
-                alert(
-                    `Você já tem ${existingCount} imagens. Pode adicionar no máximo ${maxImages - existingCount} novas imagens.`);
+                alert(`Você pode adicionar no máximo ${maxImages} imagens.`);
                 imagesInput.value = '';
-                clearPreview();
                 return;
             }
 
-            clearPreview();
             files.forEach((file, index) => createImagePreview(file, index));
         });
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        const updateSelectedFeatures = () => {
+            const container = document.getElementById('selected-features');
+            container.innerHTML = '';
+
+            document.querySelectorAll('input[name="features[]"]:checked').forEach(checkbox => {
+                const label = document.querySelector(`label[for="${checkbox.id}"]`).textContent;
+                const badge = document.createElement('div');
+                badge.className =
+                    'bg-blue-600/20 text-blue-400 text-xs px-2 py-1 rounded-full flex items-center';
+                badge.innerHTML = `
+                    <span>${label}</span>
+                    <button type="button" data-id="${checkbox.id}" class="ml-1 text-blue-300 hover:text-blue-100">
+                        <i class="fas fa-times text-xs"></i>
+                    </button>
+                `;
+                container.appendChild(badge);
+            });
+        };
+
+        document.querySelectorAll('input[name="features[]"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelectedFeatures);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('button[data-id]')) {
+                const checkboxId = e.target.closest('button').getAttribute('data-id');
+                const checkbox = document.getElementById(checkboxId);
+                if (checkbox) {
+                    checkbox.checked = false;
+                    updateSelectedFeatures();
+                }
+            }
+        });
+
+        updateSelectedFeatures();
+    });
     </script>
-
-
-</x-app-layout>
+</x-guest-layout>

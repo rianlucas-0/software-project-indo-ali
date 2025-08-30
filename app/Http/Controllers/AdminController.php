@@ -125,4 +125,11 @@ class AdminController extends Controller
             return redirect()->route('admin.all_local', $id)->with('status', 'Atualizado com sucesso!');
         }
     }
+
+    public function destroy($id) {
+        $local = Local::findOrFail($id);
+        $local->delete();
+
+        return redirect()->route('admin.all_local')->with('status', 'Deletado com sucesso');
+    }
 }

@@ -17,7 +17,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
     Route::get('/dashboard/all_local',[AdminController::class, 'all_local'])->name('admin.all_local');
     Route::get('/dashboard/all_local/{id}',[AdminController::class, 'updatelocal'])->name('admin.updatelocal');
     Route::put('/dashboard/all_local/{id}',[AdminController::class, 'localupdate'])->name('admin.localupdate');
-
+    Route::delete('/dashboard/deletelocal/{id}',[AdminController::class, 'destroy'])->name('admin.deletelocal');
 });
 
 

@@ -14,6 +14,14 @@
                         </a>
                     </div>
 
+                    @if(session('status'))
+                    <div
+                        class="bg-red-600/20 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg mb-6 flex items-center">
+                        <i class="fa-solid fa-circle-xmark m-2"></i>
+                        {{ session('status') }}
+                    </div>
+                    @endif
+
                     <div class="overflow-x-auto">
                         <table class="w-full bg-[#1E2229] rounded-lg overflow-hidden hidden sm:table">
                             <thead class="bg-[#0D1117] text-gray-300">
@@ -52,7 +60,8 @@
                                                 <i class="fas fa-edit mr-1 sm:mr-2 text-xs"></i>
                                                 <span>Editar</span>
                                             </a>
-                                            <form action="" method="POST"
+                                            <form action="{{ route('admin.deletelocal', $locations->id) }}"
+                                                method="POST"
                                                 onsubmit="return confirm('Tem certeza que deseja excluir este local?');">
                                                 @csrf
                                                 @method('DELETE')
@@ -94,7 +103,7 @@
                                         <i class="fas fa-edit mr-1 text-xs"></i>
                                         <span>Editar</span>
                                     </a>
-                                    <form action="" method="POST" class="flex-1"
+                                    <form action="{{ route('admin.deletelocal', $locations->id) }}" method="POST" class="flex-1"
                                         onsubmit="return confirm('Tem certeza que deseja excluir este local?');">
                                         @csrf
                                         @method('DELETE')

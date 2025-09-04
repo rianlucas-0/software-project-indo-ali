@@ -190,4 +190,30 @@ class Local extends Model
     {
         return asset('img/' . $this->first_image);
     }
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class, 'location_id');
+    }
+
+    /**
+     * Check if the local is favorited by a specific user.
+     */
+    public function favoritedBy($user = null): bool
+    {
+        if (!$user) {
+            return false;
+        }
+        
+        return $this->favorites()->where('user_id', $user->id)->exists();
+    }
+
+    /**
+     * Scope a query to only include favorited locations by a user.
+     */
+    public function scopeFavoritedByUser($query, $userId)
+    {
+        return $query->whereHas('favorites', function ($q) use ($userId) {
+            $q->where('user_id', $userId);
+        });
+    }
 }

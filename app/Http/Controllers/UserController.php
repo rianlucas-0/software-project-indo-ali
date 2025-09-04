@@ -133,4 +133,12 @@ class UserController extends Controller
         
         return redirect()->route('history')->with('error', 'Item não encontrado!');
     }
+
+    /**
+     * Define o relacionamento muitos-para-muitos entre usuário e locais favoritados.
+     */
+    public function favoriteLocations()
+    {
+        return $this->belongsToMany(Local::class, 'favorites', 'user_id', 'location_id');
+    }
 }

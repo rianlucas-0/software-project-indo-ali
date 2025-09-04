@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FavoriteController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
 Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
@@ -29,6 +30,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/history', [UserController::class, 'showHistory'])->name('history');
     Route::post('/history/clear', [UserController::class, 'clearHistory'])->name('history.clear');
     Route::delete('/history/remove/{id}', [UserController::class, 'removeHistoryItem'])->name('history.remove');
+
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/toggle/{locationId}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+    Route::get('/favorites/check/{locationId}', [FavoriteController::class, 'check'])->name('favorites.check');
+    Route::delete('/favorites/remove/{favorite}', [FavoriteController::class, 'remove'])->name('favorites.remove');
 });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);

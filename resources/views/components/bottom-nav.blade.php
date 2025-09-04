@@ -11,7 +11,7 @@
     </a>
 
     @auth
-    <a href="#" class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
+    <a href="{{ route('favorites.index') }}" class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
         <i class="fas fa-heart text-lg mb-1"></i>
         <span class="text-xs">Favoritos</span>
     </a>

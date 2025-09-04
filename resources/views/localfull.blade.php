@@ -1,5 +1,4 @@
 <x-guest-layout>
-
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     </head>
@@ -18,22 +17,43 @@
         <div class="mb-8">
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">{{ $local->title }}</h1>
 
-            <div class="flex items-center text-gray-400 mb-4">
-                <i class="fas fa-map-marker-alt mr-2"></i>
-                <span>{{ $local->city }} - {{ $local->state }}</span>
+            <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+                <div class="flex items-center text-gray-400">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>{{ $local->city }} - {{ $local->state }}</span>
+                </div>
+                
+                <div class="flex items-center text-gray-400">
+                    <i class="fas fa-user-circle mr-2"></i>
+                    <span>Publicado por <span class="text-blue-400">{{ $local->user_name }}</span></span>
+                </div>
             </div>
 
-            <div class="flex items-center">
-                <div class="flex items-center mr-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center">
                     <i class="fas fa-star text-yellow-400 mr-1"></i>
                     <span class="font-medium text-gray-400">4.8</span>
                     <span class="text-gray-500 ml-1">(128)</span>
                 </div>
+                
+                <!-- Botões de Ação -->
+                <div class="flex items-center space-x-3 mt-4 md:mt-0">
+                    <!-- Botão de Favorito -->
+                    <button id="favorite-btn" data-location-id="{{ $local->id }}"
+                        class="favorite-btn flex items-center px-4 py-2 rounded-lg transition 
+                   {{ Auth::check() && $local->favorites()->where('user_id', Auth::id())->exists() ? 'bg-red-100 text-red-600' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
+                        <i
+                            class="{{ Auth::check() && $local->favorites()->where('user_id', Auth::id())->exists() ? 'fas' : 'far' }} fa-heart mr-2"></i>
+                        <span
+                            id="favorite-text">{{ Auth::check() && $local->favorites()->where('user_id', Auth::id())->exists() ? 'Favoritado' : 'Favoritar' }}</span>
+                    </button>
 
-                <div class="flex items-center">
-                    <i class="fas fa-user-circle text-gray-400 mr-2"></i>
-                    <span class="text-gray-400">Publicado por <span
-                            class="text-blue-400">{{ $local->user_name }}</span></span>
+                    <!-- Botão de Compartilhar -->
+                    <button id="share-btn"
+                        class="flex items-center px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition">
+                        <i class="fas fa-share-alt mr-2"></i>
+                        <span class=" sm:inline">Compartilhar</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -262,6 +282,92 @@
         touchNavigation: true,
         loop: true,
         autoplayVideos: false
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const baseUrl = '{{ url("/") }}';
+
+        // Botão de Favorito
+        const favoriteBtn = document.getElementById('favorite-btn');
+        const favoriteText = document.getElementById('favorite-text');
+
+        if (favoriteBtn) {
+            favoriteBtn.addEventListener('click', async function() {
+                if (!{{ Auth::check() ? 'true' : 'false' }}) {
+                    window.location.href = '{{ route("login") }}';
+                    return;
+                }
+
+                const locationId = this.getAttribute('data-location-id');
+                const heartIcon = this.querySelector('i');
+
+                try {
+                    const response = await fetch(`${baseUrl}/favorites/toggle/${locationId}`, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+
+                        if (data.favorited) {
+                            this.classList.add('bg-red-100', 'text-red-600');
+                            this.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                            heartIcon.classList.remove('far');
+                            heartIcon.classList.add('fas');
+                            favoriteText.textContent = 'Favoritado';
+                        } else {
+                            this.classList.remove('bg-red-100', 'text-red-600');
+                            this.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                            heartIcon.classList.remove('fas');
+                            heartIcon.classList.add('far');
+                            favoriteText.textContent = 'Favoritar';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Erro:', error);
+                }
+            });
+        }
+
+        // Botão de Compartilhar
+        const shareBtn = document.getElementById('share-btn');
+
+        if (shareBtn) {
+            shareBtn.addEventListener('click', async function() {
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: '{{ $local->title }}',
+                            text: 'Confira este local incrível: {{ $local->title }}',
+                            url: window.location.href
+                        });
+                    } catch (error) {
+                        copyToClipboard();
+                    }
+                } else {
+                    copyToClipboard();
+                }
+            });
+
+            function copyToClipboard() {
+                const tempInput = document.createElement('input');
+                tempInput.value = window.location.href;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                const originalText = shareBtn.querySelector('span').textContent;
+                shareBtn.querySelector('span').textContent = 'Link copiado!';
+
+                setTimeout(() => {
+                    shareBtn.querySelector('span').textContent = originalText;
+                }, 2000);
+            }
+        }
     });
     </script>
 </x-guest-layout>

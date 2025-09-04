@@ -26,7 +26,7 @@
 
                 @auth
                 <li>
-                    <a href="#"
+                    <a href="{{ route('favorites.index') }}"
                         class="hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group">
                         <span class="group-hover:translate-x-0.5 transition-transform">Favoritos</span>
                         <i class="fas fa-heart text-sm opacity-70"></i>

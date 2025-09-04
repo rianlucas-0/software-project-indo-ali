@@ -31,9 +31,19 @@
             class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 w-48 bg-[#161B22] rounded-lg shadow-xl border border-gray-700 py-1 z-50">
 
             @auth
+            <a href="{{ route('profile.edit') }}"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
+                <i class="fas fa-user-edit mr-2 text-blue-400"></i> Perfil
+            </a>
+
             <a href="{{ Auth::user()->user_type == 'admin' ? route('admin.dashboard') : route('dashboard') }}"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
                 <i class="fas fa-tachometer-alt mr-2 text-blue-400"></i> Dashboard
+            </a>
+
+            <a href="{{ route('history') }}"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
+                <i class="fas fa-history mr-2 text-blue-400"></i> Histórico
             </a>
 
             @if(Auth::user()->user_type == 'admin')
@@ -46,11 +56,6 @@
                 <i class="fas fa-map-marked-alt mr-2 text-blue-400"></i> Seus Locais
             </a>
             @endif
-
-            <a href="{{ route('profile.edit') }}"
-                class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
-                <i class="fas fa-user-edit mr-2 text-blue-400"></i> Perfil
-            </a>
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

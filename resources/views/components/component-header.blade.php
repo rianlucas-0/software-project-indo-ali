@@ -44,14 +44,19 @@
                     <div x-show="optionsOpen" @click.away="optionsOpen = false"
                         class="absolute right-0 mt-2 w-48 bg-[#161B22] rounded-md shadow-lg py-1 border border-gray-700 z-50">
                         @auth
+                        <a href="{{ route('profile.edit') }}"
+                            class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
+                            <i class="fas fa-user-edit mr-2"></i> Perfil
+                        </a>
+
                         <a href="{{ Auth::user()->user_type == 'admin' ? route('admin.dashboard') : route('dashboard') }}"
                             class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
                             <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                         </a>
 
-                        <a href="{{ route('profile.edit') }}"
+                        <a href="{{ route('history') }}"
                             class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
-                            <i class="fas fa-user-edit mr-2"></i> Perfil
+                            <i class="fas fa-history mr-2"></i> Histórico
                         </a>
 
                         @if(Auth::user()->user_type == 'admin')

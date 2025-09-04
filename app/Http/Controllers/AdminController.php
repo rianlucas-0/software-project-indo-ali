@@ -5,20 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Local;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    public function addlocal()
+    /**
+     * Exibe o formulário de criação de local
+     */
+    public function addlocal(): View
     {
         return view('admin.add_local');
     }
 
-    public function createlocal(Request $request)
+    /**
+     * Processa a criação de um novo local
+     */
+    public function createlocal(Request $request): RedirectResponse
     {
         $local = new Local();
         $local->title = $request->title;
         $local->description = $request->description;
 
+        // Processa upload de múltiplas imagens
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -29,6 +38,7 @@ class AdminController extends Controller
         }
         $local->images = json_encode($images);
 
+        // Dados de endereço
         $local->cep = $request->cep;
         $local->address = $request->address;
         $local->address_number = $request->address_number;
@@ -40,6 +50,7 @@ class AdminController extends Controller
         $local->category = $request->category;
         $local->features = json_encode($request->features);
 
+        // Horários de funcionamento
         $workingHours = [];
         if ($request->working_days) {
             foreach ($request->working_days as $day) {
@@ -50,6 +61,8 @@ class AdminController extends Controller
             }
         }
         $local->working_hours = json_encode($workingHours);
+        
+        // Registro do usuário criador
         $local->user_name = Auth::user()->name;
         $local->user_id = Auth::user()->id;
 
@@ -58,24 +71,34 @@ class AdminController extends Controller
         }
     }
 
-    public function all_local()
+    /**
+     * Lista todos os locais
+     */
+    public function all_local(): View
     {
         $local = Local::all();
         return view('admin.all_local', compact('local'));
     }
 
-    public function updatelocal($id)
+    /**
+     * Exibe formulário de edição de local
+     */
+    public function updatelocal($id): View
     {
         $local = Local::findOrFail($id);
         return view('admin.updatelocal', compact('local'));
     }
 
-    public function localupdate(Request $request, $id)
+    /**
+     * Processa atualização de local existente
+     */
+    public function localupdate(Request $request, $id): RedirectResponse
     {
         $local = Local::findOrFail($id);
         $local->title = $request->title;
         $local->description = $request->description;
 
+        // Gerencia imagens - remove as selecionadas
         $images = json_decode($local->images ?? '[]', true);
 
         if ($request->filled('images_to_remove')) {
@@ -88,6 +111,7 @@ class AdminController extends Controller
             }
         }
 
+        // Adiciona novas imagens
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imagename = time().'_'.uniqid().'.'.$image->getClientOriginalExtension();
@@ -97,6 +121,8 @@ class AdminController extends Controller
         }
 
         $local->images = json_encode(array_values($images));
+        
+        // Atualiza dados de endereço
         $local->cep = $request->cep;
         $local->address = $request->address;
         $local->address_number = $request->address_number;
@@ -108,6 +134,7 @@ class AdminController extends Controller
         $local->category = $request->category;
         $local->features = json_encode($request->features);
 
+        // Atualiza horários de funcionamento
         $workingHours = [];
         if ($request->working_days) {
             foreach ($request->working_days as $day) {
@@ -118,6 +145,8 @@ class AdminController extends Controller
             }
         }
         $local->working_hours = json_encode($workingHours);
+        
+        // Registra usuário que realizou a atualização
         $local->user_name = Auth::user()->name;
         $local->user_id = Auth::user()->id;
 
@@ -126,7 +155,11 @@ class AdminController extends Controller
         }
     }
 
-    public function destroy($id) {
+    /**
+     * Remove um local permanentemente
+     */
+    public function destroy($id): RedirectResponse
+    {
         $local = Local::findOrFail($id);
         $local->delete();
 

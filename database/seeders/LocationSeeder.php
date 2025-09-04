@@ -17,7 +17,7 @@ class LocationSeeder extends Seeder
             [
                 'title' => 'Restaurante Sabor Mineiro',
                 'description' => 'Um restaurante típico mineiro com comida caseira.',
-                'images' => json_encode(['restaurante1.jpg','restaurante2.jpg']),
+                'images' => json_encode(['imagem 1.jpeg','imagem 2.jpeg','imagem 3.jpeg']),
                 'cep' => '30140071',
                 'address' => 'Av. Afonso Pena',
                 'address_number' => '1234',

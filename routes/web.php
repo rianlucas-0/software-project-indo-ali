@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/history', [UserController::class, 'showHistory'])->name('history');
+    Route::post('/history/clear', [UserController::class, 'clearHistory'])->name('history.clear');
+    Route::delete('/history/remove/{id}', [UserController::class, 'removeHistoryItem'])->name('history.remove');
 });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);

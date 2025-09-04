@@ -19,7 +19,7 @@ class Local extends Model
     protected $casts = [
         'images' => 'array',
         'features' => 'array',
-        'working_hours' => 'array'
+        'working_hours' => 'array',
     ];
     
     /**
@@ -70,11 +70,6 @@ class Local extends Model
     public function getFirstImageAttribute(): string
     {
         $images = $this->images;
-        
-        if (is_string($images)) {
-            $images = json_decode($images, true) ?? [];
-        }
-        
         return $images[0] ?? self::DEFAULT_IMAGE;
     }
 
@@ -84,10 +79,6 @@ class Local extends Model
     public function getFormattedWorkingHoursAttribute(): array
     {
         $workingHours = $this->working_hours;
-        
-        if (is_string($workingHours)) {
-            $workingHours = json_decode($workingHours, true) ?? [];
-        }
         
         if (empty($workingHours)) {
             return [];

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -22,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
         'user_type',
         'provider_id',
         'provider_avatar',
@@ -65,5 +68,25 @@ class User extends Authenticatable
     public function favoriteLocations(): BelongsToMany
     {
         return $this->belongsToMany(Local::class, 'favorites', 'user_id', 'location_id');
+    }
+
+    /**
+     * Get the user's avatar URL.
+     */
+    protected function avatarUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->avatar) {
+                    return asset('img/avatars/' . $this->avatar);
+                }
+
+                if ($this->provider_avatar) {
+                    return $this->provider_avatar;
+                }
+
+                return null;
+            }
+        );
     }
 }

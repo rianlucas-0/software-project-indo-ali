@@ -67,7 +67,7 @@
                         </h3>
 
                         @php
-                        $images = json_decode($local->images ?? '[]', true);
+                        $images = $local->images ?? [];
                         @endphp
 
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4" id="existing-images">
@@ -248,7 +248,7 @@
                         </h3>
 
                         @php
-                        $workingHours = json_decode($local->working_hours ?? '{}', true);
+                        $workingHours = $local->working_hours ?? '{}';
                         @endphp
 
                         <div class="space-y-4">

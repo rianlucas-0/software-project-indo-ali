@@ -36,7 +36,7 @@ class AdminController extends Controller
                 $images[] = $imagename;
             }
         }
-        $local->images = json_encode($images);
+        $local->images = $images;
 
         // Dados de endereço
         $local->cep = $request->cep;
@@ -48,7 +48,7 @@ class AdminController extends Controller
         $local->phone = $request->phone;
         $local->contact_email = $request->contact_email;
         $local->category = $request->category;
-        $local->features = json_encode($request->features);
+        $local->features = $request->features;
 
         // Horários de funcionamento
         $workingHours = [];
@@ -60,7 +60,7 @@ class AdminController extends Controller
                 ];
             }
         }
-        $local->working_hours = json_encode($workingHours);
+        $local->working_hours = $workingHours;
         
         // Registro do usuário criador
         $local->user_name = Auth::user()->name;
@@ -99,7 +99,7 @@ class AdminController extends Controller
         $local->description = $request->description;
 
         // Gerencia imagens - remove as selecionadas
-        $images = json_decode($local->images ?? '[]', true);
+        $images = $local->images ?? [];
 
         if ($request->filled('images_to_remove')) {
             $toRemove = explode(',', $request->images_to_remove);
@@ -120,7 +120,7 @@ class AdminController extends Controller
             }
         }
 
-        $local->images = json_encode(array_values($images));
+        $local->images = array_values($images);
         
         // Atualiza dados de endereço
         $local->cep = $request->cep;
@@ -132,7 +132,7 @@ class AdminController extends Controller
         $local->phone = $request->phone;
         $local->contact_email = $request->contact_email;
         $local->category = $request->category;
-        $local->features = json_encode($request->features);
+        $local->features = $request->features;
 
         // Atualiza horários de funcionamento
         $workingHours = [];
@@ -144,7 +144,7 @@ class AdminController extends Controller
                 ];
             }
         }
-        $local->working_hours = json_encode($workingHours);
+        $local->working_hours = $workingHours;
         
         // Registra usuário que realizou a atualização
         $local->user_name = Auth::user()->name;

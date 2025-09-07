@@ -2,54 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Favorite;
-use App\Models\Local;
+use App\Services\FavoriteService;
 use Illuminate\Http\{JsonResponse, RedirectResponse, Request};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class FavoriteController extends Controller
 {
+    protected $favoriteService;
+
+    public function __construct(FavoriteService $favoriteService)
+    {
+        $this->favoriteService = $favoriteService;
+    }
+
     /**
      * Lista os locais favoritados pelo usuário autenticado
      */
     public function index(): View
     {
-        $favorites = Favorite::with('location')
-            ->where('user_id', Auth::id())
-            ->latest()
-            ->paginate(12);
-            
+        $favorites = $this->favoriteService->getUserFavorites(Auth::id());
         return view('favorites.index', compact('favorites'));
     }
 
     /**
      * Alterna o estado de favorito de um local para o usuário logado
-     * (adiciona se não existir, remove se já estiver favoritado)
      */
     public function toggle(Request $request, $locationId): JsonResponse
     {
-        $user = Auth::user();
-        
-        if (!$user) {
+        if (!Auth::check()) {
             return response()->json(['error' => 'Usuário não autenticado'], 401);
         }
 
-        $favorite = Favorite::where('user_id', $user->id)
-            ->where('location_id', $locationId)
-            ->first();
-
-        if ($favorite) {
-            $favorite->delete();
-            return response()->json(['favorited' => false]);
-        }
-
-        Favorite::create([
-            'user_id' => $user->id,
-            'location_id' => $locationId
-        ]);
-
-        return response()->json(['favorited' => true]);
+        $result = $this->favoriteService->toggleFavorite(Auth::id(), $locationId);
+        
+        return response()->json(['favorited' => $result['favorited']]);
     }
 
     /**
@@ -58,9 +45,7 @@ class FavoriteController extends Controller
     public function check($locationId): JsonResponse
     {
         $isFavorited = Auth::check() 
-            ? Favorite::where('user_id', Auth::id())
-                ->where('location_id', $locationId)
-                ->exists()
+            ? $this->favoriteService->isLocationFavorited(Auth::id(), $locationId)
             : false;
 
         return response()->json(['favorited' => $isFavorited]);
@@ -71,11 +56,12 @@ class FavoriteController extends Controller
      */
     public function remove($favoriteId): RedirectResponse
     {
-        $favorite = Favorite::where('user_id', Auth::id())
-            ->where('id', $favoriteId)
-            ->firstOrFail();
-
-        $favorite->delete();
+        $result = $this->favoriteService->removeFavorite(Auth::id(), $favoriteId);
+        
+        if (!$result) {
+            return redirect()->route('favorites.index')
+                ->with('error', 'Favorito não encontrado!');
+        }
 
         return redirect()->route('favorites.index')
             ->with('success', 'Removido dos favoritos!');

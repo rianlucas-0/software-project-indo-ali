@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Local;
-use App\Models\ViewHistory;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,22 +11,32 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+        public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Exibe dados na página inicial
      */
     public function showDataInHome(): View
     {
-        $local = Local::all();
+        $local = $this->userService->getAllLocalsForHome();
         return view('home', compact('local'));
     }
+
 
     /**
      * Redireciona usuário para o dashboard apropriado baseado no tipo de usuário
      */
     public function index(Request $request): View|RedirectResponse
     {
+        $dashboardView = $this->userService->getUserDashboardType($request->user());
+        
         if ($request->user()->user_type == 'admin') {
-            return view('admin.dashboard');
+            return view($dashboardView);
         }
 
         return redirect()->route('dashboard');
@@ -51,21 +61,8 @@ class UserController extends Controller
     {
         $local = Local::findOrFail($id);
         
-        // Registra visualização no histórico do usuário autenticado
         if (Auth::check()) {
-            $existingView = ViewHistory::where('user_id', Auth::id())
-                                ->where('location_id', $id)
-                                ->first();
-            
-            if ($existingView) {
-                $existingView->update(['viewed_at' => now()]);
-            } else {
-                ViewHistory::create([
-                    'user_id' => Auth::id(),
-                    'location_id' => $id,
-                    'viewed_at' => now()
-                ]);
-            }
+            $this->userService->registerLocalView(Auth::id(), $id);
         }
         
         return view('localfull', compact('local'));
@@ -81,22 +78,7 @@ class UserController extends Controller
         }
         
         $filter = $request->input('filter', 'all');
-        $query = ViewHistory::where('user_id', Auth::id())->with('location');
-        
-        // Aplica filtro de período
-        switch ($filter) {
-            case 'week':
-                $query->where('viewed_at', '>=', now()->subWeek());
-                break;
-            case 'month':
-                $query->where('viewed_at', '>=', now()->subMonth());
-                break;
-            case 'year':
-                $query->where('viewed_at', '>=', now()->subYear());
-                break;
-        }
-        
-        $history = $query->orderBy('viewed_at', 'desc')->paginate(12);
+        $history = $this->userService->getUserViewHistory(Auth::id(), $filter);
         
         return view('history', compact('history', 'filter'));
     }
@@ -110,7 +92,7 @@ class UserController extends Controller
             return redirect()->route('login');
         }
         
-        ViewHistory::where('user_id', Auth::id())->delete();
+        $this->userService->clearUserHistory(Auth::id());
         
         return redirect()->route('history')->with('success', 'Histórico limpo com sucesso!');
     }
@@ -124,10 +106,9 @@ class UserController extends Controller
             return redirect()->route('login');
         }
         
-        $historyItem = ViewHistory::where('user_id', Auth::id())->where('id', $id)->first();
+        $result = $this->userService->removeHistoryItem(Auth::id(), $id);
         
-        if ($historyItem) {
-            $historyItem->delete();
+        if ($result) {
             return redirect()->route('history')->with('success', 'Item removido do histórico!');
         }
         

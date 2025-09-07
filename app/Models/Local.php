@@ -13,6 +13,18 @@ class Local extends Model
      */
     protected $table = 'locations';
 
+
+    protected $fillable = [
+        'title',
+        'category',
+        'description',
+        'images',
+        'features',
+        'working_hours',
+        'is_active',
+        'user_id',
+    ];
+
     /**
      * The attributes that should be cast.
      */

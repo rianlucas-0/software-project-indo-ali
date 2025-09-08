@@ -228,4 +228,29 @@ class Local extends Model
             $q->where('user_id', $userId);
         });
     }
+
+    /**
+     * Get all comments related to this location.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Accessor: Calculate the average rating of the location based on comments.
+     */
+    public function getAverageRatingAttribute()
+    {
+        return $this->comments()->avg('rating') ?? 0;
+    }
+
+    /**
+     * Count the number of comments made today for this location.
+     */
+    public function commentsToday()
+    {
+        return $this->comments()->whereDate('created_at', Carbon::today())->count();
+    }
+
 }

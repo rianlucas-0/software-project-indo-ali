@@ -71,15 +71,15 @@
 
                 <!-- Card com Local -->
                 @if($item->location)
-                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition relative">
+                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition relative border border-gray-700 hover:-translate-y-1 duration-300">
 
                     <!-- Botão Remover Item -->
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
-                        class="absolute top-3 right-3">
+                        class="absolute top-3 right-3 z-10">
                         @csrf
                         @method('DELETE')
                         <button type="submit" onclick="return confirm('Remover este item do histórico?')" class="w-8 h-8 bg-red-600 hover:bg-red-700 text-white rounded-full 
-                            flex items-center justify-center transition">
+                            flex items-center justify-center transition shadow-md">
                             <i class="fas fa-times text-xs"></i>
                         </button>
                     </form>
@@ -100,12 +100,12 @@
                         }
                         @endphp
                         <img src="{{ asset('img/' . $firstImage) }}" alt="{{ $item->location->title }}"
-                            class="w-full h-full object-cover transition duration-500">
+                            class="w-full h-full object-cover transition duration-500 hover:scale-105">
                     </div>
 
                     <!-- Informações -->
                     <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-1">
                             {{ $item->location->title }}
                         </h3>
 
@@ -136,7 +136,7 @@
 
                 <!-- Card sem Local -->
                 @else
-                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-lg p-4 text-center relative">
+                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-lg p-4 text-center relative border border-gray-700">
 
                     <!-- Botão Remover -->
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
@@ -144,7 +144,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" onclick="return confirm('Remover este item do histórico?')" class="w-8 h-8 bg-red-600 hover:bg-red-700 text-white rounded-full 
-                            flex items-center justify-center transition">
+                            flex items-center justify-center transition shadow-md">
                             <i class="fas fa-times text-xs"></i>
                         </button>
                     </form>

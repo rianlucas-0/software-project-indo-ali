@@ -22,16 +22,16 @@
                 $local = $favoriteItem->location;
                 @endphp
                 <div
-                    class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative group">
+                    class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative group border border-gray-700">
                     <!-- Botão de Remover Favorito -->
                     <form action="{{ route('favorites.remove', $favoriteItem->id) }}" method="POST"
                         class="absolute top-3 right-3 z-10">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center 
-                                                hover:bg-red-100 transition-all shadow-md group-hover:scale-110"
+                        <button type="submit" class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center 
+                                                hover:bg-red-600/20 transition-all shadow-md group-hover:scale-110 border border-gray-700"
                             onclick="return confirm('Remover dos favoritos?')">
-                            <i class="fas fa-times text-red-500 text-sm"></i>
+                            <i class="fas fa-times text-red-400 text-sm"></i>
                         </button>
                     </form>
 
@@ -43,21 +43,36 @@
 
                     <!-- Conteúdo -->
                     <div class="p-4 flex flex-col flex-1">
-                        <h3 class="font-bold text-gray-800 mb-1 line-clamp-1">{{ $local->title }}</h3>
-                        <p class="text-sm text-gray-500 mb-2">{{ $local->city }} - {{ $local->state }}</p>
+                        <h3 class="font-bold text-white mb-1 line-clamp-1">{{ $local->title }}</h3>
+                        <p class="text-sm text-gray-400 mb-2">{{ $local->city }} - {{ $local->state }}</p>
 
                         <!-- Avaliação -->
                         <div class="flex text-yellow-400 text-xs mb-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
+                            @php
+                            $fullStars = floor($local->average_rating);
+                            $halfStar = ($local->average_rating - $fullStars) >= 0.5 ? 1 : 0;
+                            $emptyStars = 5 - $fullStars - $halfStar;
+                            @endphp
+
+                            {{-- Estrelas cheias --}}
+                            @for ($i = 0; $i < $fullStars; $i++) 
+                                <i class="fas fa-star"></i>
+                            @endfor
+
+                            {{-- Estrela pela metade --}}
+                            @if ($halfStar)
+                                <i class="fas fa-star-half-alt"></i>
+                            @endif
+
+                            {{-- Estrelas vazias --}}
+                            @for ($i = 0; $i < $emptyStars; $i++) 
+                                <i class="far fa-star"></i>
+                            @endfor
                         </div>
 
                         <!-- Link -->
                         <a href="{{ route('localfull', $local->id) }}"
-                            class="text-indigo-600 text-sm font-semibold hover:underline mt-auto inline-flex items-center">
+                            class="text-blue-400 text-sm font-semibold hover:text-blue-300 transition mt-auto inline-flex items-center">
                             Ver detalhes
                             <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
@@ -75,8 +90,8 @@
             </div>
             @else
             <!-- Estado vazio -->
-            <div class="text-center py-16 bg-[#161B22] rounded-xl">
-                <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
+            <div class="text-center py-16 bg-[#161B22] rounded-xl border border-gray-700">
+                <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-[#1E2229] flex items-center justify-center border border-gray-700">
                     <i class="fas fa-heart text-gray-400 text-2xl"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-white mb-2">Nenhum local favoritado</h3>

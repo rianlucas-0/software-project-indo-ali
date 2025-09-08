@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
 Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
@@ -37,6 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/favorites/toggle/{locationId}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites/check/{locationId}', [FavoriteController::class, 'check'])->name('favorites.check');
     Route::delete('/favorites/remove/{favorite}', [FavoriteController::class, 'remove'])->name('favorites.remove');
+
+    Route::post('/local/{local}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);

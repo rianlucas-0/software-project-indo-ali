@@ -1,4 +1,5 @@
 <x-guest-layout>
+
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     </head>
@@ -22,7 +23,7 @@
                     <i class="fas fa-map-marker-alt mr-2"></i>
                     <span>{{ $local->city }} - {{ $local->state }}</span>
                 </div>
-                
+
                 <div class="flex items-center text-gray-400">
                     <i class="fas fa-user-circle mr-2"></i>
                     <span>Publicado por <span class="text-blue-400">{{ $local->user_name }}</span></span>
@@ -32,10 +33,10 @@
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div class="flex items-center">
                     <i class="fas fa-star text-yellow-400 mr-1"></i>
-                    <span class="font-medium text-gray-400">4.8</span>
-                    <span class="text-gray-500 ml-1">(128)</span>
+                    <span class="font-medium text-gray-400">Média de estrelas:
+                        {{ number_format($local->average_rating, 1) }}</span>
                 </div>
-                
+
                 <!-- Botões de Ação -->
                 <div class="flex items-center space-x-3 mt-4 md:mt-0">
                     <!-- Botão de Favorito -->
@@ -168,110 +169,166 @@
                     @endif
                 </div>
 
-                <!-- Avaliações -->
-                <div class="bg-[#161B22] rounded-xl p-6">
-                    <h2 class="text-2xl font-bold text-white mb-6">Avaliações</h2>
+                <!-- Sistema de Comentários -->
+                <div class="bg-[#161B22] rounded-xl p-6 mt-6">
+                    <h2 class="text-2xl font-bold text-white mb-6">Deixe seu Comentário</h2>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        @for($i = 1; $i <= 2; $i++) <div class="bg-[#1E2229] rounded-lg p-5">
+                    @auth
+                    <form action="{{ route('comments.store', $local->id) }}" method="POST">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="rating" class="block text-white mb-2">Avaliação</label>
+                            <div class="flex items-center">
+                                @for($i = 1; $i <= 5; $i++) <input type="radio" name="rating" value="{{ $i }}"
+                                    id="rating{{ $i }}" class="hidden">
+                                    <label for="rating{{ $i }}" class="text-2xl cursor-pointer">
+                                        <i class="far fa-star text-yellow-400 hover:text-yellow-300"></i>
+                                    </label>
+                                    @endfor
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="content" class="block text-white mb-2">Seu comentário</label>
+                            <textarea name="content" id="content" rows="4"
+                                class="w-full bg-[#1E2229] border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400"
+                                placeholder="Compartilhe sua experiência..." required></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition">
+                            Enviar Comentário
+                        </button>
+                    </form>
+                    @else
+                    <div class="text-center py-8">
+                        <p class="text-gray-400 mb-4">Faça login para deixar um comentário</p>
+                        <a href="{{ route('login') }}"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition">
+                            Fazer Login
+                        </a>
+                    </div>
+                    @endauth
+
+                    <!-- Lista de Comentários -->
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-white mb-6">Comentários ({{ $local->comments->count() }})</h3>
+
+                        @forelse($local->comments as $comment)
+                        <div class="bg-[#1E2229] rounded-lg p-5 mb-4 relative">
+                            <!-- Botão de deletar (apenas para dono do comentário ou admin) -->
+                            @if(Auth::check() && (Auth::id() == $comment->user_id || Auth::user()->is_admin))
+                            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"
+                                class="absolute top-4 right-4">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    onclick="return confirm('Tem certeza que deseja excluir este comentário?')"
+                                    class="text-gray-400 hover:text-red-400 transition">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                            @endif
+
                             <div class="flex items-center mb-3">
                                 <div class="w-10 h-10 rounded-full bg-gray-700 mr-3 overflow-hidden">
-                                    <img src="https://i.pravatar.cc/100?img={{ $i+10 }}" alt="User"
-                                        class="w-full h-full object-cover">
+                                    <img src="{{ $comment->user->avatar ? asset('img/avatars/' . $comment->user->avatar) : $comment->user->provider_avatar }}"
+                                        alt="{{ $comment->user->name }}" class="w-full h-full object-cover">
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-white">Maria Silva</h4>
+                                    <h4 class="font-medium text-white">{{ $comment->user->name }}</h4>
+                                    @if($comment->rating)
                                     <div class="flex items-center">
-                                        @for($j = 1; $j <= 5; $j++) <i
-                                            class="fas fa-star text-{{ $j <= 4 ? 'yellow-400' : 'gray-600' }} text-sm mr-1">
+                                        @for($i = 1; $i <= 5; $i++) <i
+                                            class="fas fa-star text-{{ $i <= $comment->rating ? 'yellow-400' : 'gray-600' }} text-sm mr-1">
                                             </i>
                                             @endfor
                                     </div>
+                                    @endif
                                 </div>
                             </div>
-                            <p class="text-gray-300">"Adorei a experiência neste local! O atendimento foi excelente e as
-                                instalações são de primeira qualidade. Recomendo a todos!"</p>
-                            <div class="mt-3 text-sm text-gray-500">Publicado em 15/06/2023</div>
+                            <p class="text-gray-300">{{ $comment->content }}</p>
+                            <div class="mt-3 text-sm text-gray-500">
+                                Publicado em {{ $comment->created_at->format('d/m/Y') }}
+                            </div>
+                        </div>
+                        @empty
+                        <p class="text-gray-400 text-center py-8">Nenhum comentário ainda. Seja o primeiro a comentar!
+                        </p>
+                        @endforelse
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Barra Lateral -->
+            <div class="lg:col-span-1 space-y-6 hidden lg:block">
+
+                <!-- Cartão de Contato -->
+                <div class="bg-[#161B22] rounded-xl p-6">
+                    <h2 class="text-xl font-bold text-white mb-4">Contato</h2>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-blue-400 mr-3 w-5"></i>
+                            <span class="text-white">{{ $local->phone }}</span>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-400 mr-3 w-5"></i>
+                            <span
+                                class="text-white">{{ str_replace(' ', '', strtolower($local->contact_email)) }}.com</span>
+                        </div>
+
+                        <div class="flex items-center">
+                            <i class="fas fa-globe text-blue-400 mr-3 w-5"></i>
+                            <span class="text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
+                        </div>
+                    </div>
+
+                    @if($local->formatted_working_hours)
+                    <div class="flex items-start mt-4">
+                        <i class="fas fa-clock text-blue-400 mr-3 w-5 mt-1"></i>
+                        <div class="text-white">
+                            @foreach($local->formatted_working_hours as $hourInfo)
+                            <div>{{ $hourInfo }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
+                    <div class="mt-6 pt-6 border-t border-gray-700">
+                        <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($local->address) }}, {{ $local->neighborhood }}, {{ $local->city }}-{{ $local->state }}, {{ $local->cep }}"
+                            target="_blank"
+                            class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 px-4 rounded-lg font-medium transition">
+                            <i class="fas fa-map-marked-alt mr-2"></i> Ver no Mapa
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Locais Similares -->
+                <div class="bg-[#161B22] rounded-xl p-6">
+                    <h2 class="text-xl font-bold text-white mb-4">Locais Similares</h2>
+
+                    <div class="space-y-4">
+                        @for($i = 1; $i <= 3; $i++) <div class="flex items-center cursor-pointer group">
+                            <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                                <img src="https://placehold.co/100/161B22/3B82F6?text=Local+{{ $i }}"
+                                    alt="Local similar {{ $i }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition">
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-white group-hover:text-blue-400 transition">Local Similar
+                                    {{ $i }}</h3>
+                                <div class="flex items-center text-sm text-gray-400">
+                                    <i class="fas fa-map-marker-alt text-xs mr-1"></i>
+                                    <span>Luanda</span>
+                                </div>
+                            </div>
                     </div>
                     @endfor
                 </div>
-
-                <button
-                    class="w-full md:w-auto bg-transparent border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white py-2 px-6 rounded-lg transition">
-                    Carregar mais avaliações
-                </button>
             </div>
-
-        </div>
-
-        <!-- Barra Lateral -->
-        <div class="lg:col-span-1 space-y-6 hidden lg:block">
-
-            <!-- Cartão de Contato -->
-            <div class="bg-[#161B22] rounded-xl p-6">
-                <h2 class="text-xl font-bold text-white mb-4">Contato</h2>
-
-                <div class="space-y-4">
-                    <div class="flex items-center">
-                        <i class="fas fa-phone text-blue-400 mr-3 w-5"></i>
-                        <span class="text-white">{{ $local->phone }}</span>
-                    </div>
-
-                    <div class="flex items-center">
-                        <i class="fas fa-envelope text-blue-400 mr-3 w-5"></i>
-                        <span
-                            class="text-white">{{ str_replace(' ', '', strtolower($local->contact_email)) }}.com</span>
-                    </div>
-
-                    <div class="flex items-center">
-                        <i class="fas fa-globe text-blue-400 mr-3 w-5"></i>
-                        <span class="text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
-                    </div>
-                </div>
-
-                @if($local->formatted_working_hours)
-                <div class="flex items-start mt-4">
-                    <i class="fas fa-clock text-blue-400 mr-3 w-5 mt-1"></i>
-                    <div class="text-white">
-                        @foreach($local->formatted_working_hours as $hourInfo)
-                        <div>{{ $hourInfo }}</div>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
-
-                <div class="mt-6 pt-6 border-t border-gray-700">
-                    <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($local->address) }}, {{ $local->neighborhood }}, {{ $local->city }}-{{ $local->state }}, {{ $local->cep }}"
-                        target="_blank"
-                        class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 px-4 rounded-lg font-medium transition">
-                        <i class="fas fa-map-marked-alt mr-2"></i> Ver no Mapa
-                    </a>
-                </div>
-            </div>
-
-            <!-- Locais Similares -->
-            <div class="bg-[#161B22] rounded-xl p-6">
-                <h2 class="text-xl font-bold text-white mb-4">Locais Similares</h2>
-
-                <div class="space-y-4">
-                    @for($i = 1; $i <= 3; $i++) <div class="flex items-center cursor-pointer group">
-                        <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
-                            <img src="https://placehold.co/100/161B22/3B82F6?text=Local+{{ $i }}"
-                                alt="Local similar {{ $i }}"
-                                class="w-full h-full object-cover group-hover:scale-105 transition">
-                        </div>
-                        <div>
-                            <h3 class="font-medium text-white group-hover:text-blue-400 transition">Local Similar
-                                {{ $i }}</h3>
-                            <div class="flex items-center text-sm text-gray-400">
-                                <i class="fas fa-map-marker-alt text-xs mr-1"></i>
-                                <span>Luanda</span>
-                            </div>
-                        </div>
-                </div>
-                @endfor
-            </div>
-        </div>
         </div>
         </div>
 
@@ -292,7 +349,7 @@
 
         if (favoriteBtn) {
             favoriteBtn.addEventListener('click', async function() {
-                if (!{{ Auth::check() ? 'true' : 'false' }}) {
+                if (!{{Auth::check() ? 'true' : 'false'}}) {
                     window.location.href = '{{ route("login") }}';
                     return;
                 }
@@ -314,7 +371,8 @@
 
                         if (data.favorited) {
                             this.classList.add('bg-red-100', 'text-red-600');
-                            this.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                            this.classList.remove('bg-gray-700', 'text-gray-300',
+                                'hover:bg-gray-600');
                             heartIcon.classList.remove('far');
                             heartIcon.classList.add('fas');
                             favoriteText.textContent = 'Favoritado';
@@ -368,6 +426,26 @@
                 }, 2000);
             }
         }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Interatividade das estrelas
+        const stars = document.querySelectorAll('input[name="rating"]');
+        stars.forEach(star => {
+            star.addEventListener('change', function() {
+                const rating = this.value;
+                // Atualiza a visualização das estrelas
+                document.querySelectorAll('label[for^="rating"] i').forEach((icon, index) => {
+                    if (index < rating) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                    }
+                });
+            });
+        });
     });
     </script>
 </x-guest-layout>

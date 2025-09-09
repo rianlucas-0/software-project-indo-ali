@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
 Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/local/{local}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);

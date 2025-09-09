@@ -29,6 +29,7 @@ return new class extends Migration
             $table->json('working_hours')->nullable();
             $table->string('user_name');
             $table->integer('user_id');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
 });
     }

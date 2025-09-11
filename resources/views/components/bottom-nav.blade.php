@@ -5,7 +5,7 @@
         <span class="text-xs">Início</span>
     </a>
 
-    <a href="#" class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
+    <a href="{{ route('search.index') }}" class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
         <i class="fas fa-search text-lg mb-1"></i>
         <span class="text-xs">Buscar</span>
     </a>

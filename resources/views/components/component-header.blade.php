@@ -17,7 +17,7 @@
                 </li>
 
                 <li>
-                    <a href="#"
+                    <a href="{{ route('search.index') }}"
                         class="hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group">
                         <span class="group-hover:translate-x-0.5 transition-transform">Buscar</span>
                         <i class="fas fa-search text-sm opacity-70"></i>

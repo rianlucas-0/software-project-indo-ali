@@ -26,12 +26,12 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 - [X] Cadastrar  
 - [X] Visualizar histórico  
 - [ ] Múltiplos idiomas  
-- [ ] Sistema de busca  
+- [X] Sistema de busca  
 - [X] Favoritar  
 - [X] Comentar  
 - [ ] Recomendações personalizadas  
 - [X] Compartilhar local com amigos  
-- [ ] Filtros nas buscas  
+- [X] Filtros nas buscas  
 - [X] Mapa para visualizar os locais  
 
 ---

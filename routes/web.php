@@ -8,10 +8,17 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\PolicyController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
 Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
 Route::get('/dashboard', [UserController::class, 'home'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/cookie-policy', [PolicyController::class, 'cookies'])->name('policies.cookies');
+Route::get('/terms-of-use', [PolicyController::class, 'terms'])->name('policies.terms');
+Route::get('/Privacy Policy', [PolicyController::class, 'privacy'])->name('policies.privacy');
+Route::get('/consent-form', [PolicyController::class, 'consent'])->name('policies.consent');
+Route::get('/social/register', [SocialiteController::class, 'showRegistrationForm'])->name('social.register');
+Route::post('/social/register', [SocialiteController::class, 'register'])->name('social.register.submit');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
     Route::get('/dashboard',[UserController::class, 'index'])->name('admin.dashboard');
@@ -46,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 });
 
-Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);
-Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
 
 require __DIR__.'/auth.php';

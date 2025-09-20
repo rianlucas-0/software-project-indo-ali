@@ -51,13 +51,7 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <!-- Mudar para aceitar os termos -->
-        <div class="block mt-4 md:mt-6">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded focus:ring-0 focus:ring-offset-0" name="remember">
-                <span class="ms-2 text-sm text-gray-400 md:text-base">Eu concordo e aceito com os <span class="text-blue-500">termos de uso</span></span>
-            </label>
-        </div>
+        <x-terms-consent />
 
         <div class="mt-8 flex justify-center md:mt-10">
             <x-primary-button class="justify-center md:px-8 md:py-3 md:text-lg">

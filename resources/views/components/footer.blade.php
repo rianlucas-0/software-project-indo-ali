@@ -43,7 +43,7 @@
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
                             Quem somos?
                         </a></li>
-                    <li><a href="/terms" class="text-gray-400 hover:text-white transition flex items-center group">
+                    <li><a href="{{ route('policies.terms') }}" class="text-gray-400 hover:text-white transition flex items-center group">
                             <span
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
                             Termos de uso
@@ -53,23 +53,23 @@
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
                             Seja um parceiro
                         </a></li>
-                    <li class="md:hidden"><a href="/privacy"
+                    <li class="md:hidden"><a href="{{ route('policies.privacy') }}"
                             class="text-gray-400 hover:text-white transition flex items-center group">
                             <span
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
                             Política de Privacidade
                         </a></li>
-                    <li class="md:hidden"><a href="/cookies"
+                    <li class="md:hidden"><a href="{{ route('policies.cookies') }}"
                             class="text-gray-400 hover:text-white transition flex items-center group">
                             <span
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
                             Política de Cookies
                         </a></li>
-                    <li class="md:hidden"><a href="/sitemap"
+                    <li class="md:hidden"><a href="{{ route('policies.consent') }}"
                             class="text-gray-400 hover:text-white transition flex items-center group">
                             <span
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
-                            Mapa do Site
+                            Termo de Consentimento
                         </a></li>
                 </ul>
             </div>
@@ -101,10 +101,10 @@
                     &copy; 2025 Indo Ali. Todos os direitos reservados.
                 </p>
                 <div class="hidden md:flex gap-4 md:gap-6">
-                    <a href="/privacy" class="text-gray-400 hover:text-white text-sm transition">Política de
+                    <a href="{{ route('policies.privacy') }}" class="text-gray-400 hover:text-white text-sm transition">Política de
                         Privacidade</a>
-                    <a href="/cookies" class="text-gray-400 hover:text-white text-sm transition">Política de Cookies</a>
-                    <a href="/sitemap" class="text-gray-400 hover:text-white text-sm transition">Mapa do Site</a>
+                    <a href="{{ route('policies.cookies') }}" class="text-gray-400 hover:text-white text-sm transition">Política de Cookies</a>
+                    <a href="{{ route('policies.consent') }}" class="text-gray-400 hover:text-white text-sm transition">Termo de Consentimento</a>
                 </div>
             </div>
         </div>

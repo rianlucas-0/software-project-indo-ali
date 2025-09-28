@@ -12,7 +12,6 @@ use App\Http\Controllers\PolicyController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
 Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
-Route::get('/dashboard', [UserController::class, 'home'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/cookie-policy', [PolicyController::class, 'cookies'])->name('policies.cookies');
 Route::get('/terms-of-use', [PolicyController::class, 'terms'])->name('policies.terms');
 Route::get('/Privacy Policy', [PolicyController::class, 'privacy'])->name('policies.privacy');

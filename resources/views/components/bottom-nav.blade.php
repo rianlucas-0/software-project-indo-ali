@@ -5,13 +5,15 @@
         <span class="text-xs">Início</span>
     </a>
 
-    <a href="{{ route('search.index') }}" class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
+    <a href="{{ route('search.index') }}"
+        class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
         <i class="fas fa-search text-lg mb-1"></i>
         <span class="text-xs">Buscar</span>
     </a>
 
     @auth
-    <a href="{{ route('favorites.index') }}" class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
+    <a href="{{ route('favorites.index') }}"
+        class="flex flex-col items-center text-sm hover:text-blue-400 transition-colors px-2">
         <i class="fas fa-heart text-lg mb-1"></i>
         <span class="text-xs">Favoritos</span>
     </a>
@@ -36,10 +38,12 @@
                 <i class="fas fa-user-edit mr-2 text-blue-400"></i> Perfil
             </a>
 
-            <a href="{{ Auth::user()->user_type == 'admin' ? route('admin.dashboard') : route('dashboard') }}"
+            @if(Auth::user()->user_type === 'admin')
+            <a href="{{ route('admin.dashboard') }}"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
                 <i class="fas fa-tachometer-alt mr-2 text-blue-400"></i> Dashboard
             </a>
+            @endif
 
             <a href="{{ route('history') }}"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">

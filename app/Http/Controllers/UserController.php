@@ -28,30 +28,22 @@ class UserController extends Controller
     }
 
 
-    /**
-     * Redireciona usuário para o dashboard apropriado baseado no tipo de usuário
-     */
     public function index(Request $request): View|RedirectResponse
     {
-        $dashboardView = $this->userService->getUserDashboardType($request->user());
-        
-        if ($request->user()->user_type == 'admin') {
-            return view($dashboardView);
+        if ($request->user()->user_type === 'admin') {
+            return view('admin.dashboard');
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('home');
     }
 
-    /**
-     * Redireciona usuário para o dashboard apropriado baseado no tipo de usuário
-     */
     public function home(Request $request): View|RedirectResponse
     {
-        if ($request->user()->user_type == 'user') {
-            return view('dashboard');
+        if ($request->user()->user_type === 'admin') {
+            return view('admin.dashboard');
         }
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('home');
     }
 
     /**

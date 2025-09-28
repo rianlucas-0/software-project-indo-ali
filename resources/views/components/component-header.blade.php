@@ -49,10 +49,12 @@
                             <i class="fas fa-user-edit mr-2"></i> Perfil
                         </a>
 
-                        <a href="{{ Auth::user()->user_type == 'admin' ? route('admin.dashboard') : route('dashboard') }}"
+                        @if(Auth::user()->user_type === 'admin')
+                        <a href="{{ route('admin.dashboard') }}"
                             class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
                             <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                         </a>
+                        @endif
 
                         <a href="{{ route('history') }}"
                             class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">

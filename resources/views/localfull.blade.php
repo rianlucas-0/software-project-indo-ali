@@ -81,13 +81,43 @@
 
                 @php
                 $featuresMap = [
-                'wifi' => ['icon' => 'fas fa-wifi', 'label' => 'Wi-Fi grátis'],
-                'estacionamento' => ['icon' => 'fas fa-parking', 'label' => 'Estacionamento'],
                 'acessivel' => ['icon' => 'fas fa-wheelchair', 'label' => 'Acessível'],
+                'aquecimento' => ['icon' => 'fas fa-thermometer-full', 'label' => 'Aquecimento'],
                 'ar_condicionado' => ['icon' => 'fas fa-snowflake', 'label' => 'Ar Condicionado'],
-                'academia' => ['icon' => 'fas fa-dumbbell', 'label' => 'Academia'],
+                'banheiro' => ['icon' => 'fas fa-restroom', 'label' => 'Banheiro'],
+                'bar' => ['icon' => 'fas fa-glass-martini-alt', 'label' => 'Bar'],
+                'bebidas' => ['icon' => 'fas fa-wine-bottle', 'label' => 'Bebidas Alcoólicas'],
+                'cafe_especial' => ['icon' => 'fas fa-coffee', 'label' => 'Café Especial'],
+                'cafe_manha' => ['icon' => 'fas fa-bacon', 'label' => 'Café da Manhã'],
+                'cais_embarcacoes' => ['icon' => 'fas fa-ship', 'label' => 'Cais para Embarcações'],
+                'camping' => ['icon' => 'fas fa-campground', 'label' => 'Camping'],
+                'cardapio_infantil' => ['icon' => 'fas fa-child', 'label' => 'Cardápio Infantil'],
+                'cartao_credito' => ['icon' => 'fas fa-credit-card', 'label' => 'Aceita Cartão'],
+                'cobertura' => ['icon' => 'fas fa-building', 'label' => 'Rooftop'],
+                'delivery' => ['icon' => 'fas fa-motorcycle', 'label' => 'Delivery'],
+                'esportes' => ['icon' => 'fas fa-basketball-ball', 'label' => 'Área de Esportes'],
+                'estacionamento' => ['icon' => 'fas fa-parking', 'label' => 'Estacionamento'],
+                'estacionamento_valet' => ['icon' => 'fas fa-car', 'label' => 'Estacionamento Valet'],
+                'familia' => ['icon' => 'fas fa-users', 'label' => 'Ambiente Familiar'],
+                'fraldario' => ['icon' => 'fas fa-baby', 'label' => 'Fraldário'],
+                'fumodromo' => ['icon' => 'fas fa-smoking', 'label' => 'Área para Fumantes'],
+                'jardim' => ['icon' => 'fas fa-leaf', 'label' => 'Jardim'],
+                'jogos' => ['icon' => 'fas fa-gamepad', 'label' => 'Jogos/Entretenimento'],
+                'ambiente_romantico' => ['icon' => 'fas fa-heart', 'label' => 'Ambiente Romântico'],
+                'musica_ao_vivo' => ['icon' => 'fas fa-music', 'label' => 'Música ao Vivo'],
+                'opcoes_veganas' => ['icon' => 'fas fa-seedling', 'label' => 'Opções Veganas'],
+                'opcoes_vegetarianas' => ['icon' => 'fas fa-carrot', 'label' => 'Opções Vegetarianas'],
+                'pet_friendly' => ['icon' => 'fas fa-paw', 'label' => 'Pet Friendly'],
                 'piscina' => ['icon' => 'fas fa-swimming-pool', 'label' => 'Piscina'],
-                'restaurante' => ['icon' => 'fas fa-utensils', 'label' => 'Restaurante'],
+                'playground' => ['icon' => 'fas fa-slide', 'label' => 'Área de Playground'],
+                'reserva' => ['icon' => 'fas fa-calendar-check', 'label' => 'Aceita Reservas'],
+                'self_service' => ['icon' => 'fas fa-utensils', 'label' => 'Self Service'],
+                'sem_gluten' => ['icon' => 'fas fa-bread-slice', 'label' => 'Opções Sem Glúten'],
+                'terraco' => ['icon' => 'fas fa-umbrella-beach', 'label' => 'Terraço'],
+                'tomadas' => ['icon' => 'fas fa-plug', 'label' => 'Tomadas para Carregar'],
+                'tv' => ['icon' => 'fas fa-tv', 'label' => 'TV'],
+                'vista_panoramica' => ['icon' => 'fas fa-mountain', 'label' => 'Vista Panorâmica'],
+                'wifi' => ['icon' => 'fas fa-wifi', 'label' => 'Wi-Fi grátis'],
                 ];
                 @endphp
 
@@ -282,7 +312,8 @@
 
                         <div class="flex items-center">
                             <i class="fas fa-globe text-blue-400 mr-3 w-5"></i>
-                            <span class="text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
+                            <span
+                                class="text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
                         </div>
                     </div>
 

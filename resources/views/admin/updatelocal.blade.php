@@ -44,14 +44,133 @@
                                 <x-input-label for="category" :value="__('Categoria')" class="text-gray-300" />
                                 <select name="category" id="category"
                                     class="w-full bg-[#0D1117] border-gray-700 text-white rounded-md focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="restaurante"
-                                        {{ $local->category == 'restaurante' ? 'selected' : '' }}>Restaurante</option>
+                                    <option value="academia" {{ $local->category == 'academia' ? 'selected' : '' }}>
+                                        Academia</option>
                                     <option value="bar" {{ $local->category == 'bar' ? 'selected' : '' }}>Bar</option>
+                                    <option value="biblioteca" {{ $local->category == 'biblioteca' ? 'selected' : '' }}>
+                                        Biblioteca</option>
+                                    <option value="boliche" {{ $local->category == 'boliche' ? 'selected' : '' }}>
+                                        Boliche</option>
+                                    <option value="boate" {{ $local->category == 'boate' ? 'selected' : '' }}>Boate
+                                    </option>
+                                    <option value="cachoeira" {{ $local->category == 'cachoeira' ? 'selected' : '' }}>
+                                        Cachoeira</option>
                                     <option value="cafe" {{ $local->category == 'cafe' ? 'selected' : '' }}>Café
                                     </option>
+                                    <option value="casa_shows" {{ $local->category == 'casa_shows' ? 'selected' : '' }}>
+                                        Casa de Shows</option>
+                                    <option value="centro_cultural"
+                                        {{ $local->category == 'centro_cultural' ? 'selected' : '' }}>Centro Cultural
+                                    </option>
+                                    <option value="centro_historico"
+                                        {{ $local->category == 'centro_historico' ? 'selected' : '' }}>Centro Histórico
+                                    </option>
+                                    <option value="cinema" {{ $local->category == 'cinema' ? 'selected' : '' }}>Cinema
+                                    </option>
+                                    <option value="clube_social"
+                                        {{ $local->category == 'clube_social' ? 'selected' : '' }}>Clube Social</option>
+                                    <option value="comida_asiatica"
+                                        {{ $local->category == 'comida_asiatica' ? 'selected' : '' }}>Comida Asiática
+                                    </option>
+                                    <option value="comida_tipica"
+                                        {{ $local->category == 'comida_tipica' ? 'selected' : '' }}>Comida Típica
+                                    </option>
+                                    <option value="comida_vegetariana"
+                                        {{ $local->category == 'comida_vegetariana' ? 'selected' : '' }}>Comida
+                                        Vegetariana</option>
+                                    <option value="escape_room"
+                                        {{ $local->category == 'escape_room' ? 'selected' : '' }}>Escape Room</option>
+                                    <option value="escola" {{ $local->category == 'escola' ? 'selected' : '' }}>Escola
+                                    </option>
+                                    <option value="estadio" {{ $local->category == 'estadio' ? 'selected' : '' }}>
+                                        Estádio</option>
+                                    <option value="feira_livre"
+                                        {{ $local->category == 'feira_livre' ? 'selected' : '' }}>Feira Livre</option>
+                                    <option value="galeria_arte"
+                                        {{ $local->category == 'galeria_arte' ? 'selected' : '' }}>Galeria de Arte
+                                    </option>
+                                    <option value="hamburgueria"
+                                        {{ $local->category == 'hamburgueria' ? 'selected' : '' }}>Hamburgueria</option>
                                     <option value="hotel" {{ $local->category == 'hotel' ? 'selected' : '' }}>Hotel
                                     </option>
+                                    <option value="igreja_historica"
+                                        {{ $local->category == 'igreja_historica' ? 'selected' : '' }}>Igreja Histórica
+                                    </option>
+                                    <option value="jardim_botanico"
+                                        {{ $local->category == 'jardim_botanico' ? 'selected' : '' }}>Jardim Botânico
+                                    </option>
+                                    <option value="karaoke" {{ $local->category == 'karaoke' ? 'selected' : '' }}>
+                                        Karaokê</option>
+                                    <option value="kart" {{ $local->category == 'kart' ? 'selected' : '' }}>Kart
+                                    </option>
                                     <option value="loja" {{ $local->category == 'loja' ? 'selected' : '' }}>Loja
+                                    </option>
+                                    <option value="loja_artesanato"
+                                        {{ $local->category == 'loja_artesanato' ? 'selected' : '' }}>Loja de Artesanato
+                                    </option>
+                                    <option value="massagem" {{ $local->category == 'massagem' ? 'selected' : '' }}>
+                                        Massagem</option>
+                                    <option value="mirante" {{ $local->category == 'mirante' ? 'selected' : '' }}>
+                                        Mirante</option>
+                                    <option value="monumento" {{ $local->category == 'monumento' ? 'selected' : '' }}>
+                                        Monumento</option>
+                                    <option value="museu" {{ $local->category == 'museu' ? 'selected' : '' }}>Museu
+                                    </option>
+                                    <option value="padaria" {{ $local->category == 'padaria' ? 'selected' : '' }}>
+                                        Padaria</option>
+                                    <option value="parque" {{ $local->category == 'parque' ? 'selected' : '' }}>Parque
+                                    </option>
+                                    <option value="parque_ambiental"
+                                        {{ $local->category == 'parque_ambiental' ? 'selected' : '' }}>Parque Ambiental
+                                    </option>
+                                    <option value="parque_aquatico"
+                                        {{ $local->category == 'parque_aquatico' ? 'selected' : '' }}>Parque Aquático
+                                    </option>
+                                    <option value="parque_diversoes"
+                                        {{ $local->category == 'parque_diversoes' ? 'selected' : '' }}>Parque de
+                                        Diversões</option>
+                                    <option value="pet_shop" {{ $local->category == 'pet_shop' ? 'selected' : '' }}>Pet
+                                        Shop</option>
+                                    <option value="pizzaria" {{ $local->category == 'pizzaria' ? 'selected' : '' }}>
+                                        Pizzaria</option>
+                                    <option value="ponto_turistico"
+                                        {{ $local->category == 'ponto_turistico' ? 'selected' : '' }}>Ponto Turístico
+                                    </option>
+                                    <option value="pousada" {{ $local->category == 'pousada' ? 'selected' : '' }}>
+                                        Pousada</option>
+                                    <option value="praca_esportes"
+                                        {{ $local->category == 'praca_esportes' ? 'selected' : '' }}>Praça de Esportes
+                                    </option>
+                                    <option value="praia" {{ $local->category == 'praia' ? 'selected' : '' }}>Praia
+                                    </option>
+                                    <option value="quadra_esportes"
+                                        {{ $local->category == 'quadra_esportes' ? 'selected' : '' }}>Quadra de Esportes
+                                    </option>
+                                    <option value="resort" {{ $local->category == 'resort' ? 'selected' : '' }}>Resort
+                                    </option>
+                                    <option value="restaurante"
+                                        {{ $local->category == 'restaurante' ? 'selected' : '' }}>Restaurante</option>
+                                    <option value="rua_famosa" {{ $local->category == 'rua_famosa' ? 'selected' : '' }}>
+                                        Rua Famosa</option>
+                                    <option value="shopping" {{ $local->category == 'shopping' ? 'selected' : '' }}>
+                                        Shopping</option>
+                                    <option value="sitio_arqueologico"
+                                        {{ $local->category == 'sitio_arqueologico' ? 'selected' : '' }}>Sítio
+                                        Arqueológico</option>
+                                    <option value="sorveteria" {{ $local->category == 'sorveteria' ? 'selected' : '' }}>
+                                        Sorveteria</option>
+                                    <option value="spa" {{ $local->category == 'spa' ? 'selected' : '' }}>Spa</option>
+                                    <option value="teatro" {{ $local->category == 'teatro' ? 'selected' : '' }}>Teatro
+                                    </option>
+                                    <option value="trilha" {{ $local->category == 'trilha' ? 'selected' : '' }}>Trilha
+                                    </option>
+                                    <option value="universidade"
+                                        {{ $local->category == 'universidade' ? 'selected' : '' }}>Universidade</option>
+                                    <option value="vista_panoramica"
+                                        {{ $local->category == 'vista_panoramica' ? 'selected' : '' }}>Vista Panorâmica
+                                    </option>
+                                    <option value="zoo_aquario"
+                                        {{ $local->category == 'zoo_aquario' ? 'selected' : '' }}>Zoológico/Aquário
                                     </option>
                                     <option value="outro" {{ $local->category == 'outro' ? 'selected' : '' }}>Outro
                                     </option>
@@ -146,7 +265,40 @@
                                     <option value="">Selecione</option>
                                     <option value="AC" {{ $local->state == 'AC' ? 'selected' : '' }}>Acre</option>
                                     <option value="AL" {{ $local->state == 'AL' ? 'selected' : '' }}>Alagoas</option>
-                                    <!-- Colocar todos os Estados depois -->
+                                    <option value="AP" {{ $local->state == 'AP' ? 'selected' : '' }}>Amapá</option>
+                                    <option value="AM" {{ $local->state == 'AM' ? 'selected' : '' }}>Amazonas</option>
+                                    <option value="BA" {{ $local->state == 'BA' ? 'selected' : '' }}>Bahia</option>
+                                    <option value="CE" {{ $local->state == 'CE' ? 'selected' : '' }}>Ceará</option>
+                                    <option value="DF" {{ $local->state == 'DF' ? 'selected' : '' }}>Distrito Federal
+                                    </option>
+                                    <option value="ES" {{ $local->state == 'ES' ? 'selected' : '' }}>Espírito Santo
+                                    </option>
+                                    <option value="GO" {{ $local->state == 'GO' ? 'selected' : '' }}>Goiás</option>
+                                    <option value="MA" {{ $local->state == 'MA' ? 'selected' : '' }}>Maranhão</option>
+                                    <option value="MT" {{ $local->state == 'MT' ? 'selected' : '' }}>Mato Grosso
+                                    </option>
+                                    <option value="MS" {{ $local->state == 'MS' ? 'selected' : '' }}>Mato Grosso do Sul
+                                    </option>
+                                    <option value="MG" {{ $local->state == 'MG' ? 'selected' : '' }}>Minas Gerais
+                                    </option>
+                                    <option value="PA" {{ $local->state == 'PA' ? 'selected' : '' }}>Pará</option>
+                                    <option value="PB" {{ $local->state == 'PB' ? 'selected' : '' }}>Paraíba</option>
+                                    <option value="PR" {{ $local->state == 'PR' ? 'selected' : '' }}>Paraná</option>
+                                    <option value="PE" {{ $local->state == 'PE' ? 'selected' : '' }}>Pernambuco</option>
+                                    <option value="PI" {{ $local->state == 'PI' ? 'selected' : '' }}>Piauí</option>
+                                    <option value="RJ" {{ $local->state == 'RJ' ? 'selected' : '' }}>Rio de Janeiro
+                                    </option>
+                                    <option value="RN" {{ $local->state == 'RN' ? 'selected' : '' }}>Rio Grande do Norte
+                                    </option>
+                                    <option value="RS" {{ $local->state == 'RS' ? 'selected' : '' }}>Rio Grande do Sul
+                                    </option>
+                                    <option value="RO" {{ $local->state == 'RO' ? 'selected' : '' }}>Rondônia</option>
+                                    <option value="RR" {{ $local->state == 'RR' ? 'selected' : '' }}>Roraima</option>
+                                    <option value="SC" {{ $local->state == 'SC' ? 'selected' : '' }}>Santa Catarina
+                                    </option>
+                                    <option value="SP" {{ $local->state == 'SP' ? 'selected' : '' }}>São Paulo</option>
+                                    <option value="SE" {{ $local->state == 'SE' ? 'selected' : '' }}>Sergipe</option>
+                                    <option value="TO" {{ $local->state == 'TO' ? 'selected' : '' }}>Tocantins</option>
                                 </select>
                             </div>
                         </div>
@@ -206,10 +358,43 @@
                                 class="absolute z-10 mt-1 w-full bg-[#161B22] border border-gray-700 rounded-md shadow-lg py-1 max-h-60 overflow-auto">
                                 <div class="space-y-2 p-2">
                                     @foreach([
-                                    'wifi' => 'Wi-Fi',
-                                    'estacionamento' => 'Estacionamento',
                                     'acessivel' => 'Acessível',
-                                    'ar_condicionado' => 'Ar Condicionado'
+                                    'cartao_credito' => 'Aceita Cartão',
+                                    'reserva' => 'Aceita Reservas',
+                                    'ar_condicionado' => 'Ar Condicionado',
+                                    'aquecimento' => 'Aquecimento',
+                                    'fumodromo' => 'Área para Fumantes',
+                                    'playground' => 'Área de Playground',
+                                    'esportes' => 'Área de Esportes',
+                                    'familia' => 'Ambiente Familiar',
+                                    'ambiente_romantico' => 'Ambiente Romântico',
+                                    'banheiro' => 'Banheiro',
+                                    'bar' => 'Bar',
+                                    'bebidas' => 'Bebidas Alcoólicas',
+                                    'cafe_manha' => 'Café da Manhã',
+                                    'cafe_especial' => 'Café Especial',
+                                    'camping' => 'Camping',
+                                    'cardapio_infantil' => 'Cardápio Infantil',
+                                    'cais_embarcacoes' => 'Cais para Embarcações',
+                                    'tomadas' => 'Tomadas para Carregar',
+                                    'delivery' => 'Delivery',
+                                    'estacionamento' => 'Estacionamento',
+                                    'estacionamento_valet' => 'Estacionamento Valet',
+                                    'fraldario' => 'Fraldário',
+                                    'jogos' => 'Jogos/Entretenimento',
+                                    'jardim' => 'Jardim',
+                                    'musica_ao_vivo' => 'Música ao Vivo',
+                                    'sem_gluten' => 'Opções Sem Glúten',
+                                    'opcoes_veganas' => 'Opções Veganas',
+                                    'opcoes_vegetarianas' => 'Opções Vegetarianas',
+                                    'pet_friendly' => 'Pet Friendly',
+                                    'piscina' => 'Piscina',
+                                    'cobertura' => 'Rooftop',
+                                    'self_service' => 'Self Service',
+                                    'terraco' => 'Terraço',
+                                    'tv' => 'TV',
+                                    'vista_panoramica' => 'Vista Panorâmica',
+                                    'wifi' => 'Wi-Fi'
                                     ] as $value => $label)
                                     <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
                                         <input type="checkbox" id="feature_{{ $value }}" name="features[]"
@@ -227,10 +412,43 @@
                             @foreach($features as $feature)
                             @php
                             $featureLabels = [
-                            'wifi' => 'Wi-Fi',
-                            'estacionamento' => 'Estacionamento',
                             'acessivel' => 'Acessível',
-                            'ar_condicionado' => 'Ar Condicionado'
+                            'cartao_credito' => 'Aceita Cartão',
+                            'reserva' => 'Aceita Reservas',
+                            'ar_condicionado' => 'Ar Condicionado',
+                            'aquecimento' => 'Aquecimento',
+                            'fumodromo' => 'Área para Fumantes',
+                            'playground' => 'Área de Playground',
+                            'esportes' => 'Área de Esportes',
+                            'familia' => 'Ambiente Familiar',
+                            'ambiente_romantico' => 'Ambiente Romântico',
+                            'banheiro' => 'Banheiro',
+                            'bar' => 'Bar',
+                            'bebidas' => 'Bebidas Alcoólicas',
+                            'cafe_manha' => 'Café da Manhã',
+                            'cafe_especial' => 'Café Especial',
+                            'camping' => 'Camping',
+                            'cardapio_infantil' => 'Cardápio Infantil',
+                            'cais_embarcacoes' => 'Cais para Embarcações',
+                            'tomadas' => 'Tomadas para Carregar',
+                            'delivery' => 'Delivery',
+                            'estacionamento' => 'Estacionamento',
+                            'estacionamento_valet' => 'Estacionamento Valet',
+                            'fraldario' => 'Fraldário',
+                            'jogos' => 'Jogos/Entretenimento',
+                            'jardim' => 'Jardim',
+                            'musica_ao_vivo' => 'Música ao Vivo',
+                            'sem_gluten' => 'Opções Sem Glúten',
+                            'opcoes_veganas' => 'Opções Veganas',
+                            'opcoes_vegetarianas' => 'Opções Vegetarianas',
+                            'pet_friendly' => 'Pet Friendly',
+                            'piscina' => 'Piscina',
+                            'cobertura' => 'Rooftop',
+                            'self_service' => 'Self Service',
+                            'terraco' => 'Terraço',
+                            'tv' => 'TV',
+                            'vista_panoramica' => 'Vista Panorâmica',
+                            'wifi' => 'Wi-Fi'
                             ];
                             $label = $featureLabels[$feature] ?? $feature;
                             @endphp

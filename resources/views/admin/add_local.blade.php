@@ -43,11 +43,61 @@
                                 <x-input-label for="category" :value="__('Categoria')" class="text-gray-300" />
                                 <select name="category" id="category"
                                     class="w-full bg-[#0D1117] border-gray-700 text-white rounded-md focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="restaurante">Restaurante</option>
+                                    <option value="academia">Academia</option>
                                     <option value="bar">Bar</option>
+                                    <option value="biblioteca">Biblioteca</option>
+                                    <option value="boliche">Boliche</option>
+                                    <option value="boate">Boate</option>
+                                    <option value="cachoeira">Cachoeira</option>
                                     <option value="cafe">Café</option>
+                                    <option value="casa_shows">Casa de Shows</option>
+                                    <option value="centro_cultural">Centro Cultural</option>
+                                    <option value="centro_historico">Centro Histórico</option>
+                                    <option value="cinema">Cinema</option>
+                                    <option value="clube_social">Clube Social</option>
+                                    <option value="comida_asiatica">Comida Asiática</option>
+                                    <option value="comida_tipica">Comida Típica</option>
+                                    <option value="comida_vegetariana">Comida Vegetariana</option>
+                                    <option value="escape_room">Escape Room</option>
+                                    <option value="escola">Escola</option>
+                                    <option value="estadio">Estádio</option>
+                                    <option value="feira_livre">Feira Livre</option>
+                                    <option value="galeria_arte">Galeria de Arte</option>
+                                    <option value="hamburgueria">Hamburgueria</option>
                                     <option value="hotel">Hotel</option>
+                                    <option value="igreja_historica">Igreja Histórica</option>
+                                    <option value="jardim_botanico">Jardim Botânico</option>
+                                    <option value="karaoke">Karaokê</option>
+                                    <option value="kart">Kart</option>
                                     <option value="loja">Loja</option>
+                                    <option value="loja_artesanato">Loja de Artesanato</option>
+                                    <option value="massagem">Massagem</option>
+                                    <option value="mirante">Mirante</option>
+                                    <option value="monumento">Monumento</option>
+                                    <option value="museu">Museu</option>
+                                    <option value="padaria">Padaria</option>
+                                    <option value="parque">Parque</option>
+                                    <option value="parque_ambiental">Parque Ambiental</option>
+                                    <option value="parque_aquatico">Parque Aquático</option>
+                                    <option value="parque_diversoes">Parque de Diversões</option>
+                                    <option value="pet_shop">Pet Shop</option>
+                                    <option value="pizzaria">Pizzaria</option>
+                                    <option value="ponto_turistico">Ponto Turístico</option>
+                                    <option value="pousada">Pousada</option>
+                                    <option value="praca_esportes">Praça de Esportes</option>
+                                    <option value="praia">Praia</option>
+                                    <option value="quadra_esportes">Quadra de Esportes</option>
+                                    <option value="resort">Resort</option>
+                                    <option value="restaurante">Restaurante</option>
+                                    <option value="rua_famosa">Rua Famosa</option>
+                                    <option value="shopping">Shopping</option>
+                                    <option value="sitio_arqueologico">Sítio Arqueológico</option>
+                                    <option value="sorveteria">Sorveteria</option>
+                                    <option value="spa">Spa</option>
+                                    <option value="teatro">Teatro</option>
+                                    <option value="trilha">Trilha</option>
+                                    <option value="universidade">Universidade</option>
+                                    <option value="zoo_aquario">Zoológico/Aquário</option>
                                     <option value="outro">Outro</option>
                                 </select>
                             </div>
@@ -119,7 +169,31 @@
                                     <option value="">Selecione</option>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
-                                    <!-- Adicionar o restante dos Estados aqui também -->
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
                                 </select>
                             </div>
                         </div>
@@ -165,9 +239,213 @@
                                 class="absolute z-10 mt-1 w-full bg-[#161B22] border border-gray-700 rounded-md shadow-lg py-1 max-h-60 overflow-auto">
                                 <div class="space-y-2 p-2">
                                     <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
-                                        <input type="checkbox" id="feature_wifi" name="features[]" value="wifi"
+                                        <input type="checkbox" id="feature_accessible" name="features[]"
+                                            value="acessivel"
                                             class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
-                                        <label for="feature_wifi" class="ml-2 text-sm text-gray-300">Wi-Fi</label>
+                                        <label for="feature_accessible"
+                                            class="ml-2 text-sm text-gray-300">Acessível</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_credit_card" name="features[]"
+                                            value="cartao_credito"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_credit_card" class="ml-2 text-sm text-gray-300">Aceita
+                                            Cartão</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_reservation" name="features[]"
+                                            value="reserva"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_reservation" class="ml-2 text-sm text-gray-300">Aceita
+                                            Reservas</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_air_conditioning" name="features[]"
+                                            value="ar_condicionado"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_air_conditioning" class="ml-2 text-sm text-gray-300">Ar
+                                            Condicionado</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_heating" name="features[]"
+                                            value="aquecimento"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_heating"
+                                            class="ml-2 text-sm text-gray-300">Aquecimento</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_smoking_area" name="features[]"
+                                            value="fumodromo"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_smoking_area" class="ml-2 text-sm text-gray-300">Área para
+                                            Fumantes</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_playground" name="features[]"
+                                            value="playground"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_playground" class="ml-2 text-sm text-gray-300">Área de
+                                            Playground</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_family" name="features[]" value="familia"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_family" class="ml-2 text-sm text-gray-300">Ambiente
+                                            Familiar</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_romantic" name="features[]"
+                                            value="ambiente_romantico"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_romantic" class="ml-2 text-sm text-gray-300">Ambiente
+                                            Romântico</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_restroom" name="features[]" value="banheiro"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_restroom"
+                                            class="ml-2 text-sm text-gray-300">Banheiro</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_bar" name="features[]" value="bar"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_bar" class="ml-2 text-sm text-gray-300">Bar</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_boat_dock" name="features[]"
+                                            value="cais_embarcacoes"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_boat_dock" class="ml-2 text-sm text-gray-300">Cais para
+                                            Embarcações</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_charging" name="features[]" value="tomadas"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_charging" class="ml-2 text-sm text-gray-300">Tomadas para
+                                            Carregar</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_delivery" name="features[]" value="delivery"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_delivery"
+                                            class="ml-2 text-sm text-gray-300">Delivery</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_drinks" name="features[]" value="bebidas"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_drinks" class="ml-2 text-sm text-gray-300">Bebidas
+                                            Alcoólicas</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_breakfast" name="features[]"
+                                            value="cafe_manha"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_breakfast" class="ml-2 text-sm text-gray-300">Café da
+                                            Manhã</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_coffee" name="features[]"
+                                            value="cafe_especial"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_coffee" class="ml-2 text-sm text-gray-300">Café
+                                            Especial</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_camping" name="features[]" value="camping"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_camping" class="ml-2 text-sm text-gray-300">Camping</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_kids_menu" name="features[]"
+                                            value="cardapio_infantil"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_kids_menu" class="ml-2 text-sm text-gray-300">Cardápio
+                                            Infantil</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_pool" name="features[]" value="piscina"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_pool" class="ml-2 text-sm text-gray-300">Piscina</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_changing_table" name="features[]"
+                                            value="fraldario"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_changing_table"
+                                            class="ml-2 text-sm text-gray-300">Fraldário</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_games" name="features[]" value="jogos"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_games"
+                                            class="ml-2 text-sm text-gray-300">Jogos/Entretenimento</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_garden" name="features[]" value="jardim"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_garden" class="ml-2 text-sm text-gray-300">Jardim</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_live_music" name="features[]"
+                                            value="musica_ao_vivo"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_live_music" class="ml-2 text-sm text-gray-300">Música ao
+                                            Vivo</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_gluten_free" name="features[]"
+                                            value="sem_gluten"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_gluten_free" class="ml-2 text-sm text-gray-300">Opções Sem
+                                            Glúten</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_vegan" name="features[]"
+                                            value="opcoes_veganas"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_vegan" class="ml-2 text-sm text-gray-300">Opções
+                                            Veganas</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_vegetarian" name="features[]"
+                                            value="opcoes_vegetarianas"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_vegetarian" class="ml-2 text-sm text-gray-300">Opções
+                                            Vegetarianas</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_pet_friendly" name="features[]"
+                                            value="pet_friendly"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_pet_friendly" class="ml-2 text-sm text-gray-300">Pet
+                                            Friendly</label>
                                     </div>
 
                                     <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
@@ -179,19 +457,58 @@
                                     </div>
 
                                     <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
-                                        <input type="checkbox" id="feature_accessible" name="features[]"
-                                            value="acessivel"
+                                        <input type="checkbox" id="feature_valet" name="features[]"
+                                            value="estacionamento_valet"
                                             class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
-                                        <label for="feature_accessible"
-                                            class="ml-2 text-sm text-gray-300">Acessível</label>
+                                        <label for="feature_valet" class="ml-2 text-sm text-gray-300">Estacionamento
+                                            Valet</label>
                                     </div>
 
                                     <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
-                                        <input type="checkbox" id="feature_air_conditioning" name="features[]"
-                                            value="ar_condicionado"
+                                        <input type="checkbox" id="feature_rooftop" name="features[]" value="cobertura"
                                             class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
-                                        <label for="feature_air_conditioning" class="ml-2 text-sm text-gray-300">Ar
-                                            Condicionado</label>
+                                        <label for="feature_rooftop" class="ml-2 text-sm text-gray-300">Rooftop</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_self_service" name="features[]"
+                                            value="self_service"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_self_service" class="ml-2 text-sm text-gray-300">Self
+                                            Service</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_sports" name="features[]" value="esportes"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_sports" class="ml-2 text-sm text-gray-300">Área de
+                                            Esportes</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_terrace" name="features[]" value="terraco"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_terrace" class="ml-2 text-sm text-gray-300">Terraço</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_tv" name="features[]" value="tv"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_tv" class="ml-2 text-sm text-gray-300">TV</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_view" name="features[]"
+                                            value="vista_panoramica"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_view" class="ml-2 text-sm text-gray-300">Vista
+                                            Panorâmica</label>
+                                    </div>
+
+                                    <div class="flex items-center p-2 hover:bg-[#1E2229] rounded">
+                                        <input type="checkbox" id="feature_wifi" name="features[]" value="wifi"
+                                            class="rounded border-gray-600 text-blue-500 focus:ring-blue-500 h-4 w-4">
+                                        <label for="feature_wifi" class="ml-2 text-sm text-gray-300">Wi-Fi</label>
                                     </div>
                                 </div>
                             </div>

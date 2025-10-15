@@ -48,7 +48,7 @@
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
                             Termos de uso
                         </a></li>
-                    <li><a href="/partners" class="text-gray-400 hover:text-white transition flex items-center group">
+                    <li><a href="{{ route('become-partner') }}" class="text-gray-400 hover:text-white transition flex items-center group">
                             <span
                                 class="w-1 h-1 bg-gray-500 rounded-full mr-2 group-hover:bg-indigo-500 transition"></span>
                             Seja um parceiro

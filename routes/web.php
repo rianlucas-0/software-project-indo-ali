@@ -9,6 +9,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\PartnershipController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
 Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
@@ -50,6 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
     Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+
+    Route::get('/seja-parceiro', [PartnershipController::class, 'create'])->name('become-partner');
+    Route::post('/seja-parceiro', [PartnershipController::class, 'store'])->name('request-partnership');
 });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');

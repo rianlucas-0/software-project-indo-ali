@@ -1,14 +1,34 @@
 <x-guest-layout>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    </head>
     <div class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <div class="swiper w-full rounded-2xl overflow-hidden shadow-lg">
+                <div class="swiper-wrapper">
+                    @foreach($local->take(5) as $carousel)
+                    <div class="swiper-slide relative">
+                        <img src="img/{{ $carousel->firstImage }}" alt="{{ $carousel->title }}" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col justify-end p-6">
+                            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">{{ $carousel->title }}</h2>
+                            <p class="text-lg text-blue-200 mb-2">{{ $carousel->city }} - {{ $carousel->state }}</p>
+                            <span class="text-white text-base font-medium">{{ ['Explore lugares únicos!', 'Descubra experiências novas!', 'Encontre seu próximo destino!', 'Viva momentos inesquecíveis!', 'Conheça o melhor da sua cidade!'][$loop->index % 5] }}</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
 
         <x-search-bar></x-search-bar>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
             <!-- All Cards -->
             @foreach ($local as $locations)
-            <div
-                class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative group border border-gray-700">
+            <a href="{{ route('localfull', $locations->id) }}"
+                class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative group border border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 md:hover:-translate-y-1">
                 <!-- Botão de Favorito -->
-                <button class="favorite-btn absolute top-3 right-3 z-10" data-location-id="{{ $locations->id }}">
+                <button class="favorite-btn absolute top-3 right-3 z-10" data-location-id="{{ $locations->id }}" tabindex="-1">
                     <div
                         class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center 
                                 hover:bg-[#1E2229] transition-all shadow-md group-hover:scale-110 border border-gray-700">
@@ -19,7 +39,7 @@
                 <!-- Imagem -->
                 <div class="aspect-square overflow-hidden">
                     <img src="img/{{ $locations->firstImage }}" alt="{{ $locations->title }}"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        class="w-full h-full object-cover transition duration-500 md:group-hover:scale-110">
                 </div>
 
                 <!-- Conteúdo -->
@@ -48,23 +68,28 @@
                             @for ($i = 0; $i < $emptyStars; $i++) <i class="far fa-star"></i>
                                 @endfor
                     </div>
-
-                    <!-- Link -->
-                    <a href="{{ route('localfull', $locations->id) }}"
-                        class="text-blue-400 text-sm font-semibold hover:text-blue-300 transition mt-auto inline-flex items-center">
-                        Ver detalhes
-                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new Swiper('.swiper', {
+            loop: true,
+            autoplay: { delay: 3500, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            slidesPerView: 1,
+            spaceBetween: 0,
+            breakpoints: {
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 1 },
+                1024: { slidesPerView: 1 }
+            }
+        });
+    });
     document.addEventListener('DOMContentLoaded', function() {
         const baseUrl = '{{ url("/") }}';
         const isAuthenticated = {{ Auth::check() ? 'true' : 'false' }};

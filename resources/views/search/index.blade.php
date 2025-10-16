@@ -8,10 +8,10 @@
         @if($locals->count())
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
             @foreach($locals as $local)
-            <div
-                class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative group border border-gray-700">
+            <a href="{{ route('localfull', $local->id) }}"
+                class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative group border border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 md:hover:-translate-y-1">
                 <!-- Botão de favorito -->
-                <button class="favorite-btn absolute top-3 right-3 z-10" data-location-id="{{ $local->id }}">
+                <button class="favorite-btn absolute top-3 right-3 z-10" data-location-id="{{ $local->id }}" tabindex="-1">
                     <div
                         class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center hover:bg-[#1E2229] transition-all shadow-md group-hover:scale-110 border border-gray-700">
                         <i class="far fa-heart text-gray-400 text-sm"></i>
@@ -21,7 +21,7 @@
                 <!-- Imagem -->
                 <div class="aspect-square overflow-hidden">
                     <img src="img/{{ $local->firstImage }}" alt="{{ $local->title }}"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        class="w-full h-full object-cover transition duration-500 md:group-hover:scale-110">
                 </div>
 
                 <!-- Conteúdo -->
@@ -37,17 +37,11 @@
                         $emptyStars = 5 - $fullStars - $halfStar;
                         @endphp
                         @for($i=0; $i<$fullStars; $i++) <i class="fas fa-star"></i>@endfor
-                            @if($halfStar) <i class="fas fa-star-half-alt"></i>@endif
-                            @for($i=0; $i<$emptyStars; $i++) <i class="far fa-star"></i>@endfor
+                        @if($halfStar) <i class="fas fa-star-half-alt"></i>@endif
+                        @for($i=0; $i<$emptyStars; $i++) <i class="far fa-star"></i>@endfor
                     </div>
-
-                    <!-- Link -->
-                    <a href="{{ route('localfull', $local->id) }}"
-                        class="text-blue-400 text-sm font-semibold hover:text-blue-300 transition mt-auto inline-flex items-center">
-                        Ver detalhes →
-                    </a>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
 

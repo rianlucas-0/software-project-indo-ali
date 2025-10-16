@@ -21,9 +21,46 @@
                 @php
                 $local = $favoriteItem->location;
                 @endphp
-                <div
-                    class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative group border border-gray-700">
-                    <!-- Botão de Remover Favorito -->
+                <div class="relative group">
+                    <a href="{{ route('localfull', $local->id) }}" class="block">
+                        <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative border border-gray-700">
+                            <!-- Imagem -->
+                            <div class="aspect-square overflow-hidden">
+                                <img src="{{ asset('img/' . $local->firstImage) }}" alt="{{ $local->title }}"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                            </div>
+
+                            <!-- Conteúdo -->
+                            <div class="p-4 flex flex-col flex-1">
+                                <h3 class="font-bold text-white mb-1 line-clamp-1">{{ $local->title }}</h3>
+                                <p class="text-sm text-gray-400 mb-2">{{ $local->city }} - {{ $local->state }}</p>
+
+                                <!-- Avaliação -->
+                                <div class="flex text-yellow-400 text-xs mb-3">
+                                    @php
+                                    $fullStars = floor($local->average_rating);
+                                    $halfStar = ($local->average_rating - $fullStars) >= 0.5 ? 1 : 0;
+                                    $emptyStars = 5 - $fullStars - $halfStar;
+                                    @endphp
+
+                                    {{-- Estrelas cheias --}}
+                                    @for ($i = 0; $i < $fullStars; $i++) 
+                                        <i class="fas fa-star"></i>
+                                    @endfor
+
+                                    {{-- Estrela pela metade --}}
+                                    @if ($halfStar)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @endif
+
+                                    {{-- Estrelas vazias --}}
+                                    @for ($i = 0; $i < $emptyStars; $i++) 
+                                        <i class="far fa-star"></i>
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                     <form action="{{ route('favorites.remove', $favoriteItem->id) }}" method="POST"
                         class="absolute top-3 right-3 z-10">
                         @csrf
@@ -34,52 +71,6 @@
                             <i class="fas fa-times text-red-400 text-sm"></i>
                         </button>
                     </form>
-
-                    <!-- Imagem -->
-                    <div class="aspect-square overflow-hidden">
-                        <img src="{{ asset('img/' . $local->firstImage) }}" alt="{{ $local->title }}"
-                            class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    </div>
-
-                    <!-- Conteúdo -->
-                    <div class="p-4 flex flex-col flex-1">
-                        <h3 class="font-bold text-white mb-1 line-clamp-1">{{ $local->title }}</h3>
-                        <p class="text-sm text-gray-400 mb-2">{{ $local->city }} - {{ $local->state }}</p>
-
-                        <!-- Avaliação -->
-                        <div class="flex text-yellow-400 text-xs mb-3">
-                            @php
-                            $fullStars = floor($local->average_rating);
-                            $halfStar = ($local->average_rating - $fullStars) >= 0.5 ? 1 : 0;
-                            $emptyStars = 5 - $fullStars - $halfStar;
-                            @endphp
-
-                            {{-- Estrelas cheias --}}
-                            @for ($i = 0; $i < $fullStars; $i++) 
-                                <i class="fas fa-star"></i>
-                            @endfor
-
-                            {{-- Estrela pela metade --}}
-                            @if ($halfStar)
-                                <i class="fas fa-star-half-alt"></i>
-                            @endif
-
-                            {{-- Estrelas vazias --}}
-                            @for ($i = 0; $i < $emptyStars; $i++) 
-                                <i class="far fa-star"></i>
-                            @endfor
-                        </div>
-
-                        <!-- Link -->
-                        <a href="{{ route('localfull', $local->id) }}"
-                            class="text-blue-400 text-sm font-semibold hover:text-blue-300 transition mt-auto inline-flex items-center">
-                            Ver detalhes
-                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
                 </div>
                 @endforeach
             </div>

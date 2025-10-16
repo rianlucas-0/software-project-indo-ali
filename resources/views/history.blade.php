@@ -70,81 +70,73 @@
 
                 <!-- Card com Local -->
                 @if($item->location)
-                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition relative border border-gray-700 hover:-translate-y-1 duration-300">
+                <div class="relative group">
+                    <a href="{{ route('localfull', $item->location->id) }}" class="block">
+                        <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative border border-gray-700 hover:-translate-y-1">
+                            <!-- Imagem -->
+                            <div class="aspect-square overflow-hidden">
+                                @php
+                                $firstImage = 'default-image.jpg';
+                                $images = $item->location->images;
 
-                    <!-- Botão Remover Item -->
+                                if (is_string($images)) {
+                                $decodedImages = json_decode($images, true);
+                                if (is_array($decodedImages) && count($decodedImages) > 0) {
+                                $firstImage = $decodedImages[0];
+                                }
+                                } elseif (is_array($images) && count($images) > 0) {
+                                $firstImage = $images[0];
+                                }
+                                @endphp
+                                <img src="{{ asset('img/' . $firstImage) }}" alt="{{ $item->location->title }}"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                            </div>
+
+                            <!-- Informações -->
+                            <div class="p-4 flex flex-col flex-1">
+                                <h3 class="font-bold text-white mb-1 line-clamp-1">
+                                    {{ $item->location->title }}
+                                </h3>
+
+                                <p class="text-sm text-gray-400 mb-2">
+                                    {{ $item->location->city }} - {{ $item->location->state }}
+                                </p>
+
+                                <div class="mt-auto">
+                                    <p class="text-xs text-gray-500 mb-1">
+                                        <i class="fas fa-clock mr-1"></i>
+                                        Visualizado: {{ $item->viewed_at->diffForHumans() }}
+                                    </p>
+
+                                    <p class="text-xs text-gray-500">
+                                        Em: {{ $item->viewed_at->format('d/m/Y H:i') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
                         class="absolute top-3 right-3 z-10">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="return confirm('Remover este item do histórico?')" class="w-8 h-8 bg-red-600 hover:bg-red-700 text-white rounded-full 
-                            flex items-center justify-center transition shadow-md">
-                            <i class="fas fa-times text-xs"></i>
+                        <button type="submit" onclick="return confirm('Remover este item do histórico?')" 
+                            class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center hover:bg-red-600/20 transition-all shadow-md group-hover:scale-110 border border-gray-700">
+                            <i class="fas fa-times text-red-400 text-sm"></i>
                         </button>
                     </form>
-
-                    <!-- Imagem -->
-                    <div class="aspect-video overflow-hidden">
-                        @php
-                        $firstImage = 'default-image.jpg';
-                        $images = $item->location->images;
-
-                        if (is_string($images)) {
-                        $decodedImages = json_decode($images, true);
-                        if (is_array($decodedImages) && count($decodedImages) > 0) {
-                        $firstImage = $decodedImages[0];
-                        }
-                        } elseif (is_array($images) && count($images) > 0) {
-                        $firstImage = $images[0];
-                        }
-                        @endphp
-                        <img src="{{ asset('img/' . $firstImage) }}" alt="{{ $item->location->title }}"
-                            class="w-full h-full object-cover transition duration-500 hover:scale-105">
-                    </div>
-
-                    <!-- Informações -->
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-1">
-                            {{ $item->location->title }}
-                        </h3>
-
-                        <p class="text-sm text-gray-400 mb-3">
-                            <i class="fas fa-map-marker-alt mr-1"></i>
-                            {{ $item->location->city }} - {{ $item->location->state }}
-                        </p>
-
-                        <p class="text-xs text-gray-500 mb-3">
-                            <i class="fas fa-clock mr-1"></i>
-                            Visualizado: {{ $item->viewed_at->diffForHumans() }}
-                        </p>
-
-                        <p class="text-xs text-gray-500">
-                            Em: {{ $item->viewed_at->format('d/m/Y H:i') }}
-                        </p>
-
-                        <!-- Botão Ver Novamente -->
-                        <div class="mt-4">
-                            <a href="{{ route('localfull', $item->location->id) }}" class="inline-block w-full bg-blue-600 hover:bg-blue-700 text-white text-center 
-                                py-2 px-4 rounded-lg font-medium transition">
-                                <i class="fas fa-eye mr-2"></i>
-                                Ver novamente
-                            </a>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Card sem Local -->
                 @else
-                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-lg p-4 text-center relative border border-gray-700">
-
+                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-md p-4 text-center relative border border-gray-700">
                     <!-- Botão Remover -->
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
                         class="absolute top-3 right-3">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="return confirm('Remover este item do histórico?')" class="w-8 h-8 bg-red-600 hover:bg-red-700 text-white rounded-full 
-                            flex items-center justify-center transition shadow-md">
-                            <i class="fas fa-times text-xs"></i>
+                        <button type="submit" onclick="return confirm('Remover este item do histórico?')" 
+                            class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center hover:bg-red-600/20 transition-all shadow-md border border-gray-700">
+                            <i class="fas fa-times text-red-400 text-sm"></i>
                         </button>
                     </form>
 

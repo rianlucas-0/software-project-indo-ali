@@ -66,10 +66,6 @@
                             class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
                             <i class="fas fa-plus-circle mr-2"></i> Adicionar Local
                         </a>
-                        <a href="{{ route('admin.all_local') }}"
-                            class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
-                            <i class="fas fa-map-marked-alt mr-2"></i> Seus Locais
-                        </a>
                         @endif
 
                         <form method="POST" action="{{ route('logout') }}">

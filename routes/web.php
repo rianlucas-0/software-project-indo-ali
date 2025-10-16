@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PartnershipController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
 Route::get('localfull/{id}', [UserController::class, 'showFullLocal'])->name('localfull');
@@ -21,7 +22,7 @@ Route::get('/social/register', [SocialiteController::class, 'showRegistrationFor
 Route::post('/social/register', [SocialiteController::class, 'register'])->name('social.register.submit');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
-    Route::get('/dashboard',[UserController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard',[DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/dashboard/addlocal',[AdminController::class, 'addlocal'])->name('admin.addlocal');
     Route::post('/dashboard/addlocal',[AdminController::class, 'createlocal'])->name('admin.createlocal');
     Route::get('/dashboard/all_local',[AdminController::class, 'all_local'])->name('admin.all_local');

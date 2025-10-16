@@ -73,7 +73,7 @@ class AdminController extends Controller
 
         $this->localService->updateLocal($request, $local->id);
 
-        return redirect()->route('admin.all_local')->with('status', 'Atualizado com sucesso!');
+    return redirect()->route('admin.dashboard')->with('success', 'Local atualizado com sucesso!');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Erro ao atualizar local: ' . $e->getMessage());
     }
@@ -91,7 +91,7 @@ class AdminController extends Controller
 
         $this->localService->deleteLocal($local->id);
 
-        return redirect()->route('admin.all_local')->with('status', 'Deletado com sucesso');
+    return redirect()->route('admin.dashboard')->with('error', 'Local excluído com sucesso!');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Erro ao excluir local: ' . $e->getMessage());
     }

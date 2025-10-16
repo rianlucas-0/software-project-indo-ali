@@ -13,6 +13,18 @@ use App\Models\Comment;
 class DashboardController extends Controller
 {
     /**
+     * Exporta os locais do admin autenticado em PDF.
+     */
+    public function export(Request $request)
+    {
+        $user = $request->user();
+        $locals = Local::where('user_id', $user->id)->get();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.export_pdf', compact('locals'));
+        return $pdf->download('locais_admin.pdf');
+    }
+
+    /**
      * Mostra o dashboard do admin com estatísticas e dados para gráficos.
      */
     public function index(Request $request)
@@ -28,11 +40,11 @@ class DashboardController extends Controller
         $inactiveLocals = $totalLocals - $activeLocals;
 
         // Dados por local: views (últimos 30 dias), favorites count, avg rating
-    $labels = [];
-    $localIds = [];
-    $viewsData = [];
-    $favoritesData = [];
-    $avgRatingData = [];
+        $labels = [];
+        $localIds = [];
+        $viewsData = [];
+        $favoritesData = [];
+        $avgRatingData = [];
 
         $thirtyDaysAgo = now()->subDays(30);
 

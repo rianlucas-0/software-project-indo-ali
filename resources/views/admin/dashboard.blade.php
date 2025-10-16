@@ -31,9 +31,9 @@
                                 class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg flex items-center transition-colors text-sm sm:text-base">
                                 <i class="fas fa-plus mr-2 text-xs sm:text-sm"></i> Adicionar Local
                             </a>
-                            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center transition-colors text-sm sm:text-base">
+                            <a href="{{ route('admin.dashboard.export') }}" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center transition-colors text-sm sm:text-base">
                                 <i class="fas fa-download mr-2 text-xs sm:text-sm"></i> Exportar Dados
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

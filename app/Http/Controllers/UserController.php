@@ -52,12 +52,22 @@ class UserController extends Controller
     public function showFullLocal($id): View
     {
         $local = Local::findOrFail($id);
-        
+
         if (Auth::check()) {
             $this->userService->registerLocalView(Auth::id(), $id);
         }
-        
-        return view('localfull', compact('local'));
+
+        $similares = Local::where('id', '!=', $local->id)
+            ->where('category', $local->category)
+            ->where('city', $local->city)
+            ->orderByRaw('(
+                (SELECT COUNT(*) FROM favorites WHERE location_id = locations.id) +
+                (SELECT COUNT(*) FROM view_history WHERE location_id = locations.id)
+            ) DESC')
+            ->take(6)
+            ->get();
+
+        return view('localfull', compact('local', 'similares'));
     }
     
     /**

@@ -340,24 +340,38 @@
                 <!-- Locais Similares -->
                 <div class="bg-[#161B22] rounded-xl p-6">
                     <h2 class="text-xl font-bold text-white mb-4">Locais Similares</h2>
-
                     <div class="space-y-4">
-                        @for($i = 1; $i <= 3; $i++) <div class="flex items-center cursor-pointer group">
-                            <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
-                                <img src="https://placehold.co/100/161B22/3B82F6?text=Local+{{ $i }}"
-                                    alt="Local similar {{ $i }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition">
-                            </div>
-                            <div>
-                                <h3 class="font-medium text-white group-hover:text-blue-400 transition">Local Similar
-                                    {{ $i }}</h3>
-                                <div class="flex items-center text-sm text-gray-400">
-                                    <i class="fas fa-map-marker-alt text-xs mr-1"></i>
-                                    <span>Luanda</span>
-                                </div>
-                            </div>
+                        @if(isset($similares) && $similares->count())
+                            @foreach($similares as $sim)
+                                <a href="{{ route('localfull', $sim->id) }}" class="flex items-center cursor-pointer group hover:bg-[#1E2229] rounded-lg p-2 transition">
+                                    <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                                        <img src="{{ asset('img/' . ($sim->images[0] ?? 'default.jpg')) }}" alt="{{ $sim->title }}" class="w-full h-full object-cover group-hover:scale-105 transition">
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-white group-hover:text-blue-400 transition">{{ $sim->title }}</h3>
+                                        <div class="flex items-center text-sm text-gray-400">
+                                            <i class="fas fa-map-marker-alt text-xs mr-1"></i>
+                                            <span>{{ $sim->city }} - {{ $sim->state }}</span>
+                                        </div>
+                                        <div class="flex text-yellow-400 text-xs mt-1">
+                                            @php
+                                                $fullStars = floor($sim->average_rating);
+                                                $halfStar = ($sim->average_rating - $fullStars) >= 0.5 ? 1 : 0;
+                                                $emptyStars = 5 - $fullStars - $halfStar;
+                                            @endphp
+                                            @for ($i = 0; $i < $fullStars; $i++) <i class="fas fa-star"></i> @endfor
+                                            @if ($halfStar)
+                                                <i class="fas fa-star-half-alt"></i>
+                                            @endif
+                                            @for ($i = 0; $i < $emptyStars; $i++) <i class="far fa-star"></i> @endfor
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @else
+                            <p class="text-gray-400">Nenhum local similar encontrado.</p>
+                        @endif
                     </div>
-                    @endfor
                 </div>
             </div>
         </div>

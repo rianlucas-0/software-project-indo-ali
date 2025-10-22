@@ -32,7 +32,9 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 - [ ] Recomendações personalizadas  
 - [X] Compartilhar local com amigos  
 - [X] Filtros nas buscas  
-- [X] Mapa para visualizar os locais  
+- [X] Mapa para visualizar os locais
+- [X] Dashboard do administrador
+- [X] Exportação de relatorio em PDF   
 
 ---
 

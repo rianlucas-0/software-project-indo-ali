@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PartnershipController;
+use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', [UserController::class, 'showDataInHome'])->name('home');
@@ -56,6 +57,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/seja-parceiro', [PartnershipController::class, 'create'])->name('become-partner');
     Route::post('/seja-parceiro', [PartnershipController::class, 'store'])->name('request-partnership');
+
+    // Preferências do usuário
+    Route::get('/preferences', [PreferencesController::class, 'edit'])->name('preferences.edit');
+    Route::patch('/preferences', [PreferencesController::class, 'update'])->name('preferences.update');
 });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');

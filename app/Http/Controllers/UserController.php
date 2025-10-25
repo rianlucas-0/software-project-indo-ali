@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Local;
 use App\Services\UserService;
+use App\Services\RecommendationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,12 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     protected $userService;
+    protected $recommendationService;
 
-        public function __construct(UserService $userService)
+    public function __construct(UserService $userService, RecommendationService $recommendationService)
     {
         $this->userService = $userService;
+        $this->recommendationService = $recommendationService;
     }
 
     /**
@@ -23,8 +26,60 @@ class UserController extends Controller
      */
     public function showDataInHome(): View
     {
-        $local = $this->userService->getAllLocalsForHome();
-        return view('home', compact('local'));
+        // Locais mais populares (por favoritos)
+        $mostPopular = Local::active()
+            ->withCount('favorites')
+            ->orderBy('favorites_count', 'desc')
+            ->take(6)
+            ->get();
+
+        // Bem avaliados (por rating médio)
+        $bestRated = Local::active()
+            ->withAvg('comments', 'rating')
+            ->having('comments_avg_rating', '>', 0)
+            ->orderBy('comments_avg_rating', 'desc')
+            ->take(6)
+            ->get();
+
+        // Adicionados recentemente
+        $recentlyAdded = Local::active()
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
+        // Recomendações personalizadas (se usuário logado)
+        $recommendations = collect();
+        if (Auth::check()) {
+            $recommendations = $this->recommendationService->getRecommendationsForUser(Auth::id(), 6);
+        }
+
+        // Recomendações por categoria (top 3 categorias com mais locais)
+        $categories = Local::active()
+            ->selectRaw('category, COUNT(*) as count')
+            ->groupBy('category')
+            ->orderBy('count', 'desc')
+            ->take(3)
+            ->pluck('category');
+
+        $categoryRecommendations = collect();
+        foreach ($categories as $category) {
+            $categoryRecommendations->put($category, 
+                Local::active()
+                    ->where('category', $category)
+                    ->withCount('favorites')
+                    ->orderBy('favorites_count', 'desc')
+                    ->take(4)
+                    ->get()
+            );
+        }
+
+        return view('home', compact(
+            'mostPopular', 
+            'bestRated', 
+            'recentlyAdded', 
+            'recommendations',
+            'categoryRecommendations'
+        ));
     }
 
 

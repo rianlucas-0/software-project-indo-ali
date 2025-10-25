@@ -56,6 +56,11 @@
                         </a>
                         @endif
 
+                        <a href="{{ route('preferences.edit') }}"
+                            class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
+                            <i class="fas fa-sliders-h mr-2"></i> Preferências
+                        </a>
+
                         <a href="{{ route('history') }}"
                             class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1E2229] hover:text-white flex items-center">
                             <i class="fas fa-history mr-2"></i> Histórico

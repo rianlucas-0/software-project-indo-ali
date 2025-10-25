@@ -29,7 +29,7 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 - [X] Sistema de busca  
 - [X] Favoritar  
 - [X] Comentar  
-- [ ] Recomendações personalizadas  
+- [X] Recomendações personalizadas  
 - [X] Compartilhar local com amigos  
 - [X] Filtros nas buscas  
 - [X] Mapa para visualizar os locais

@@ -1,4 +1,7 @@
-<x-guest-layout>
+<x-auth-layout 
+    authTitle="Vamos te colocar de volta no caminho"
+    authMessage="Informe seu e-mail para enviarmos o link de redefinição e você voltar a explorar sem parar."
+>
     <h2 class="text-gray-400 font-medium text-sm">VAMOS TE AJUDAR A VOLTAR AO CAMINHO</h2>
     <h3 class="text-white font-medium text-xl">Redefinição de Senha</h3>
 
@@ -26,4 +29,4 @@
         </div>
     </form>
 
-</x-guest-layout>
+</x-auth-layout>

@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                @if(Auth::check() && Auth::user()->usertype=='admin')
+                @if(Auth::check() && Auth::user()->user_type=='admin')
                     <a href="{{ route('admin.dashboard') }}">
                         
                     </a>
@@ -18,10 +18,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                @if(Auth::check() && Auth::user()->usertype=='admin')
+                @if(Auth::check() && Auth::user()->user_type=='admin')
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.addlocal')" :active="request()->routeIs('dashboard')">
+                        {{ __('Adicionar local') }}
+                    </x-nav-link>
+
                 @else
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -79,7 +83,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-        @if(Auth::check() && Auth::user()->usertype=='admin')
+        @if(Auth::check() && Auth::user()->user_type=='admin')
             <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>

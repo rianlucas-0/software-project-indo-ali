@@ -37,6 +37,7 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 - [X] Exportação de relatorio em PDF
 - [X] Tornar-se parceiro
 - [X] Recomendação com base no histórico
+- [X] Personalização de preferências para as recomendações
 
 ---
 

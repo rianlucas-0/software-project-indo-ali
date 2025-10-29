@@ -71,20 +71,79 @@ app/Http/Controllers # Controladores da aplicação
 
 ---
 
-# Área de Design Patterns (GoF)
+# 🎯 Área de Design Patterns (GoF)
 
-## Singleton
+Nesta seção estão os padrões do catálogo GoF aplicados no Indo Ali, com explicação clara do papel de cada um no projeto.
 
-O **Singleton** é usado para garantir que apenas uma instância de certos serviços seja criada, evitando múltiplas instâncias desnecessárias e permitindo um ponto central de acesso a esses serviços. No nosso projeto, ele é usado em serviços como RecommendationService e LocalService, que atuam como gerenciadores de lógica central.
+---
 
-> **Benefício:** evita duplicidade de instâncias de serviços e mantém consistência de dados e operações durante a execução da aplicação.
+## 🧩 Singleton
 
-> **Localização:**
+O **Singleton** garante que apenas **uma instância** de certos serviços exista na aplicação.  
+Isso é útil para serviços utilizados em múltiplas partes do sistema e que precisam manter consistência em suas operações.
 
-* `app/Services/RecommendationService.php`
-* `app/Services/LocalService.php`
-* `app/Services/UserService.php`
-* `app/Services/FavoriteService.php`
+**Benefícios:**
+- Evita múltiplas instâncias desnecessárias dos serviços
+- Centraliza a lógica principal
+- Mantém dados mais consistentes durante o uso do sistema
+
+📌 **Onde é usado:**
+- `app/Services/RecommendationService.php`
+- `app/Services/LocalService.php`
+- `app/Services/UserService.php`
+- `app/Services/FavoriteService.php`
+
+---
+
+## 🧠 Strategy
+
+O **Strategy** permite alternar a lógica de recomendação sem alterar o restante do código.  
+Isso possibilita que novas estratégias sejam criadas e aplicadas facilmente no futuro.
+
+**Por que usar:**
+- Possibilita múltiplas formas de recomendação (por histórico, por categoria, por IA…)
+- Facilita manutenção e expansão
+- Segue o princípio OCP (Aberto para extensão / Fechado para modificação)
+
+📌 **Onde está implementado:**
+- `app/Services/RecommendationService.php`
+- `app/Services/RecommendationStrategies/RecommendationStrategyInterface.php`
+- `app/Services/RecommendationStrategies/DefaultRecommendationStrategy.php`
+
+---
+
+## 🏭 Factory Method
+
+O **Factory Method** permite que o sistema escolha automaticamente **qual serviço de upload** utilizar ao armazenar imagens.  
+Hoje o upload usa armazenamento local, mas já está preparado para usar, por exemplo, AWS S3 ou Google Cloud Storage futuramente.
+
+**Benefícios:**
+- Facilita troca de provedores de armazenamento
+- Evita duplicação de código de upload
+- Traz escalabilidade e flexibilidade
+
+📌 **Onde está implementado:**
+- `app/Contracts/UploaderInterface.php`
+- `app/Services/Upload/UploadFactory.php`
+- `app/Services/Upload/LocalUploader.php`
+
+---
+
+## 👁️ Observer
+
+O **Observer** é usado para reagir automaticamente a eventos gerados pelos usuários, como visualizações e comentários.  
+Assim, o sistema pode atualizar recomendações e histórico sem precisar chamar tudo diretamente do controller.
+
+**Benefícios:**
+- Reduz processamento em tempo de requisição
+- Atualiza recomendações automaticamente
+- Diminui acoplamento entre controllers e lógica de recomendação
+
+📌 **Onde está implementado:**
+- `app/Observers/LocalObserver.php`
+- `app/Observers/CommentObserver.php`
+- `app/Providers/AppServiceProvider.php`
+
 
 ---
 

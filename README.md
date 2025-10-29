@@ -1,55 +1,58 @@
 # Indo Ali
 
-**Turma:** 3D1  
+**Turma:** 3D1
 
 ## 👨‍💻 Equipe de Desenvolvimento
 
-| Integrante       | RA        |
-|------------------|-----------|
-| Rian Lucas       | 12400629  |
-| Lucas Almeida    | 12402028  |
-| Miguel José      | 12401110  |
-| Daniel Mafra     | 12401943  |
-| João Vitor       | 12301582  |
-| Bernardo Martins | 22402420  |
+| Integrante       | RA       |
+| ---------------- | -------- |
+| Rian Lucas       | 12400629 |
+| Lucas Almeida    | 12402028 |
+| Miguel José      | 12401110 |
+| Daniel Mafra     | 12401943 |
+| João Vitor       | 12301582 |
+| Bernardo Martins | 22402420 |
 
 ---
 
 ## 📌 Visão do Projeto
-O **Indo Ali** é uma plataforma para descoberta e recomendação de estabelecimentos locais.  
+
+O **Indo Ali** é uma plataforma para descoberta e recomendação de estabelecimentos locais.
 O sistema oferece funcionalidades de busca, avaliações, comentários e recomendações personalizadas para ajudar usuários a encontrarem locais de acordo com seus gostos e preferências.
 
 ---
 
 ## ✅ Funcionalidades
 
-- [X] Cadastrar  
-- [X] Visualizar histórico  
-- [X] Sistema de busca  
-- [X] Favoritar  
-- [X] Comentar  
-- [X] Recomendações personalizadas  
-- [X] Compartilhar local com amigos  
-- [X] Filtros nas buscas  
-- [X] Mapa para visualizar os locais
-- [X] Dashboard do administrador
-- [X] Exportação de relatorio em PDF
-- [X] Tornar-se parceiro
-- [X] Recomendação com base no histórico
-- [X] Personalização de preferências para as recomendações
-- [X] ChatBot de suporte
+* [x] Cadastrar
+* [x] Visualizar histórico
+* [x] Sistema de busca
+* [x] Favoritar
+* [x] Comentar
+* [x] Recomendações personalizadas
+* [x] Compartilhar local com amigos
+* [x] Filtros nas buscas
+* [x] Mapa para visualizar os locais
+* [x] Dashboard do administrador
+* [x] Exportação de relatório em PDF
+* [x] Tornar-se parceiro
+* [x] Recomendação com base no histórico
+* [x] Personalização de preferências para as recomendações
+* [x] ChatBot de suporte
 
 ---
 
 ## 🛠️ Stack Tecnológico
-- **Backend:** Laravel 10, PHP 8.3+, MySQL  
-- **Frontend:** Tailwind CSS, Alpine.js, Blade  
-- **Ferramentas:** Git, Composer, Node.js/NPM  
+
+* **Backend:** Laravel 10, PHP 8.3+, MySQL
+* **Frontend:** Tailwind CSS, Alpine.js, Blade
+* **Ferramentas:** Git, Composer, Node.js/NPM
 
 ---
 
 ## 📂 Estrutura do Projeto
 
+```
 ├── app/
 ├── database/
 ├── public/
@@ -64,7 +67,24 @@ resources/views # Templates Blade
 app/Models # Models Eloquent
 
 app/Http/Controllers # Controladores da aplicação
+```
 
+---
+
+# Área de Design Patterns (GoF)
+
+## Singleton
+
+O **Singleton** é usado para garantir que apenas uma instância de certos serviços seja criada, evitando múltiplas instâncias desnecessárias e permitindo um ponto central de acesso a esses serviços. No nosso projeto, ele é usado em serviços como RecommendationService e LocalService, que atuam como gerenciadores de lógica central.
+
+> **Benefício:** evita duplicidade de instâncias de serviços e mantém consistência de dados e operações durante a execução da aplicação.
+
+> **Localização:**
+
+* `app/Services/RecommendationService.php`
+* `app/Services/LocalService.php`
+* `app/Services/UserService.php`
+* `app/Services/FavoriteService.php`
 
 ---
 
@@ -94,3 +114,6 @@ php artisan serve
 
 # Inicie o servidor frontend
 npm run dev
+```
+
+---

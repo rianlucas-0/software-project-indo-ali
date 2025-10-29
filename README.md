@@ -25,7 +25,6 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 
 - [X] Cadastrar  
 - [X] Visualizar histórico  
-- [ ] Múltiplos idiomas  
 - [X] Sistema de busca  
 - [X] Favoritar  
 - [X] Comentar  
@@ -38,6 +37,7 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 - [X] Tornar-se parceiro
 - [X] Recomendação com base no histórico
 - [X] Personalização de preferências para as recomendações
+- [X] ChatBot de suporte
 
 ---
 

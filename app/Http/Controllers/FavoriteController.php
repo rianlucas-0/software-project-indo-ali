@@ -11,9 +11,9 @@ class FavoriteController extends Controller
 {
     protected $favoriteService;
 
-    public function __construct(FavoriteService $favoriteService)
+    public function __construct()
     {
-        $this->favoriteService = $favoriteService;
+        $this->favoriteService = FavoriteService::getInstance();
     }
 
     /**

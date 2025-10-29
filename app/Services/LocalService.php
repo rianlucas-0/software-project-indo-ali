@@ -8,6 +8,33 @@ use Illuminate\Http\Request;
 
 class LocalService
 {
+    // Instância única do serviço
+    private static ?LocalService $instance = null;
+
+    // Construtor privado impede instanciamento externo
+    private function __construct() {}
+
+    // Método público para obter a instância única
+    public static function getInstance(): LocalService
+    {
+        if (self::$instance === null) {
+            self::$instance = new LocalService();
+        }
+        return self::$instance;
+    }
+
+    // Impede clonagem
+    public function __clone()
+    {
+        throw new \Exception("Cannot clone a singleton.");
+    }
+
+    // Impede serialização / desserialização
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize a singleton.");
+    }
+
     /**
      * Cria um novo local
      */

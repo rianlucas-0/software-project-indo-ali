@@ -11,6 +11,28 @@ use Illuminate\Support\Collection;
 
 class RecommendationService
 {
+    // Guarda a instância única do serviço
+    private static ?RecommendationService $instance = null;
+
+    // Construtor privado para impedir instanciamento externo
+    private function __construct() {}
+
+    // Método público para obter a instância única
+    public static function getInstance(): RecommendationService
+    {
+        if (self::$instance === null) {
+            self::$instance = new RecommendationService();
+        }
+
+        return self::$instance;
+    }
+
+    // Impede clonagem
+    public function __clone() {}
+
+    // Impede serialização
+    public function __wakeup() {}
+
     public function getRecommendationsForUser(int $userId, int $limit = 12): Collection
     {
         $preferences = UserPreference::where('user_id', $userId)->first();

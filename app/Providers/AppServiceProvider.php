@@ -8,6 +8,10 @@ use App\Services\FavoriteService;
 use App\Services\LocalService;
 use App\Contracts\UploaderInterface;
 use App\Services\Upload\UploadFactory;
+use App\Models\Comment;
+use App\Observers\CommentObserver;
+use App\Models\Local;
+use App\Observers\LocalObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
             $localService = $app->make(LocalService::class);
             return UploadFactory::make($driver, $localService);
         });
+
+        Comment::observe(CommentObserver::class);
+        Local::observe(LocalObserver::class);
     }
 
     /**

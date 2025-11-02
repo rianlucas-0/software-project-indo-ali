@@ -4,12 +4,32 @@ namespace App\Services;
 
 use App\Models\Local;
 use App\Models\ViewHistory;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService
 {
+    private static ?UserService $instance = null;
+
+    private function __construct() {}
+
+    public static function getInstance(): UserService
+    {
+        if (self::$instance === null) {
+            self::$instance = new UserService();
+        }
+        return self::$instance;
+    }
+
+    public function __clone()
+    {
+        throw new \Exception("Cannot clone a Singleton instance.");
+    }
+
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize a Singleton instance.");
+    }
+
     /**
      * Obtém todos os locais para exibir na página inicial
      */
@@ -32,9 +52,9 @@ class UserService
     public function registerLocalView(int $userId, int $locationId): void
     {
         $existingView = ViewHistory::where('user_id', $userId)
-                            ->where('location_id', $locationId)
-                            ->first();
-        
+            ->where('location_id', $locationId)
+            ->first();
+
         if ($existingView) {
             $existingView->update(['viewed_at' => now()]);
         } else {
@@ -52,15 +72,12 @@ class UserService
     public function getUserViewHistory(int $userId, string $filter = 'all'): LengthAwarePaginator
     {
         $query = ViewHistory::where('user_id', $userId)->with('location');
-        
+
         $this->applyHistoryFilter($query, $filter);
-        
+
         return $query->orderBy('viewed_at', 'desc')->paginate(12);
     }
 
-    /**
-     * Aplica filtro de período ao histórico
-     */
     private function applyHistoryFilter($query, string $filter): void
     {
         switch ($filter) {
@@ -76,28 +93,22 @@ class UserService
         }
     }
 
-    /**
-     * Limpa todo o histórico de visualização do usuário
-     */
     public function clearUserHistory(int $userId): void
     {
         ViewHistory::where('user_id', $userId)->delete();
     }
 
-    /**
-     * Remove um item específico do histórico
-     */
     public function removeHistoryItem(int $userId, int $itemId): bool
     {
         $historyItem = ViewHistory::where('user_id', $userId)
             ->where('id', $itemId)
             ->first();
-        
+
         if ($historyItem) {
             $historyItem->delete();
             return true;
         }
-        
+
         return false;
     }
 }

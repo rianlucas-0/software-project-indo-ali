@@ -15,10 +15,10 @@ class UserController extends Controller
     protected $userService;
     protected $recommendationService;
 
-    public function __construct(UserService $userService, RecommendationService $recommendationService)
+    public function __construct()
     {
-        $this->userService = $userService;
-        $this->recommendationService = $recommendationService;
+        $this->userService = UserService::getInstance();
+        $this->recommendationService = RecommendationService::getInstance();
     }
 
     /**
@@ -63,7 +63,7 @@ class UserController extends Controller
 
         $categoryRecommendations = collect();
         foreach ($categories as $category) {
-            $categoryRecommendations->put($category, 
+            $categoryRecommendations->put($category,
                 Local::active()
                     ->where('category', $category)
                     ->withCount('favorites')
@@ -74,14 +74,13 @@ class UserController extends Controller
         }
 
         return view('home', compact(
-            'mostPopular', 
-            'bestRated', 
-            'recentlyAdded', 
+            'mostPopular',
+            'bestRated',
+            'recentlyAdded',
             'recommendations',
             'categoryRecommendations'
         ));
     }
-
 
     public function index(Request $request): View|RedirectResponse
     {
@@ -124,7 +123,7 @@ class UserController extends Controller
 
         return view('localfull', compact('local', 'similares'));
     }
-    
+
     /**
      * Exibe o histórico de visualização do usuário com filtro de tempo opcional
      */
@@ -133,10 +132,10 @@ class UserController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-        
+
         $filter = $request->input('filter', 'all');
         $history = $this->userService->getUserViewHistory(Auth::id(), $filter);
-        
+
         return view('history', compact('history', 'filter'));
     }
 
@@ -148,9 +147,9 @@ class UserController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-        
+
         $this->userService->clearUserHistory(Auth::id());
-        
+
         return redirect()->route('history')->with('success', 'Histórico limpo com sucesso!');
     }
 
@@ -162,13 +161,13 @@ class UserController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-        
+
         $result = $this->userService->removeHistoryItem(Auth::id(), $id);
-        
+
         if ($result) {
             return redirect()->route('history')->with('success', 'Item removido do histórico!');
         }
-        
+
         return redirect()->route('history')->with('error', 'Item não encontrado!');
     }
 

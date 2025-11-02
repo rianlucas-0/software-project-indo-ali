@@ -9,6 +9,22 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class FavoriteService
 {
+    private static $instance;
+
+    public static function getInstance(): FavoriteService
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new FavoriteService();
+        }
+        return self::$instance;
+    }
+
+    private function __construct() {}
+
+    private function __clone() {}
+
+    public function __wakeup() {}
+
     /**
      * Obtém todos os favoritos do usuário
      */

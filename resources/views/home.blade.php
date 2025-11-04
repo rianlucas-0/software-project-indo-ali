@@ -1,8 +1,8 @@
 <x-guest-layout>
-
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     </head>
+    
     <div class="container mx-auto px-4 py-8">
         <section class="mb-6 sm:mb-8">
             <div class="swiper main-carousel w-full rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
@@ -12,8 +12,7 @@
                         <div class="relative w-full h-48 sm:h-64 md:h-72 lg:h-80 overflow-hidden">
                             <img src="img/{{ $carousel->firstImage }}" alt="{{ $carousel->title }}"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent">
-                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                         </div>
                         <div class="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
                             <div class="max-w-2xl">
@@ -52,8 +51,7 @@
                                             @for ($i = 0; $i < $emptyStars; $i++) <i class="far fa-star"></i>
                                                 @endfor
                                     </div>
-                                    <span
-                                        class="text-white text-xs">({{ number_format($carousel->average_rating, 1) }})</span>
+                                    <span class="text-white text-xs">({{ number_format($carousel->average_rating, 1) }})</span>
                                 </div>
                             </div>
                         </div>
@@ -71,17 +69,16 @@
         <section class="mb-8 sm:mb-16">
             <div class="flex items-center justify-between mb-4 sm:mb-8">
                 <div class="flex items-center">
-                    <div
-                        class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                         <i class="fas fa-fire text-white text-sm sm:text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg sm:text-3xl font-bold text-white">Populares</h2>
-                        <p class="text-gray-400 text-xs sm:text-base hidden sm:block">Os mais visitados esta semana</p>
+                        <h2 class="text-lg sm:text-3xl font-bold text-gray-900 dark:text-white">Populares</h2>
+                        <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-base hidden sm:block">Os mais visitados esta semana</p>
                     </div>
                 </div>
                 <a href="{{ route('search.index') }}"
-                    class="hidden sm:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium group">
+                    class="hidden sm:flex items-center text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium group">
                     Explorar
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -89,8 +86,7 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 @foreach($mostPopular->take(4) as $location)
-                <div
-                    class="bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-700/50 hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div class="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg dark:shadow-xl">
                     @include('components.location-card', ['location' => $location])
                 </div>
                 @endforeach
@@ -111,17 +107,16 @@
         <section class="mb-8 sm:mb-16">
             <div class="flex items-center justify-between mb-4 sm:mb-8">
                 <div class="flex items-center">
-                    <div
-                        class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                         <i class="fas fa-star text-white text-sm sm:text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg sm:text-3xl font-bold text-white">Melhores</h2>
-                        <p class="text-gray-400 text-xs sm:text-base hidden sm:block">Excelência comprovada</p>
+                        <h2 class="text-lg sm:text-3xl font-bold text-gray-900 dark:text-white">Melhores</h2>
+                        <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-base hidden sm:block">Excelência comprovada</p>
                     </div>
                 </div>
                 <a href="{{ route('search.index') }}"
-                    class="hidden sm:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium group">
+                    class="hidden sm:flex items-center text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium group">
                     Explorar
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -129,8 +124,7 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 @foreach($bestRated->take(4) as $location)
-                <div
-                    class="bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-700/50 hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div class="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg dark:shadow-xl">
                     @include('components.location-card', ['location' => $location])
                 </div>
                 @endforeach
@@ -151,17 +145,16 @@
         <section class="mb-8 sm:mb-16">
             <div class="flex items-center justify-between mb-4 sm:mb-8">
                 <div class="flex items-center">
-                    <div
-                        class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                         <i class="fas fa-magic text-white text-sm sm:text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg sm:text-3xl font-bold text-white">Para Você</h2>
-                        <p class="text-gray-400 text-xs sm:text-base hidden sm:block">Recomendados personalizados</p>
+                        <h2 class="text-lg sm:text-3xl font-bold text-gray-900 dark:text-white">Para Você</h2>
+                        <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-base hidden sm:block">Recomendados personalizados</p>
                     </div>
                 </div>
                 <a href="{{ route('search.index') }}"
-                    class="hidden sm:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium group">
+                    class="hidden sm:flex items-center text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium group">
                     Explorar
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -169,8 +162,7 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 @foreach($recommendations->take(4) as $location)
-                <div
-                    class="bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-700/50 hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div class="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg dark:shadow-xl">
                     @include('components.location-card', ['location' => $location])
                 </div>
                 @endforeach
@@ -191,17 +183,16 @@
         <section class="mb-8 sm:mb-16">
             <div class="flex items-center justify-between mb-4 sm:mb-8">
                 <div class="flex items-center">
-                    <div
-                        class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                         <i class="fas fa-clock text-white text-sm sm:text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg sm:text-3xl font-bold text-white">Novidades</h2>
-                        <p class="text-gray-400 text-xs sm:text-base hidden sm:block">Locais recém-adicionados</p>
+                        <h2 class="text-lg sm:text-3xl font-bold text-gray-900 dark:text-white">Novidades</h2>
+                        <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-base hidden sm:block">Locais recém-adicionados</p>
                     </div>
                 </div>
                 <a href="{{ route('search.index') }}"
-                    class="hidden sm:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium group">
+                    class="hidden sm:flex items-center text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium group">
                     Explorar
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -209,8 +200,7 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 @foreach($recentlyAdded->take(4) as $location)
-                <div
-                    class="bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-700/50 hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div class="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg dark:shadow-xl">
                     @include('components.location-card', ['location' => $location])
                 </div>
                 @endforeach
@@ -233,18 +223,17 @@
         <section class="mb-8 sm:mb-16">
             <div class="flex items-center justify-between mb-4 sm:mb-8">
                 <div class="flex items-center">
-                    <div
-                        class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl sm:rounded-2xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg">
                         <i class="fas fa-tag text-white text-sm sm:text-xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg sm:text-3xl font-bold text-white">
+                        <h2 class="text-lg sm:text-3xl font-bold text-gray-900 dark:text-white">
                             {{ \Illuminate\Support\Str::limit($category, 15) }}</h2>
-                        <p class="text-gray-400 text-xs sm:text-base hidden sm:block">Destaques da categoria</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-base hidden sm:block">Destaques da categoria</p>
                     </div>
                 </div>
                 <a href="{{ route('search.index') }}?category={{ urlencode($category) }}"
-                    class="hidden sm:flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium group">
+                    class="hidden sm:flex items-center text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium group">
                     Ver categoria
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -252,8 +241,7 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 @foreach($locations->take(4) as $location)
-                <div
-                    class="bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-700/50 hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg">
+                <div class="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:hover:border-gray-500/50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg dark:shadow-xl">
                     @include('components.location-card', ['location' => $location])
                 </div>
                 @endforeach

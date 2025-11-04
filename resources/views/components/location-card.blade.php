@@ -1,11 +1,11 @@
 <a href="{{ route('localfull', $location->id) }}"
-    class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative group border border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 md:hover:-translate-y-1">
+    class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative group border border-gray-200 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 md:hover:-translate-y-1">
     <!-- Botão de Favorito -->
     <button class="favorite-btn absolute top-3 right-3 z-10" data-location-id="{{ $location->id }}" tabindex="-1">
         <div
-            class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center 
-                    hover:bg-[#1E2229] transition-all shadow-md group-hover:scale-110 border border-gray-700">
-            <i class="far fa-heart text-gray-400 text-sm"></i>
+            class="w-8 h-8 rounded-full bg-white/90 dark:bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center 
+                    hover:bg-gray-100 dark:hover:bg-[#1E2229] transition-all shadow-md group-hover:scale-110 border border-gray-300 dark:border-gray-700">
+            <i class="far fa-heart text-gray-500 dark:text-gray-400 text-sm"></i>
         </div>
     </button>
 
@@ -17,8 +17,8 @@
 
     <!-- Conteúdo -->
     <div class="p-4 flex flex-col flex-1">
-        <h3 class="font-bold text-white mb-1 line-clamp-1">{{ $location->title }}</h3>
-        <p class="text-sm text-gray-400 mb-2">{{ $location->city }} - {{ $location->state }}</p>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">{{ $location->title }}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ $location->city }} - {{ $location->state }}</p>
 
         <!-- Avaliação -->
         <div class="flex text-yellow-400 text-xs mb-3">

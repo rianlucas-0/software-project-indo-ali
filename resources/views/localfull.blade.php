@@ -9,31 +9,31 @@
         <!-- Botão Voltar -->
         <div class="mb-6">
             <a href="{{ url()->previous() }}"
-                class="inline-flex items-center text-blue-400 hover:text-blue-300 transition">
+                class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition">
                 <i class="fas fa-arrow-left mr-2"></i> Voltar
             </a>
         </div>
 
         <!-- Cabeçalho do Local -->
         <div class="mb-8">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">{{ $local->title }}</h1>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2">{{ $local->title }}</h1>
 
             <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-                <div class="flex items-center text-gray-400">
+                <div class="flex items-center text-gray-600 dark:text-gray-400">
                     <i class="fas fa-map-marker-alt mr-2"></i>
                     <span>{{ $local->city }} - {{ $local->state }}</span>
                 </div>
 
-                <div class="flex items-center text-gray-400">
+                <div class="flex items-center text-gray-600 dark:text-gray-400">
                     <i class="fas fa-user-circle mr-2"></i>
-                    <span>Publicado por <span class="text-blue-400">{{ $local->user_name }}</span></span>
+                    <span>Publicado por <span class="text-blue-600 dark:text-blue-400">{{ $local->user_name }}</span></span>
                 </div>
             </div>
 
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div class="flex items-center">
                     <i class="fas fa-star text-yellow-400 mr-1"></i>
-                    <span class="font-medium text-gray-400">Média de estrelas:
+                    <span class="font-medium text-gray-600 dark:text-gray-400">Média de estrelas:
                         {{ number_format($local->average_rating, 1) }}</span>
                 </div>
 
@@ -42,7 +42,7 @@
                     <!-- Botão de Favorito -->
                     <button id="favorite-btn" data-location-id="{{ $local->id }}"
                         class="favorite-btn flex items-center px-4 py-2 rounded-lg transition 
-                   {{ Auth::check() && $local->favorites()->where('user_id', Auth::id())->exists() ? 'bg-red-100 text-red-600' : 'bg-gray-700 text-gray-300 hover:bg-gray-600' }}">
+                   {{ Auth::check() && $local->favorites()->where('user_id', Auth::id())->exists() ? 'bg-red-100 text-red-600' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600' }}">
                         <i
                             class="{{ Auth::check() && $local->favorites()->where('user_id', Auth::id())->exists() ? 'fas' : 'far' }} fa-heart mr-2"></i>
                         <span
@@ -51,9 +51,9 @@
 
                     <!-- Botão de Compartilhar -->
                     <button id="share-btn"
-                        class="flex items-center px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition">
+                        class="flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
                         <i class="fas fa-share-alt mr-2"></i>
-                        <span class=" sm:inline">Compartilhar</span>
+                        <span class="sm:inline">Compartilhar</span>
                     </button>
                 </div>
             </div>
@@ -74,9 +74,9 @@
             <div class="lg:col-span-2 space-y-6">
 
                 <!-- Descrição -->
-                <div class="bg-[#161B22] rounded-xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4">Descrição</h2>
-                    <p class="text-gray-300 leading-relaxed">{{ $local->description }}</p>
+                <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Descrição</h2>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ $local->description }}</p>
                 </div>
 
                 @php
@@ -122,16 +122,16 @@
                 @endphp
 
                 <!-- Características -->
-                <div class="bg-[#161B22] rounded-xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4">Características</h2>
+                <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Características</h2>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         @foreach($local->features as $featureKey)
                         @php
                         $feature = $featuresMap[$featureKey] ?? null;
                         @endphp
                         @if($feature)
-                        <div class="flex items-center text-white">
-                            <i class="{{ $feature['icon'] }} text-blue-400 mr-2"></i>
+                        <div class="flex items-center text-gray-900 dark:text-white">
+                            <i class="{{ $feature['icon'] }} text-blue-500 dark:text-blue-400 mr-2"></i>
                             <span>{{ $feature['label'] }}</span>
                         </div>
                         @endif
@@ -139,32 +139,32 @@
                     </div>
                 </div>
 
-                <div class="bg-[#161B22] rounded-xl p-6 lg:hidden">
-                    <h2 class="text-xl font-bold text-white mb-4">Contato</h2>
+                <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 lg:hidden border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Contato</h2>
 
                     <div class="space-y-4">
                         <div class="flex items-center">
-                            <i class="fas fa-phone text-blue-400 mr-3 w-5"></i>
-                            <span class="text-white">{{ $local->phone }}</span>
+                            <i class="fas fa-phone text-blue-500 dark:text-blue-400 mr-3 w-5"></i>
+                            <span class="text-gray-900 dark:text-white">{{ $local->phone }}</span>
                         </div>
 
                         <div class="flex items-center">
-                            <i class="fas fa-envelope text-blue-400 mr-3 w-5"></i>
+                            <i class="fas fa-envelope text-blue-500 dark:text-blue-400 mr-3 w-5"></i>
                             <span
-                                class="text-white">{{ str_replace(' ', '', strtolower($local->contact_email)) }}.com</span>
+                                class="text-gray-900 dark:text-white">{{ str_replace(' ', '', strtolower($local->contact_email)) }}.com</span>
                         </div>
 
                         <div class="flex items-center">
-                            <i class="fas fa-globe text-blue-400 mr-3 w-5"></i>
+                            <i class="fas fa-globe text-blue-500 dark:text-blue-400 mr-3 w-5"></i>
                             <span
-                                class="text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
+                                class="text-gray-900 dark:text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
                         </div>
                     </div>
 
                     @if($local->formatted_working_hours)
                     <div class="flex items-start mt-4">
-                        <i class="fas fa-clock text-blue-400 mr-3 w-5 mt-1"></i>
-                        <div class="text-white">
+                        <i class="fas fa-clock text-blue-500 dark:text-blue-400 mr-3 w-5 mt-1"></i>
+                        <div class="text-gray-900 dark:text-white">
                             @foreach($local->formatted_working_hours as $hourInfo)
                             <div>{{ $hourInfo }}</div>
                             @endforeach
@@ -172,7 +172,7 @@
                     </div>
                     @endif
 
-                    <div class="mt-6 pt-6 border-t border-gray-700">
+                    <div class="mt-6 pt-6 border-t border-gray-300 dark:border-gray-700">
                         <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($local->address) }}, {{ $local->neighborhood }}, {{ $local->city }}-{{ $local->state }}, {{ $local->cep }}"
                             target="_blank"
                             class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 px-4 rounded-lg font-medium transition">
@@ -182,8 +182,8 @@
                 </div>
 
                 <!-- Galeria -->
-                <div class="bg-[#161B22] rounded-xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4">Galeria</h2>
+                <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Galeria</h2>
                     @if(count($local->images) > 0)
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         @foreach($local->images as $image)
@@ -195,19 +195,19 @@
                         @endforeach
                     </div>
                     @else
-                    <p class="text-gray-400">Nenhuma imagem disponível</p>
+                    <p class="text-gray-600 dark:text-gray-400">Nenhuma imagem disponível</p>
                     @endif
                 </div>
 
                 <!-- Sistema de Comentários -->
-                <div class="bg-[#161B22] rounded-xl p-6 mt-6">
-                    <h2 class="text-2xl font-bold text-white mb-6">Deixe seu Comentário</h2>
+                <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 mt-6 border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Deixe seu Comentário</h2>
 
                     @auth
                     <form action="{{ route('comments.store', $local->id) }}" method="POST">
                         @csrf
                         <div class="mb-4">
-                            <label for="rating" class="block text-white mb-2">Avaliação</label>
+                            <label for="rating" class="block text-gray-900 dark:text-white mb-2">Avaliação</label>
                             <div class="flex items-center">
                                 @for($i = 1; $i <= 5; $i++) <input type="radio" name="rating" value="{{ $i }}"
                                     id="rating{{ $i }}" class="hidden">
@@ -219,9 +219,9 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="content" class="block text-white mb-2">Seu comentário</label>
+                            <label for="content" class="block text-gray-900 dark:text-white mb-2">Seu comentário</label>
                             <textarea name="content" id="content" rows="4"
-                                class="w-full bg-[#1E2229] border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400"
+                                class="w-full bg-gray-50 dark:bg-[#1E2229] border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
                                 placeholder="Compartilhe sua experiência..." required></textarea>
                         </div>
 
@@ -232,7 +232,7 @@
                     </form>
                     @else
                     <div class="text-center py-8">
-                        <p class="text-gray-400 mb-4">Faça login para deixar um comentário</p>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Faça login para deixar um comentário</p>
                         <a href="{{ route('login') }}"
                             class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition">
                             Fazer Login
@@ -242,10 +242,10 @@
 
                     <!-- Lista de Comentários -->
                     <div class="mt-8">
-                        <h3 class="text-xl font-bold text-white mb-6">Comentários ({{ $local->comments->count() }})</h3>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Comentários ({{ $local->comments->count() }})</h3>
 
                         @forelse($local->comments as $comment)
-                        <div class="bg-[#1E2229] rounded-lg p-5 mb-4 relative">
+                        <div class="bg-gray-50 dark:bg-[#1E2229] rounded-lg p-5 mb-4 relative">
                             <!-- Botão de deletar (apenas para dono do comentário ou admin) -->
                             @if(Auth::check() && (Auth::id() == $comment->user_id || Auth::user()->is_admin))
                             <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"
@@ -254,36 +254,36 @@
                                 @method('DELETE')
                                 <button type="submit"
                                     onclick="return confirm('Tem certeza que deseja excluir este comentário?')"
-                                    class="text-gray-400 hover:text-red-400 transition">
+                                    class="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
                             @endif
 
                             <div class="flex items-center mb-3">
-                                <div class="w-10 h-10 rounded-full bg-gray-700 mr-3 overflow-hidden">
+                                <div class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 mr-3 overflow-hidden">
                                     <img src="{{ $comment->user->avatar ? asset('img/avatars/' . $comment->user->avatar) : $comment->user->provider_avatar }}"
                                         alt="{{ $comment->user->name }}" class="w-full h-full object-cover">
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-white">{{ $comment->user->name }}</h4>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">{{ $comment->user->name }}</h4>
                                     @if($comment->rating)
                                     <div class="flex items-center">
                                         @for($i = 1; $i <= 5; $i++) <i
-                                            class="fas fa-star text-{{ $i <= $comment->rating ? 'yellow-400' : 'gray-600' }} text-sm mr-1">
+                                            class="fas fa-star text-{{ $i <= $comment->rating ? 'yellow-400' : 'gray-400' }} text-sm mr-1">
                                             </i>
                                             @endfor
                                     </div>
                                     @endif
                                 </div>
                             </div>
-                            <p class="text-gray-300">{{ $comment->content }}</p>
-                            <div class="mt-3 text-sm text-gray-500">
+                            <p class="text-gray-700 dark:text-gray-300">{{ $comment->content }}</p>
+                            <div class="mt-3 text-sm text-gray-500 dark:text-gray-500">
                                 Publicado em {{ $comment->created_at->format('d/m/Y') }}
                             </div>
                         </div>
                         @empty
-                        <p class="text-gray-400 text-center py-8">Nenhum comentário ainda. Seja o primeiro a comentar!
+                        <p class="text-gray-600 dark:text-gray-400 text-center py-8">Nenhum comentário ainda. Seja o primeiro a comentar!
                         </p>
                         @endforelse
                     </div>
@@ -295,32 +295,32 @@
             <div class="lg:col-span-1 space-y-6 hidden lg:block">
 
                 <!-- Cartão de Contato -->
-                <div class="bg-[#161B22] rounded-xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4">Contato</h2>
+                <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Contato</h2>
 
                     <div class="space-y-4">
                         <div class="flex items-center">
-                            <i class="fas fa-phone text-blue-400 mr-3 w-5"></i>
-                            <span class="text-white">{{ $local->phone }}</span>
+                            <i class="fas fa-phone text-blue-500 dark:text-blue-400 mr-3 w-5"></i>
+                            <span class="text-gray-900 dark:text-white">{{ $local->phone }}</span>
                         </div>
 
                         <div class="flex items-center">
-                            <i class="fas fa-envelope text-blue-400 mr-3 w-5"></i>
+                            <i class="fas fa-envelope text-blue-500 dark:text-blue-400 mr-3 w-5"></i>
                             <span
-                                class="text-white">{{ str_replace(' ', '', strtolower($local->contact_email)) }}.com</span>
+                                class="text-gray-900 dark:text-white">{{ str_replace(' ', '', strtolower($local->contact_email)) }}.com</span>
                         </div>
 
                         <div class="flex items-center">
-                            <i class="fas fa-globe text-blue-400 mr-3 w-5"></i>
+                            <i class="fas fa-globe text-blue-500 dark:text-blue-400 mr-3 w-5"></i>
                             <span
-                                class="text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
+                                class="text-gray-900 dark:text-white">www.{{ str_replace(' ', '', strtolower($local->title)) }}.com</span>
                         </div>
                     </div>
 
                     @if($local->formatted_working_hours)
                     <div class="flex items-start mt-4">
-                        <i class="fas fa-clock text-blue-400 mr-3 w-5 mt-1"></i>
-                        <div class="text-white">
+                        <i class="fas fa-clock text-blue-500 dark:text-blue-400 mr-3 w-5 mt-1"></i>
+                        <div class="text-gray-900 dark:text-white">
                             @foreach($local->formatted_working_hours as $hourInfo)
                             <div>{{ $hourInfo }}</div>
                             @endforeach
@@ -328,7 +328,7 @@
                     </div>
                     @endif
 
-                    <div class="mt-6 pt-6 border-t border-gray-700">
+                    <div class="mt-6 pt-6 border-t border-gray-300 dark:border-gray-700">
                         <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($local->address) }}, {{ $local->neighborhood }}, {{ $local->city }}-{{ $local->state }}, {{ $local->cep }}"
                             target="_blank"
                             class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 px-4 rounded-lg font-medium transition">
@@ -338,18 +338,18 @@
                 </div>
 
                 <!-- Locais Similares -->
-                <div class="bg-[#161B22] rounded-xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4">Locais Similares</h2>
+                <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Locais Similares</h2>
                     <div class="space-y-4">
                         @if(isset($similares) && $similares->count())
                             @foreach($similares as $sim)
-                                <a href="{{ route('localfull', $sim->id) }}" class="flex items-center cursor-pointer group hover:bg-[#1E2229] rounded-lg p-2 transition">
+                                <a href="{{ route('localfull', $sim->id) }}" class="flex items-center cursor-pointer group hover:bg-gray-100 dark:hover:bg-[#1E2229] rounded-lg p-2 transition">
                                     <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
                                         <img src="{{ asset('img/' . ($sim->images[0] ?? 'default.jpg')) }}" alt="{{ $sim->title }}" class="w-full h-full object-cover group-hover:scale-105 transition">
                                     </div>
                                     <div>
-                                        <h3 class="font-medium text-white group-hover:text-blue-400 transition">{{ $sim->title }}</h3>
-                                        <div class="flex items-center text-sm text-gray-400">
+                                        <h3 class="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">{{ $sim->title }}</h3>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
                                             <i class="fas fa-map-marker-alt text-xs mr-1"></i>
                                             <span>{{ $sim->city }} - {{ $sim->state }}</span>
                                         </div>
@@ -369,12 +369,11 @@
                                 </a>
                             @endforeach
                         @else
-                            <p class="text-gray-400">Nenhum local similar encontrado.</p>
+                            <p class="text-gray-600 dark:text-gray-400">Nenhum local similar encontrado.</p>
                         @endif
                     </div>
                 </div>
             </div>
-        </div>
         </div>
 
     </main>
@@ -416,14 +415,14 @@
 
                         if (data.favorited) {
                             this.classList.add('bg-red-100', 'text-red-600');
-                            this.classList.remove('bg-gray-700', 'text-gray-300',
-                                'hover:bg-gray-600');
+                            this.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300',
+                                'hover:bg-gray-300', 'dark:hover:bg-gray-600');
                             heartIcon.classList.remove('far');
                             heartIcon.classList.add('fas');
                             favoriteText.textContent = 'Favoritado';
                         } else {
                             this.classList.remove('bg-red-100', 'text-red-600');
-                            this.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                            this.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
                             heartIcon.classList.remove('fas');
                             heartIcon.classList.add('far');
                             favoriteText.textContent = 'Favoritar';

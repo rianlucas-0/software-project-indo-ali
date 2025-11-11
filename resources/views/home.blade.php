@@ -153,7 +153,7 @@
                         <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-base hidden sm:block">Recomendados personalizados</p>
                     </div>
                 </div>
-                <a href="{{ route('search.index') }}"
+                <a href="{{ route('recommendations.index') }}"
                     class="hidden sm:flex items-center text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium group">
                     Explorar
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
@@ -169,10 +169,10 @@
             </div>
 
             <div class="text-center mt-6 sm:mt-8">
-                <a href="{{ route('search.index') }}"
+                <a href="{{ route('recommendations.index') }}"
                     class="inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg sm:rounded-xl transition-all duration-300 transform hover:scale-105 text-sm sm:text-base">
                     <i class="fas fa-search mr-2 text-xs sm:text-sm"></i>
-                    Explorar Locais
+                    Ver Todas as Recomendações
                 </a>
             </div>
         </section>

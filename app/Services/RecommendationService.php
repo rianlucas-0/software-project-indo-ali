@@ -45,45 +45,34 @@ class RecommendationService
      * Retorna recomendações para um usuário.
      * Primeiro tenta usar cache; se não existir, calcula, armazena no cache e retorna.
      */
-    public function getRecommendationsForUser(int $userId, int $limit = 12): Collection
-    {
-        $cacheKey = $this->getUserCacheKey($userId);
+    public function getRecommendationsForUser(int $userId, ?int $limit = null): Collection
+{
+    $cacheKey = $this->getUserCacheKey($userId);
 
-        $cached = Cache::get($cacheKey);
-        if ($cached instanceof Collection) {
-            return $cached->take($limit)->values();
-        }
-
-        // não havia cache -> calcular normalmente
-        $preferences = UserPreference::where('user_id', $userId)->first();
-        $query = Local::query()->active();
-
-        if ($preferences) {
-            if (!empty($preferences->preferred_categories)) {
-                $query->whereIn('category', $preferences->preferred_categories);
-            }
-            if (!empty($preferences->preferred_state)) {
-                $query->whereIn('city', $preferences->preferred_state);
-            }
-            if (!empty($preferences->preferred_features)) {
-                foreach ($preferences->preferred_features as $feature) {
-                    $query->whereJsonContains('features', $feature);
-                }
-            }
-        }
-
-        $locals = $query->get();
-
-        $scored = $this->strategy->calculate($locals, $userId, $preferences);
-
-        $result = $scored->sortByDesc('recommendation_score')
-                        ->take($limit)
-                        ->values();
-
-        Cache::put($cacheKey, $result, now()->addMinutes($this->cacheTtlMinutes));
-
-        return $result;
+    $cached = Cache::get($cacheKey);
+    if ($cached instanceof Collection) {
+        // Retorna TODOS os itens do cache, sem limite
+        return $cached;
     }
+
+    // Busca TODOS os locais ativos primeiro
+    $allLocals = Local::query()->active()->get();
+    
+    if ($allLocals->isEmpty()) {
+        return collect();
+    }
+
+    // Aplica o algoritmo de recomendação em TODOS os locais
+    $preferences = UserPreference::where('user_id', $userId)->first();
+    $scored = $this->strategy->calculate($allLocals, $userId, $preferences);
+
+    // Ordena por pontuação (sem limite)
+    $result = $scored->sortByDesc('recommendation_score')->values();
+
+    Cache::put($cacheKey, $result, now()->addMinutes($this->cacheTtlMinutes));
+
+    return $result;
+}
 
     /**
      * Invalida cache das recomendações de um usuário

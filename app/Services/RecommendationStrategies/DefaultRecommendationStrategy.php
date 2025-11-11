@@ -20,30 +20,58 @@ class DefaultRecommendationStrategy implements RecommendationStrategyInterface
         return $locals->map(function (Local $local) use ($favoriteLocationIds, $viewCounts, $preferences) {
             $score = 0;
 
+            // Pontuação base (garante que todos tenham alguma pontuação)
+            $score += 5;
+
+            // Preferências do usuário (aumentar pesos)
             if ($preferences) {
-                if ($preferences->preferred_categories && in_array($local->category, $preferences->preferred_categories)) {
-                    $score += 20;
+                // Categorias preferidas - peso alto
+                if (!empty($preferences->preferred_categories) && in_array($local->category, $preferences->preferred_categories)) {
+                    $score += 30;
                 }
-                if ($preferences->preferred_state && in_array($local->city, $preferences->preferred_state)) {
-                    $score += 10;
+
+                // Estados preferidos - peso médio
+                if (!empty($preferences->preferred_state) && in_array($local->state, $preferences->preferred_state)) {
+                    $score += 15;
                 }
-                if ($preferences->preferred_features) {
+
+                // Características - peso variável por quantidade de matches
+                if (!empty($preferences->preferred_features)) {
                     $localFeatures = (array) $local->features;
                     $matches = count(array_intersect($preferences->preferred_features, $localFeatures));
-                    $score += $matches * 5;
+                    $score += $matches * 8; // Aumentei o peso
+                }
+
+                // Budget range - consideração adicional
+                if ($preferences->budget_range) {
+                    //Implementar lógica de budget aqui
                 }
             }
 
+            // Comportamento do usuário (favoritos)
             if (in_array($local->id, $favoriteLocationIds)) {
-                $score += 30;
+                $score += 40; // Aumentei o peso
             }
 
+            // Histórico de visualizações
             if ($viewCounts->has($local->id)) {
-                $score += min(20, (int) $viewCounts->get($local->id));
+                $views = (int) $viewCounts->get($local->id);
+                $score += min(30, $views * 3); // Aumentei o peso
             }
 
-            $score += (int) $local->favorites()->count();
-            $score += (int) round(($local->average_rating ?? 0) * 2);
+            // Popularidade geral (favoritos totais)
+            $totalFavorites = $local->favorites()->count();
+            $score += min(25, $totalFavorites); // Limite para não dominar
+
+            // Avaliação média
+            $rating = $local->average_rating ?? 0;
+            $score += (int) round($rating * 3); // Aumentei o peso
+
+            // Bônus para locais recentes
+            $daysSinceCreation = $local->created_at->diffInDays(now());
+            if ($daysSinceCreation <= 30) {
+                $score += 10; // Bônus para locais novos
+            }
 
             $local->recommendation_score = $score;
             return $local;

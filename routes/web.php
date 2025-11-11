@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/history', [UserController::class, 'showHistory'])->name('history');
     Route::post('/history/clear', [UserController::class, 'clearHistory'])->name('history.clear');
     Route::delete('/history/remove/{id}', [UserController::class, 'removeHistoryItem'])->name('history.remove');
+    Route::get('/recommendations', [UserController::class, 'recommendations'])->name('recommendations.index');
 
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
     Route::post('/favorites/toggle/{locationId}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
@@ -58,7 +59,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/seja-parceiro', [PartnershipController::class, 'create'])->name('become-partner');
     Route::post('/seja-parceiro', [PartnershipController::class, 'store'])->name('request-partnership');
 
-    // Preferências do usuário
     Route::get('/preferences', [PreferencesController::class, 'edit'])->name('preferences.edit');
     Route::patch('/preferences', [PreferencesController::class, 'update'])->name('preferences.update');
 });

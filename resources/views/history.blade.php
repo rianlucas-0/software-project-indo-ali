@@ -34,7 +34,6 @@
                     </div>
                 </div>
 
-                <!-- Botão: Limpar Histórico -->
                 @if($history->count() > 0)
                 <form action="{{ route('history.clear') }}" method="POST"
                     onsubmit="return confirm('Tem certeza que deseja limpar todo o histórico?')">
@@ -48,15 +47,15 @@
                 @endif
             </div>
 
-            <!-- Mensagens de Status -->
+            <!-- Mensagens -->
             @if(session('success'))
-            <div class="mb-6 bg-green-600 text-white p-4 rounded-lg">
+            <div class="mb-6 bg-green-600 text-white p-4 rounded-lg shadow-md">
                 {{ session('success') }}
             </div>
             @endif
 
             @if(session('error'))
-            <div class="mb-6 bg-red-600 text-white p-4 rounded-lg">
+            <div class="mb-6 bg-red-600 text-white p-4 rounded-lg shadow-md">
                 {{ session('error') }}
             </div>
             @endif
@@ -64,15 +63,13 @@
             <!-- Conteúdo -->
             @if($history->count() > 0)
 
-            <!-- Grid de Itens -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                 @foreach($history as $item)
-
-                <!-- Card com Local -->
                 @if($item->location)
                 <div class="relative group">
                     <a href="{{ route('localfull', $item->location->id) }}" class="block">
-                        <div class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative border border-gray-200 dark:border-gray-700 hover:-translate-y-1">
+                        <div class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105 flex flex-col border border-gray-200 dark:border-gray-700">
+
                             <!-- Imagem -->
                             <div class="aspect-square overflow-hidden">
                                 @php
@@ -89,10 +86,10 @@
                                 }
                                 @endphp
                                 <img src="{{ asset('img/' . $firstImage) }}" alt="{{ $item->location->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                    class="w-full h-full object-cover transition duration-500">
                             </div>
 
-                            <!-- Informações -->
+                            <!-- Conteúdo -->
                             <div class="p-4 flex flex-col flex-1">
                                 <h3 class="font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">
                                     {{ $item->location->title }}
@@ -102,19 +99,15 @@
                                     {{ $item->location->city }} - {{ $item->location->state }}
                                 </p>
 
-                                <div class="mt-auto">
-                                    <p class="text-xs text-gray-500 mb-1">
-                                        <i class="fas fa-clock mr-1"></i>
-                                        Visualizado: {{ $item->viewed_at->diffForHumans() }}
-                                    </p>
-
-                                    <p class="text-xs text-gray-500">
-                                        Em: {{ $item->viewed_at->format('d/m/Y H:i') }}
-                                    </p>
+                                <div class="mt-auto space-y-1 text-xs text-gray-500">
+                                    <p><i class="fas fa-clock mr-1"></i> {{ $item->viewed_at->diffForHumans() }}</p>
+                                    <p>Em: {{ $item->viewed_at->format('d/m/Y H:i') }}</p>
                                 </div>
                             </div>
                         </div>
                     </a>
+                    
+                    <!-- Botão Remover -->
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
                         class="absolute top-3 right-3 z-10">
                         @csrf
@@ -128,7 +121,7 @@
 
                 <!-- Card sem Local -->
                 @else
-                <div class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md p-4 text-center relative border border-gray-200 dark:border-gray-700">
+                <div class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md p-4 text-center relative border border-gray-200 dark:border-gray-700 hover:transform hover:scale-105 transition-all duration-300">
                     <!-- Botão Remover -->
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
                         class="absolute top-3 right-3">
@@ -139,14 +132,8 @@
                             <i class="fas fa-times text-red-500 dark:text-red-400 text-sm"></i>
                         </button>
                     </form>
-
-                    <!-- Conteúdo -->
-                    <i class="fas fa-exclamation-triangle text-yellow-500 dark:text-yellow-400 text-2xl mb-2"></i>
-                    <p class="text-gray-600 dark:text-gray-400">Local não encontrado</p>
-                    <p class="text-xs text-gray-500 mt-2">ID: {{ $item->location_id }}</p>
                 </div>
                 @endif
-
                 @endforeach
             </div>
 
@@ -154,8 +141,7 @@
             <div class="mt-8">
                 {{ $history->appends(['filter' => $filter])->links() }}
             </div>
-
-            <!-- Histórico Vazio -->
+        <!-- Histórico Vazio -->
             @else
             <div class="text-center py-12">
                 <i class="fas fa-history text-4xl text-gray-400 dark:text-gray-600 mb-4"></i>

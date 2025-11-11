@@ -12,7 +12,7 @@
     <!-- Imagem -->
     <div class="aspect-square overflow-hidden">
         <img src="img/{{ $location->firstImage }}" alt="{{ $location->title }}"
-            class="w-full h-full object-cover transition duration-500 md:group-hover:scale-110">
+            class="w-full h-full object-cover transition duration-500">
     </div>
 
     <!-- Conteúdo -->

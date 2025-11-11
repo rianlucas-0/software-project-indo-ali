@@ -16,48 +16,48 @@
             @endif
 
             @if($favorites->count() > 0)
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 @foreach($favorites as $favoriteItem)
                 @php
                 $local = $favoriteItem->location;
                 @endphp
-                <div class="relative group">
+
+                <!-- Card igual à home -->
+                <div class="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 hover:border-gray-300 dark:hover:border-gray-500/50 transition-all duration-300 transform hover:scale-105 shadow-lg dark:shadow-xl relative group">
                     <a href="{{ route('localfull', $local->id) }}" class="block">
-                        <div class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative border border-gray-200 dark:border-gray-700">
-                            <!-- Imagem -->
-                            <div class="aspect-square overflow-hidden">
-                                <img src="{{ asset('img/' . $local->firstImage) }}" alt="{{ $local->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            </div>
+                        <!-- Imagem -->
+                        <div class="aspect-square overflow-hidden">
+                            <img src="{{ asset('img/' . $local->firstImage) }}" alt="{{ $local->title }}"
+                                class="w-full h-full object-cover transition duration-500">
+                        </div>
 
-                            <!-- Conteúdo -->
-                            <div class="p-4 flex flex-col flex-1">
-                                <h3 class="font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">{{ $local->title }}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ $local->city }} - {{ $local->state }}</p>
+                        <!-- Conteúdo -->
+                        <div class="p-4 flex flex-col flex-1">
+                            <h3 class="font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">{{ $local->title }}</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ $local->city }} - {{ $local->state }}</p>
 
-                                <!-- Avaliação -->
-                                <div class="flex text-yellow-400 text-xs mb-3">
-                                    @php
-                                    $fullStars = floor($local->average_rating);
-                                    $halfStar = ($local->average_rating - $fullStars) >= 0.5 ? 1 : 0;
-                                    $emptyStars = 5 - $fullStars - $halfStar;
-                                    @endphp
+                            <!-- Avaliação -->
+                            <div class="flex text-yellow-400 text-xs mb-3">
+                                @php
+                                $fullStars = floor($local->average_rating);
+                                $halfStar = ($local->average_rating - $fullStars) >= 0.5 ? 1 : 0;
+                                $emptyStars = 5 - $fullStars - $halfStar;
+                                @endphp
 
-                                    {{-- Estrelas cheias --}}
-                                    @for ($i = 0; $i < $fullStars; $i++) 
-                                        <i class="fas fa-star"></i>
-                                    @endfor
+                                {{-- Estrelas cheias --}}
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
 
-                                    {{-- Estrela pela metade --}}
-                                    @if ($halfStar)
-                                        <i class="fas fa-star-half-alt"></i>
-                                    @endif
+                                {{-- Estrela pela metade --}}
+                                @if ($halfStar)
+                                    <i class="fas fa-star-half-alt"></i>
+                                @endif
 
-                                    {{-- Estrelas vazias --}}
-                                    @for ($i = 0; $i < $emptyStars; $i++) 
-                                        <i class="far fa-star"></i>
-                                    @endfor
-                                </div>
+                                {{-- Estrelas vazias --}}
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                    <i class="far fa-star"></i>
+                                @endfor
                             </div>
                         </div>
                     </a>
@@ -66,7 +66,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="w-8 h-8 rounded-full bg-white/90 dark:bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center 
-                                                hover:bg-red-100 dark:hover:bg-red-600/20 transition-all shadow-md group-hover:scale-110 border border-gray-300 dark:border-gray-700"
+                                                hover:bg-red-100 dark:hover:bg-red-600/20 transition-all shadow-md border border-gray-300 dark:border-gray-700"
                             onclick="return confirm('Remover dos favoritos?')">
                             <i class="fas fa-times text-red-500 dark:text-red-400 text-sm"></i>
                         </button>

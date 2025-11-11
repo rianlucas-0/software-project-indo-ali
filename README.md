@@ -24,7 +24,10 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 
 ## ✅ Funcionalidades
 
-* [x] Cadastrar
+* [x] Cadastro de usuários
+* [X] Login com autenticação
+* [X] Login com Google ou Facebook 
+* [X] Redefinição de senha
 * [x] Visualizar histórico
 * [x] Sistema de busca
 * [x] Favoritar

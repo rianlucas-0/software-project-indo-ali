@@ -1,21 +1,21 @@
 <!-- Barra de pesquisa compacta -->
-<div class="mb-8 bg-[#161B22] p-3 rounded-xl shadow-md border border-gray-700 relative z-30">
+<div class="mb-8 bg-gray-100 dark:bg-[#161B22] p-3 rounded-xl shadow-md border border-gray-300 dark:border-gray-700 relative z-30">
     <form action="{{ route('search.index') }}" method="GET">
         <!-- Linha principal com campo de busca e botões -->
         <div class="flex items-center gap-2">
             <!-- Campo de pesquisa -->
             <div class="flex-1 relative">
                 <input type="text" id="q" name="q" value="{{ request('q') }}" placeholder="Pesquisar..."
-                    class="w-full pl-10 pr-4 py-2 text-sm rounded-lg bg-[#0D1117] text-white border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
+                    class="w-full pl-10 pr-4 py-2 text-sm rounded-lg bg-white dark:bg-[#0D1117] text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <i class="fas fa-search text-gray-400 text-sm"></i>
+                    <i class="fas fa-search text-gray-400 dark:text-gray-400 text-sm"></i>
                 </div>
             </div>
 
             <!-- Botão de filtros -->
             <div class="relative">
                 <button type="button" id="filters-toggle"
-                    class="p-2 rounded-lg bg-[#0D1117] text-white border border-gray-600 hover:border-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
+                    class="p-2 rounded-lg bg-white dark:bg-[#0D1117] text-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
                     <i class="fas fa-filter text-sm"></i>
                     @if(request('category') || request('state') || request('city') || request('features'))
                     <span
@@ -32,14 +32,14 @@
         </div>
 
         <!-- Painel de filtros (inicialmente oculto) -->
-        <div id="filters-panel" class="mt-3 p-3 bg-[#0D1117] rounded-lg border border-gray-700 hidden">
+        <div id="filters-panel" class="mt-3 p-3 bg-white dark:bg-[#0D1117] rounded-lg border border-gray-300 dark:border-gray-700 hidden">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                 <!-- Categoria -->
                 <div>
-                    <label for="category" class="text-xs text-gray-400 mb-1 block">Categoria</label>
+                    <label for="category" class="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Categoria</label>
                     <div class="relative">
                         <select name="category" id="category"
-                            class="w-full px-2 py-1 text-xs rounded bg-[#161B22] text-white border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none appearance-none transition">
+                            class="w-full px-2 py-1 text-xs rounded bg-gray-50 dark:bg-[#161B22] text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none appearance-none transition">
                             <option value="">Todas</option>
                             @foreach([
                             'academia' => 'Academia',
@@ -113,10 +113,10 @@
 
                 <!-- Estado -->
                 <div>
-                    <label for="state" class="text-xs text-gray-400 mb-1 block">Estado</label>
+                    <label for="state" class="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Estado</label>
                     <div class="relative">
                         <select name="state" id="state"
-                            class="w-full px-2 py-1 text-xs rounded bg-[#161B22] text-white border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none appearance-none transition">
+                            class="w-full px-2 py-1 text-xs rounded bg-gray-50 dark:bg-[#161B22] text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none appearance-none transition">
                             <option value="">Todos</option>
                             @foreach(['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO']
                             as $uf)
@@ -132,23 +132,23 @@
 
                 <!-- Cidade -->
                 <div>
-                    <label for="city" class="text-xs text-gray-400 mb-1 block">Cidade</label>
+                    <label for="city" class="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Cidade</label>
                     <input type="text" id="city" name="city" value="{{ request('city') }}" placeholder="Cidade"
-                        class="w-full px-2 py-1 text-xs rounded bg-[#161B22] text-white border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
+                        class="w-full px-2 py-1 text-xs rounded bg-gray-50 dark:bg-[#161B22] text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition">
                 </div>
 
                 <!-- Características -->
                 <div>
-                    <label class="text-xs text-gray-400 mb-1 block">Características</label>
+                    <label class="text-xs text-gray-600 dark:text-gray-400 mb-1 block">Características</label>
                     <div class="dropdown relative">
                         <button type="button"
-                            class="w-full px-2 py-1 text-xs rounded bg-[#161B22] text-left text-white border border-gray-600 hover:border-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition flex items-center justify-between">
+                            class="w-full px-2 py-1 text-xs rounded bg-gray-50 dark:bg-[#161B22] text-left text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition flex items-center justify-between">
                             <span><i class="fas fa-sliders-h text-xs"></i></span>
                             <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
                         </button>
 
                         <div
-                            class="dropdown-content mt-1 rounded bg-[#161B22] border border-gray-600 shadow-lg p-2 hidden absolute w-48 right-0 z-10 max-h-60 overflow-y-auto">
+                            class="dropdown-content mt-1 rounded bg-white dark:bg-[#161B22] border border-gray-300 dark:border-gray-600 shadow-lg p-2 hidden absolute w-48 right-0 z-10 max-h-60 overflow-y-auto">
                             <div class="grid grid-cols-1 gap-1">
                                 @foreach([
                                 'acessivel' => ['icon' => 'fas fa-wheelchair', 'label' => 'Acessível'],
@@ -201,11 +201,11 @@
                                 'wifi' => ['icon' => 'fas fa-wifi', 'label' => 'Wi-Fi']
                                 ] as $value => $feature)
                                 <label
-                                    class="flex items-center text-gray-300 hover:text-white cursor-pointer py-1 px-1 rounded hover:bg-gray-800 transition text-xs">
+                                    class="flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white cursor-pointer py-1 px-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-xs">
                                     <input type="checkbox" name="features[]" value="{{ $value }}"
-                                        class="mr-1 rounded border-gray-600 text-blue-500 focus:ring-blue-500"
+                                        class="mr-1 rounded border-gray-300 dark:border-gray-600 text-blue-500 focus:ring-blue-500"
                                         @checked(in_array($value, request('features', [])))>
-                                    <i class="{{ $feature['icon'] }} mr-1 text-blue-400 text-xs"></i>
+                                    <i class="{{ $feature['icon'] }} mr-1 text-blue-500 dark:text-blue-400 text-xs"></i>
                                     {{ $feature['label'] }}
                                 </label>
                                 @endforeach
@@ -216,8 +216,8 @@
             </div>
 
             <!-- Filtros ativos -->
-            <div class="mt-2 pt-2 border-t border-gray-700">
-                <div class="text-xs text-gray-400 mb-1">Filtros ativos:</div>
+            <div class="mt-2 pt-2 border-t border-gray-300 dark:border-gray-700">
+                <div class="text-xs text-gray-600 dark:text-gray-400 mb-1">Filtros ativos:</div>
                 <div id="active-filters" class="flex flex-wrap gap-1">
                     @if(request('category'))
                     @php
@@ -281,15 +281,15 @@
                     'outro' => 'Outro'
                     ];
                     @endphp
-                    <span class="bg-blue-900 text-blue-200 text-xs px-2 py-0.5 rounded-full">Categoria:
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded-full">Categoria:
                         {{ $categoryLabels[request('category')] ?? request('category') }}</span>
                     @endif
                     @if(request('state'))
-                    <span class="bg-blue-900 text-blue-200 text-xs px-2 py-0.5 rounded-full">Estado:
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded-full">Estado:
                         {{ request('state') }}</span>
                     @endif
                     @if(request('city'))
-                    <span class="bg-blue-900 text-blue-200 text-xs px-2 py-0.5 rounded-full">Cidade:
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded-full">Cidade:
                         {{ request('city') }}</span>
                     @endif
                     @if(request('features'))
@@ -337,7 +337,7 @@
                     @endphp
                     @if(isset($featureNames[$feature]))
                     <span
-                        class="bg-blue-900 text-blue-200 text-xs px-2 py-0.5 rounded-full">{{ $featureNames[$feature] }}</span>
+                        class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded-full">{{ $featureNames[$feature] }}</span>
                     @endif
                     @endforeach
                     @endif
@@ -350,75 +350,75 @@
     </form>
 </div>
 
-    <script>
-        const filtersToggle = document.getElementById('filters-toggle');
-        const filtersPanel = document.getElementById('filters-panel');
-        const dropdownBtn = document.querySelector('.dropdown button');
-        const dropdownContent = document.querySelector('.dropdown-content');
-        const checkboxes = document.querySelectorAll('input[name="features[]"]');
-        const selectedFeaturesContainer = document.getElementById('selected-features');
+<script>
+    const filtersToggle = document.getElementById('filters-toggle');
+    const filtersPanel = document.getElementById('filters-panel');
+    const dropdownBtn = document.querySelector('.dropdown button');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    const checkboxes = document.querySelectorAll('input[name="features[]"]');
+    const selectedFeaturesContainer = document.getElementById('selected-features');
 
-        if (filtersToggle && filtersPanel) {
-            filtersToggle.addEventListener('click', function() {
-                filtersPanel.classList.toggle('hidden');
-            });
-        }
-
-        if (dropdownBtn && dropdownContent) {
-            dropdownBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                dropdownContent.classList.toggle('hidden');
-            });
-        }
-
-        document.addEventListener('click', function(event) {
-            if (dropdownContent && !event.target.closest('.dropdown')) {
-                dropdownContent.classList.add('hidden');
-            }
-            if (filtersPanel && !event.target.closest('#filters-toggle') && !event.target.closest('#filters-panel')) {
-                filtersPanel.classList.add('hidden');
-            }
+    if (filtersToggle && filtersPanel) {
+        filtersToggle.addEventListener('click', function() {
+            filtersPanel.classList.toggle('hidden');
         });
+    }
 
-        function updateSelectedFeatures() {
-            if (selectedFeaturesContainer) {
-                selectedFeaturesContainer.innerHTML = '';
+    if (dropdownBtn && dropdownContent) {
+        dropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('hidden');
+        });
+    }
 
-                checkboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        const featureName = checkbox.parentElement.textContent.trim();
-                        const featureValue = checkbox.value;
+    document.addEventListener('click', function(event) {
+        if (dropdownContent && !event.target.closest('.dropdown')) {
+            dropdownContent.classList.add('hidden');
+        }
+        if (filtersPanel && !event.target.closest('#filters-toggle') && !event.target.closest('#filters-panel')) {
+            filtersPanel.classList.add('hidden');
+        }
+    });
 
-                        const pill = document.createElement('div');
-                        pill.className = 'feature-pill bg-blue-900 text-blue-200 text-xs px-2 py-1 rounded-full flex items-center mt-2';
-                        pill.innerHTML = `
-                            <span>${featureName}</span>
-                            <button type="button" class="ml-1 text-blue-400 hover:text-blue-300" data-value="${featureValue}">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        `;
+    function updateSelectedFeatures() {
+        if (selectedFeaturesContainer) {
+            selectedFeaturesContainer.innerHTML = '';
 
-                        selectedFeaturesContainer.appendChild(pill);
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const featureName = checkbox.parentElement.textContent.trim();
+                    const featureValue = checkbox.value;
+
+                    const pill = document.createElement('div');
+                    pill.className = 'feature-pill bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded-full flex items-center mt-2';
+                    pill.innerHTML = `
+                        <span>${featureName}</span>
+                        <button type="button" class="ml-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" data-value="${featureValue}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+
+                    selectedFeaturesContainer.appendChild(pill);
+                }
+            });
+
+            document.querySelectorAll('#selected-features button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    const checkbox = document.querySelector(`input[value="${value}"]`);
+                    if (checkbox) {
+                        checkbox.checked = false;
+                        updateSelectedFeatures();
                     }
                 });
-
-                document.querySelectorAll('#selected-features button').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const value = this.getAttribute('data-value');
-                        const checkbox = document.querySelector(`input[value="${value}"]`);
-                        if (checkbox) {
-                            checkbox.checked = false;
-                            updateSelectedFeatures();
-                        }
-                    });
-                });
-            }
-        }
-
-        if (checkboxes.length && selectedFeaturesContainer) {
-            updateSelectedFeatures();
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateSelectedFeatures);
             });
         }
-    </script>
+    }
+
+    if (checkboxes.length && selectedFeaturesContainer) {
+        updateSelectedFeatures();
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelectedFeatures);
+        });
+    }
+</script>

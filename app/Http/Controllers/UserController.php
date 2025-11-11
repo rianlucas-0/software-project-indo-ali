@@ -22,6 +22,40 @@ class UserController extends Controller
     }
 
     /**
+     * Exibe página dedicada com todas as recomendações personalizadas
+     */
+    public function recommendations(Request $request): View
+    {
+        if (!Auth::check()) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $perPage = 12;
+        $page = $request->get('page', 1);
+        
+        // Busca todas as recomendações (sem limite para paginação funcionar)
+        $allRecommendations = $this->recommendationService->getRecommendationsForUser(Auth::id(), 1000);
+        
+        // Implementa paginação manual
+        $total = $allRecommendations->count();
+        $recommendations = $allRecommendations->slice(($page - 1) * $perPage, $perPage);
+        
+        // Cria objeto de paginação manual
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
+            $recommendations,
+            $total,
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        return view('recommendations.index', [
+            'recommendations' => $paginator,
+            'totalCount' => $total
+        ]);
+    }
+
+    /**
      * Exibe dados na página inicial
      */
     public function showDataInHome(): View
@@ -48,10 +82,19 @@ class UserController extends Controller
             ->get();
 
         // Recomendações personalizadas (se usuário logado)
-        $recommendations = collect();
-        if (Auth::check()) {
-            $recommendations = $this->recommendationService->getRecommendationsForUser(Auth::id(), 6);
+    $recommendations = collect();
+    if (Auth::check()) {
+        $recommendations = $this->recommendationService->getRecommendationsForUser(Auth::id(), 6);
+        
+        // Se não houver recomendações, usar os mais populares
+        if ($recommendations->isEmpty()) {
+            $recommendations = $mostPopular->take(6);
         }
+    } else {
+        // Para usuários não logados, mostrar os mais populares
+        $recommendations = $mostPopular->take(6);
+    }
+
 
         // Recomendações por categoria (top 3 categorias com mais locais)
         $categories = Local::active()

@@ -1,16 +1,16 @@
 <x-guest-layout>
 
-    <body class="bg-[#0D1117] font-sans text-gray-300 min-h-screen">
+    <body class="bg-white dark:bg-[#0D1117] font-sans text-gray-700 dark:text-gray-300 min-h-screen">
         <main class="max-w-7xl mx-auto px-4 py-8 md:py-12">
 
             <!-- Cabeçalho -->
             <div class="mb-6 flex justify-between items-center">
                 <a href="{{ url()->previous() !== url()->current() ? url()->previous() : route('home') }}"
-                    class="inline-flex items-center text-blue-400 hover:text-blue-300 transition">
+                    class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Voltar
                 </a>
-                <h1 class="text-2xl md:text-3xl font-bold text-white">Seu Histórico</h1>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Seu Histórico</h1>
             </div>
 
             <!-- Filtros e Ações -->
@@ -18,10 +18,10 @@
 
                 <!-- Dropdown de Filtro -->
                 <div class="flex items-center gap-3">
-                    <span class="text-gray-300">Filtrar por:</span>
+                    <span class="text-gray-700 dark:text-gray-300">Filtrar por:</span>
                     <div class="relative">
                         <select onchange="window.location.href = '{{ route('history') }}?filter=' + this.value"
-                            class="bg-[#161B22] text-gray-300 border border-gray-600 rounded-lg px-4 py-2 pr-10 
+                            class="bg-white dark:bg-[#161B22] text-gray-900 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 pr-10 
                             focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none cursor-pointer">
                             <option value="all" {{ $filter == 'all'   ? 'selected' : '' }}>Todos os períodos</option>
                             <option value="week" {{ $filter == 'week'  ? 'selected' : '' }}>Última semana</option>
@@ -34,7 +34,6 @@
                     </div>
                 </div>
 
-                <!-- Botão: Limpar Histórico -->
                 @if($history->count() > 0)
                 <form action="{{ route('history.clear') }}" method="POST"
                     onsubmit="return confirm('Tem certeza que deseja limpar todo o histórico?')">
@@ -48,15 +47,15 @@
                 @endif
             </div>
 
-            <!-- Mensagens de Status -->
+            <!-- Mensagens -->
             @if(session('success'))
-            <div class="mb-6 bg-green-600 text-white p-4 rounded-lg">
+            <div class="mb-6 bg-green-600 text-white p-4 rounded-lg shadow-md">
                 {{ session('success') }}
             </div>
             @endif
 
             @if(session('error'))
-            <div class="mb-6 bg-red-600 text-white p-4 rounded-lg">
+            <div class="mb-6 bg-red-600 text-white p-4 rounded-lg shadow-md">
                 {{ session('error') }}
             </div>
             @endif
@@ -64,15 +63,13 @@
             <!-- Conteúdo -->
             @if($history->count() > 0)
 
-            <!-- Grid de Itens -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                 @foreach($history as $item)
-
-                <!-- Card com Local -->
                 @if($item->location)
                 <div class="relative group">
                     <a href="{{ route('localfull', $item->location->id) }}" class="block">
-                        <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative border border-gray-700 hover:-translate-y-1">
+                        <div class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105 flex flex-col border border-gray-200 dark:border-gray-700">
+
                             <!-- Imagem -->
                             <div class="aspect-square overflow-hidden">
                                 @php
@@ -89,64 +86,54 @@
                                 }
                                 @endphp
                                 <img src="{{ asset('img/' . $firstImage) }}" alt="{{ $item->location->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                    class="w-full h-full object-cover transition duration-500">
                             </div>
 
-                            <!-- Informações -->
+                            <!-- Conteúdo -->
                             <div class="p-4 flex flex-col flex-1">
-                                <h3 class="font-bold text-white mb-1 line-clamp-1">
+                                <h3 class="font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">
                                     {{ $item->location->title }}
                                 </h3>
 
-                                <p class="text-sm text-gray-400 mb-2">
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                     {{ $item->location->city }} - {{ $item->location->state }}
                                 </p>
 
-                                <div class="mt-auto">
-                                    <p class="text-xs text-gray-500 mb-1">
-                                        <i class="fas fa-clock mr-1"></i>
-                                        Visualizado: {{ $item->viewed_at->diffForHumans() }}
-                                    </p>
-
-                                    <p class="text-xs text-gray-500">
-                                        Em: {{ $item->viewed_at->format('d/m/Y H:i') }}
-                                    </p>
+                                <div class="mt-auto space-y-1 text-xs text-gray-500">
+                                    <p><i class="fas fa-clock mr-1"></i> {{ $item->viewed_at->diffForHumans() }}</p>
+                                    <p>Em: {{ $item->viewed_at->format('d/m/Y H:i') }}</p>
                                 </div>
                             </div>
                         </div>
                     </a>
+                    
+                    <!-- Botão Remover -->
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
                         class="absolute top-3 right-3 z-10">
                         @csrf
                         @method('DELETE')
                         <button type="submit" onclick="return confirm('Remover este item do histórico?')" 
-                            class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center hover:bg-red-600/20 transition-all shadow-md group-hover:scale-110 border border-gray-700">
-                            <i class="fas fa-times text-red-400 text-sm"></i>
+                            class="w-8 h-8 rounded-full bg-white/90 dark:bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-600/20 transition-all shadow-md group-hover:scale-110 border border-gray-300 dark:border-gray-700">
+                            <i class="fas fa-times text-red-500 dark:text-red-400 text-sm"></i>
                         </button>
                     </form>
                 </div>
 
                 <!-- Card sem Local -->
                 @else
-                <div class="bg-[#161B22] rounded-xl overflow-hidden shadow-md p-4 text-center relative border border-gray-700">
+                <div class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md p-4 text-center relative border border-gray-200 dark:border-gray-700 hover:transform hover:scale-105 transition-all duration-300">
                     <!-- Botão Remover -->
                     <form action="{{ route('history.remove', $item->id) }}" method="POST"
                         class="absolute top-3 right-3">
                         @csrf
                         @method('DELETE')
                         <button type="submit" onclick="return confirm('Remover este item do histórico?')" 
-                            class="w-8 h-8 rounded-full bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center hover:bg-red-600/20 transition-all shadow-md border border-gray-700">
-                            <i class="fas fa-times text-red-400 text-sm"></i>
+                            class="w-8 h-8 rounded-full bg-white/90 dark:bg-[#1E2229]/90 backdrop-blur-sm flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-600/20 transition-all shadow-md border border-gray-300 dark:border-gray-700">
+                            <i class="fas fa-times text-red-500 dark:text-red-400 text-sm"></i>
                         </button>
                     </form>
-
-                    <!-- Conteúdo -->
-                    <i class="fas fa-exclamation-triangle text-yellow-400 text-2xl mb-2"></i>
-                    <p class="text-gray-400">Local não encontrado</p>
-                    <p class="text-xs text-gray-500 mt-2">ID: {{ $item->location_id }}</p>
                 </div>
                 @endif
-
                 @endforeach
             </div>
 
@@ -154,13 +141,12 @@
             <div class="mt-8">
                 {{ $history->appends(['filter' => $filter])->links() }}
             </div>
-
-            <!-- Histórico Vazio -->
+        <!-- Histórico Vazio -->
             @else
             <div class="text-center py-12">
-                <i class="fas fa-history text-4xl text-gray-600 mb-4"></i>
+                <i class="fas fa-history text-4xl text-gray-400 dark:text-gray-600 mb-4"></i>
 
-                <h2 class="text-xl text-gray-400 mb-2">
+                <h2 class="text-xl text-gray-600 dark:text-gray-400 mb-2">
                     @if($filter != 'all')
                     Nenhum local visualizado neste período
                     @else

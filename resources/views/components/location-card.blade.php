@@ -1,5 +1,8 @@
 <a href="{{ route('localfull', $location->id) }}"
-    class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col relative group border border-gray-200 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 md:hover:-translate-y-1">
+    class="bg-white dark:bg-[#161B22] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 
+        flex flex-col h-full relative group border border-gray-200 dark:border-gray-700 cursor-pointer 
+        focus:outline-none focus:ring-2 focus:ring-blue-400 md:hover:-translate-y-1">
+
     <!-- Botão de Favorito -->
     <button class="favorite-btn absolute top-3 right-3 z-10" data-location-id="{{ $location->id }}" tabindex="-1">
         <div
@@ -16,30 +19,31 @@
     </div>
 
     <!-- Conteúdo -->
-    <div class="p-4 flex flex-col flex-1">
-        <h3 class="font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">{{ $location->title }}</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ $location->city }} - {{ $location->state }}</p>
+    <div class="p-4 flex flex-col flex-1 justify-between">
+        <div>
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">{{ $location->title }}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ $location->city }} - {{ $location->state }}</p>
+        </div>
 
         <!-- Avaliação -->
-        <div class="flex text-yellow-400 text-xs mb-3">
+        <div class="flex text-yellow-400 text-xs mt-auto">
             @php
-            $fullStars = floor($location->average_rating); // quantidade de estrelas cheias
-            $halfStar = ($location->average_rating - $fullStars) >= 0.5 ? 1 : 0; // estrela pela metade
-            $emptyStars = 5 - $fullStars - $halfStar; // estrelas vazias
+                $fullStars = floor($location->average_rating);
+                $halfStar = ($location->average_rating - $fullStars) >= 0.5 ? 1 : 0;
+                $emptyStars = 5 - $fullStars - $halfStar;
             @endphp
 
-            {{-- Estrelas cheias --}}
-            @for ($i = 0; $i < $fullStars; $i++) <i class="fas fa-star"></i>
-                @endfor
+            @for ($i = 0; $i < $fullStars; $i++)
+                <i class="fas fa-star"></i>
+            @endfor
 
-                {{-- Estrela pela metade --}}
-                @if ($halfStar)
+            @if ($halfStar)
                 <i class="fas fa-star-half-alt"></i>
-                @endif
+            @endif
 
-                {{-- Estrelas vazias --}}
-                @for ($i = 0; $i < $emptyStars; $i++) <i class="far fa-star"></i>
-                    @endfor
+            @for ($i = 0; $i < $emptyStars; $i++)
+                <i class="far fa-star"></i>
+            @endfor
         </div>
     </div>
 </a>

@@ -186,7 +186,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        @if(($index % 3) == 0)
+                                        @if($localStatuses[$index])
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-500/20 text-green-800 dark:text-green-400">
                                                 Ativo
                                             </span>
@@ -231,7 +231,7 @@
                                         <div class="text-xs text-gray-500 dark:text-gray-400">ID: {{ $index + 1 }}</div>
                                     </div>
                                 </div>
-                                @if(($index % 3) == 0)
+                                @if($localStatuses[$index])
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-500/20 text-green-800 dark:text-green-400">
                                         Ativo
                                     </span>

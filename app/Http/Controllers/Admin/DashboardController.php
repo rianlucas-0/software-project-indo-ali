@@ -45,12 +45,14 @@ class DashboardController extends Controller
         $viewsData = [];
         $favoritesData = [];
         $avgRatingData = [];
+        $localStatuses = [];
 
         $thirtyDaysAgo = now()->subDays(30);
 
         foreach ($locals as $local) {
             $labels[] = $local->title;
             $localIds[] = $local->id;
+            $localStatuses[] = $local->is_active;
 
             $viewsCount = ViewHistory::where('location_id', $local->id)
                 ->where('viewed_at', '>=', $thirtyDaysAgo)
@@ -71,7 +73,8 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact(
             'totalLocals', 'activeLocals', 'inactiveLocals',
             'labels', 'localIds', 'viewsData', 'favoritesData', 'avgRatingData',
-            'totalViewsLast30', 'totalFavorites'
+            'totalViewsLast30', 'totalFavorites',
+            'localStatuses'
         ));
     }
 }

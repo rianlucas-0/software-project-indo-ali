@@ -30,8 +30,9 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 * [X] Redefinição de senha
 * [x] Visualizar histórico
 * [x] Sistema de busca
-* [x] Favoritar
-* [x] Comentar
+* [x] Favoritar locais
+* [x] Comentar em locais
+* [X] Avaliar locais
 * [x] Recomendações personalizadas
 * [x] Compartilhar local com amigos
 * [x] Filtros nas buscas

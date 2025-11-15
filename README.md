@@ -42,6 +42,7 @@ O sistema oferece funcionalidades de busca, avaliações, comentários e recomen
 * [x] Recomendação com base no histórico
 * [x] Personalização de preferências para as recomendações
 * [x] ChatBot de suporte
+* [x] Versão para dispositivos mobile
 
 ---
 

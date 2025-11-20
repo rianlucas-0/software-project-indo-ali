@@ -113,8 +113,12 @@
                         <div>
                             <x-input-label for="email" :value="__('Email')" class="text-gray-700 dark:text-gray-300" />
                             <x-text-input id="email" name="email" type="email" :value="old('email', $user->email)"
-                                required class="w-full bg-white dark:bg-[#0D1117] border-gray-300 dark:border-gray-700 text-black dark:text-white mt-1" />
+                                        required 
+                                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                        title="Por favor, insira um endereço de email válido"
+                                        class="w-full bg-white dark:bg-[#0D1117] border-gray-300 dark:border-gray-700 text-black dark:text-white mt-1 email-input" />
                             <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                            <p id="email-error" class="text-red-600 dark:text-red-400 text-sm mt-1 hidden"></p>
                         </div>
 
                         <div class="flex items-center gap-4">
@@ -307,60 +311,109 @@
 
     <!-- Script: lógica de pré-visualização e envio do avatar -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const avatarInput = document.getElementById('avatar');
-        const applyBtn = document.getElementById('apply-avatar-btn');
-        const previewDiv = document.getElementById('avatar-preview');
-        const previewImg = document.getElementById('avatar-preview-img');
-        const hiddenInput = document.getElementById('avatar-hidden');
-        const avatarForm = document.getElementById('avatar-form');
+    // Script: lógica de pré-visualização e envio do avatar + validação de email
+document.addEventListener('DOMContentLoaded', function() {
+    const avatarInput = document.getElementById('avatar');
+    const applyBtn = document.getElementById('apply-avatar-btn');
+    const previewDiv = document.getElementById('avatar-preview');
+    const previewImg = document.getElementById('avatar-preview-img');
+    const hiddenInput = document.getElementById('avatar-hidden');
+    const avatarForm = document.getElementById('avatar-form');
+    
+    // Validação de email
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+    const profileForm = document.getElementById('profile-info-form');
+    const saveButton = profileForm.querySelector('button[type="submit"]');
 
-        // Ativa o botão e exibe a prévia ao selecionar um arquivo
-        avatarInput.addEventListener('change', function(e) {
-            if (this.files && this.files[0]) {
-                applyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                applyBtn.classList.add('cursor-pointer', 'hover:bg-blue-700');
-                applyBtn.disabled = false;
+    // Função para validar email
+    function validateEmail(email) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    }
 
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImg.src = e.target.result;
-                    previewDiv.classList.remove('hidden');
-                }
-                reader.readAsDataURL(this.files[0]);
-            } else {
-                applyBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                applyBtn.classList.remove('cursor-pointer', 'hover:bg-blue-700');
-                applyBtn.disabled = true;
-                previewDiv.classList.add('hidden');
-            }
-        });
-
-        // Aplica o avatar selecionado
-        applyBtn.addEventListener('click', function() {
-            const fileInput = document.getElementById('avatar');
-
-            if (fileInput.files.length === 0) {
-                alert('Por favor, selecione uma imagem primeiro.');
-                return;
-            }
-
-            if (confirm('Deseja aplicar esta imagem como sua foto de perfil?')) {
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(fileInput.files[0]);
-                hiddenInput.files = dataTransfer.files;
-                avatarForm.submit();
-            }
-        });
-
-        @if(!$user->password)
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('[x-on\\:click*="confirm-user-deletion"]')) {
-                e.preventDefault();
-                alert('Para deletar sua conta, primeiro você precisa definir uma senha na seção "Atualizar Senha".');
-            }
-        });
-        @endif
+    // Validação em tempo real
+    emailInput.addEventListener('input', function() {
+        const email = this.value.trim();
+        
+        if (email === '') {
+            emailError.classList.add('hidden');
+            this.classList.remove('border-red-500', 'dark:border-red-400');
+            saveButton.disabled = false;
+            return;
+        }
+        
+        if (!validateEmail(email)) {
+            emailError.textContent = 'Por favor, insira um endereço de email válido';
+            emailError.classList.remove('hidden');
+            this.classList.add('border-red-500', 'dark:border-red-400');
+            saveButton.disabled = true;
+        } else {
+            emailError.classList.add('hidden');
+            this.classList.remove('border-red-500', 'dark:border-red-400');
+            saveButton.disabled = false;
+        }
     });
+
+    // Validação no envio do formulário
+    profileForm.addEventListener('submit', function(e) {
+        const email = emailInput.value.trim();
+        
+        if (email && !validateEmail(email)) {
+            e.preventDefault();
+            emailError.textContent = 'Por favor, corrija o email antes de salvar';
+            emailError.classList.remove('hidden');
+            emailInput.classList.add('border-red-500', 'dark:border-red-400');
+            emailInput.focus();
+        }
+    });
+
+    // Ativa o botão e exibe a prévia ao selecionar um arquivo
+    avatarInput.addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            applyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            applyBtn.classList.add('cursor-pointer', 'hover:bg-blue-700');
+            applyBtn.disabled = false;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewDiv.classList.remove('hidden');
+            }
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            applyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            applyBtn.classList.remove('cursor-pointer', 'hover:bg-blue-700');
+            applyBtn.disabled = true;
+            previewDiv.classList.add('hidden');
+        }
+    });
+
+    // Aplica o avatar selecionado
+    applyBtn.addEventListener('click', function() {
+        const fileInput = document.getElementById('avatar');
+
+        if (fileInput.files.length === 0) {
+            alert('Por favor, selecione uma imagem primeiro.');
+            return;
+        }
+
+        if (confirm('Deseja aplicar esta imagem como sua foto de perfil?')) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(fileInput.files[0]);
+            hiddenInput.files = dataTransfer.files;
+            avatarForm.submit();
+        }
+    });
+
+    @if(!$user->password)
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('[x-on\\:click*="confirm-user-deletion"]')) {
+            e.preventDefault();
+            alert('Para deletar sua conta, primeiro você precisa definir uma senha na seção "Atualizar Senha".');
+        }
+    });
+    @endif
+});
     </script>
 </x-guest-layout>

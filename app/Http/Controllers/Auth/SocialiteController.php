@@ -71,7 +71,7 @@ class SocialiteController extends Controller
         $user = User::create([
             'name' => $socialUser['name'],
             'email' => $socialUser['email'],
-            'password' => Hash::make(Str::random(16)),
+            'password' => null,
             'provider_id' => $socialUser['provider_id'],
             'provider_avatar' => $socialUser['provider_avatar'],
             'provider_name' => $socialUser['provider'],

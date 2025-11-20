@@ -159,12 +159,23 @@
                         @csrf
                         @method('put')
 
+                        @if($user->password)
                         <div>
                             <x-input-label for="current_password" :value="__('Senha Atual')" class="text-gray-700 dark:text-gray-300" />
                             <x-text-input id="current_password" name="current_password" type="password" required
                                 class="w-full bg-white dark:bg-[#0D1117] border-gray-300 dark:border-gray-700 text-black dark:text-white mt-1" />
                             <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                         </div>
+                        @else
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-exclamation-triangle text-yellow-600 dark:text-yellow-400 mr-2"></i>
+                                <p class="text-yellow-700 dark:text-yellow-300 text-sm">
+                                    {{ __('Sua conta foi criada com login social. Para definir uma senha, preencha os campos abaixo.') }}
+                                </p>
+                            </div>
+                        </div>
+                        @endif
 
                         <div>
                             <x-input-label for="password" :value="__('Nova Senha')" class="text-gray-700 dark:text-gray-300" />
@@ -184,13 +195,20 @@
 
                         <div class="flex items-center gap-4">
                             <x-primary-button class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700">
-                                {{ __('Atualizar Senha') }}
+                                {{ $user->password ? __('Atualizar Senha') : __('Definir Senha') }}
                             </x-primary-button>
 
                             @if (session('status') === 'password-updated')
                             <p x-data="{ show: true }" x-show="show" x-transition
                                 x-init="setTimeout(() => show = false, 2000)" class="text-sm text-green-600 dark:text-green-400">
                                 {{ __('Senha atualizada com sucesso.') }}
+                            </p>
+                            @endif
+
+                            @if (session('status') === 'password-set')
+                            <p x-data="{ show: true }" x-show="show" x-transition
+                                x-init="setTimeout(() => show = false, 2000)" class="text-sm text-green-600 dark:text-green-400">
+                                {{ __('Senha definida com sucesso.') }}
                             </p>
                             @endif
                         </div>
@@ -210,15 +228,27 @@
                         {{ __('Uma vez que sua conta for deletada, todos os seus recursos e dados serão permanentemente apagados. Antes de deletar sua conta, por favor baixe qualquer informação que você deseja manter.') }}
                     </p>
 
+                    @if(!$user->password)
+                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-circle text-red-600 dark:text-red-400 mr-2"></i>
+                            <p class="text-red-700 dark:text-red-300 text-sm">
+                                {{ __('Para deletar sua conta, primeiro você precisa definir uma senha na seção "Atualizar Senha" acima.') }}
+                            </p>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($user->password)
                     <form id="delete-account-form" method="post" action="{{ route('profile.destroy') }}"
                         class="space-y-6">
                         @csrf
                         @method('delete')
 
                         <div>
-                            <x-input-label for="password" :value="__('Confirme sua senha para deletar a conta')"
+                            <x-input-label for="delete_password" :value="__('Confirme sua senha para deletar a conta')"
                                 class="text-gray-700 dark:text-gray-300" />
-                            <x-text-input id="password" name="password" type="password" required
+                            <x-text-input id="delete_password" name="password" type="password" required
                                 class="w-full bg-white dark:bg-[#0D1117] border-gray-300 dark:border-gray-700 text-black dark:text-white mt-1" />
                             <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
                         </div>
@@ -231,12 +261,22 @@
                             </x-danger-button>
                         </div>
                     </form>
+                    @else
+                    <div class="flex justify-end">
+                        <button type="button" 
+                            class="px-4 py-2 bg-gray-400 dark:bg-gray-600 text-white rounded-lg cursor-not-allowed opacity-50"
+                            disabled>
+                            {{ __('Deletar Conta') }}
+                        </button>
+                    </div>
+                    @endif
                 </div>
             </section>
         </div>
     </div>
 
     <!-- Modal de Confirmação de Exclusão -->
+    @if($user->password)
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
         <div class="p-6 bg-white dark:bg-[#161B22] text-gray-900 dark:text-white">
             <h2 class="text-lg font-bold mb-4">{{ __('Tem certeza que deseja deletar sua conta?') }}</h2>
@@ -255,6 +295,7 @@
             </div>
         </div>
     </x-modal>
+    @endif
 
     <!-- Script: lógica de pré-visualização e envio do avatar -->
     <script>
@@ -303,6 +344,15 @@
                 avatarForm.submit();
             }
         });
+
+        @if(!$user->password)
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('[x-on\\:click*="confirm-user-deletion"]')) {
+                e.preventDefault();
+                alert('Para deletar sua conta, primeiro você precisa definir uma senha na seção "Atualizar Senha".');
+            }
+        });
+        @endif
     });
     </script>
 </x-guest-layout>

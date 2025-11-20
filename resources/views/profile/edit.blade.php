@@ -148,7 +148,7 @@
             </section>
 
             <!-- Atualização de Senha -->
-            <section class="p-4 sm:p-8 bg-white dark:bg-[#161B22] shadow-lg sm:rounded-xl border border-gray-200 dark:border-gray-700">
+                        <section class="p-4 sm:p-8 bg-white dark:bg-[#161B22] shadow-lg sm:rounded-xl border border-gray-200 dark:border-gray-700">
                 <div class="max-w-xl">
                     <header class="flex items-center mb-6">
                         <i class="fas fa-lock text-blue-500 dark:text-blue-400 mr-3 text-xl"></i>
@@ -212,6 +212,14 @@
                             </p>
                             @endif
                         </div>
+
+                        @if($user->password && Route::has('password.request.auth'))
+                        <div class="flex flex-col mt-4 md:mt-6">
+                            <a class="underline text-sm text-gray-600 dark:text-gray-400 max-w-max md:text-base" href="{{ route('password.request.auth') }}">
+                                {{ __('Esqueceu sua senha?') }}
+                            </a>
+                        </div>
+                        @endif
                     </form>
                 </div>
             </section>

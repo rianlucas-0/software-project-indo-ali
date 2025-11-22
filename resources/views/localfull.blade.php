@@ -125,17 +125,25 @@
                 <div class="bg-white dark:bg-[#161B22] rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                     <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Características</h2>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        @foreach($local->features as $featureKey)
-                        @php
-                        $feature = $featuresMap[$featureKey] ?? null;
-                        @endphp
-                        @if($feature)
-                        <div class="flex items-center text-gray-900 dark:text-white">
-                            <i class="{{ $feature['icon'] }} text-blue-500 dark:text-blue-400 mr-2"></i>
-                            <span>{{ $feature['label'] }}</span>
-                        </div>
-                        @endif
+                        @foreach($local->features ?? [] as $featureKey)
+                            @php
+                                $feature = $featuresMap[$featureKey] ?? null;
+                            @endphp
+                            @if($feature)
+                                <div class="flex items-center text-gray-900 dark:text-white">
+                                    <i class="{{ $feature['icon'] }} text-blue-500 dark:text-blue-400 mr-2"></i>
+                                    <span>{{ $feature['label'] }}</span>
+                                </div>
+                            @endif
                         @endforeach
+                        
+                        {{-- Mensagem caso não haja características --}}
+                        @if(empty($local->features) || count($local->features) === 0)
+                            <div class="col-span-full text-center text-gray-500 dark:text-gray-400 py-4">
+                                <i class="fas fa-info-circle text-gray-400 dark:text-gray-500 text-xl mb-2"></i>
+                                <p>Nenhuma característica cadastrada</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
